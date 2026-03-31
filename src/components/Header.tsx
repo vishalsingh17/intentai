@@ -60,6 +60,7 @@ export default function Header() {
               key={item.id}
               onClick={() => scrollToSection(item.id)}
               className="text-[12px] font-medium tracking-[0.15em] uppercase text-foreground-muted hover:text-foreground transition-colors duration-200"
+              suppressHydrationWarning
             >
               {item.label}
             </button>
