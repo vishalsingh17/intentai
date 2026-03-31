@@ -8,114 +8,105 @@ interface Props {
 }
 
 const features = [
-  { icon: '✈️', text: 'Travel & Flights' },
-  { icon: '🛒', text: 'Quick Commerce' },
-  { icon: '🚗', text: 'Mobility & Cabs' },
-  { icon: '🛍️', text: 'E-commerce' },
+  { icon: '✈️', text: 'Travel & Flights', color: '#7C3AED' },
+  { icon: '🛒', text: 'Quick Commerce', color: '#4F46E5' },
+  { icon: '🚗', text: 'Mobility & Cabs', color: '#059669' },
+  { icon: '🛍️', text: 'E-commerce', color: '#2563EB' },
+];
+
+const chatMessages = [
+  { type: 'user', text: 'Book a flight to Bangalore tomorrow under ₹5000' },
+  { type: 'ai', text: '✓ Booking confirmed', sub: 'IndiGo 6E-204 · ₹3,899 · Seat 14A · PNR: AI2026XK', success: true },
 ];
 
 export default function LandingScreen({ onGetStarted }: Props) {
   const [visible, setVisible] = useState(false);
+  const [chatStep, setChatStep] = useState(0);
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 100);
     return () => clearTimeout(t);
   }, []);
 
+  useEffect(() => {
+    if (!visible) return;
+    const t = setTimeout(() => setChatStep(1), 800);
+    const t2 = setTimeout(() => setChatStep(2), 1800);
+    return () => { clearTimeout(t); clearTimeout(t2); };
+  }, [visible]);
+
   return (
     <div
-      className="absolute inset-0 flex flex-col overflow-y-auto"
-      style={{ background: 'linear-gradient(160deg, #0a0818 0%, #080810 60%, #0c0820 100%)' }}
+      style={{
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        overflowY: 'auto',
+        background: 'linear-gradient(160deg, #0c0820 0%, #080810 60%, #0a0c1e 100%)',
+      }}
     >
       {/* Glow orbs */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          width: 280,
-          height: 280,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(124,58,237,0.3) 0%, transparent 70%)',
-          filter: 'blur(60px)',
-          top: '-60px',
-          right: '-60px',
-        }}
-        aria-hidden="true"
-      />
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          width: 200,
-          height: 200,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(96,165,250,0.2) 0%, transparent 70%)',
-          filter: 'blur(50px)',
-          bottom: '120px',
-          left: '-40px',
-        }}
-        aria-hidden="true"
-      />
+      <div style={{ position: 'absolute', width: 300, height: 300, borderRadius: '50%', background: 'radial-gradient(circle, rgba(124,58,237,0.28) 0%, transparent 70%)', filter: 'blur(60px)', top: -80, right: -60, pointerEvents: 'none' }} aria-hidden="true" />
+      <div style={{ position: 'absolute', width: 200, height: 200, borderRadius: '50%', background: 'radial-gradient(circle, rgba(96,165,250,0.18) 0%, transparent 70%)', filter: 'blur(50px)', bottom: 200, left: -40, pointerEvents: 'none' }} aria-hidden="true" />
 
-      {/* Status bar spacer */}
-      <div style={{ height: 44 }} />
+      <div style={{ height: 54 }} />
 
-      {/* Content */}
       <div
-        className="flex flex-col flex-1 px-6 pt-6 pb-8"
         style={{
+          display: 'flex',
+          flexDirection: 'column',
+          flex: 1,
+          padding: '16px 24px 32px',
           opacity: visible ? 1 : 0,
-          transform: visible ? 'translateY(0)' : 'translateY(20px)',
+          transform: visible ? 'translateY(0)' : 'translateY(24px)',
           transition: 'opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)',
         }}
       >
-        {/* Logo */}
-        <div className="flex items-center gap-2.5 mb-10">
-          <Image
-            src="/assets/images/beep_logo-1774785208526.png"
-            alt="Beep logo"
-            width={28}
-            height={28}
-            className="object-contain"
-          />
-          <span
-            style={{
-              fontFamily: "'Avenir Next', 'Avenir', sans-serif",
-              fontSize: 20,
-              fontWeight: 700,
-              color: '#F4F4FF',
-              letterSpacing: '-0.01em',
-            }}
-          >
-            beep
-          </span>
-          <span
+        {/* Logo row */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 28 }}>
+          <Image src="/assets/images/beep_logo-1774785208526.png" alt="Beep logo" width={28} height={28} className="object-contain" />
+          <span style={{ fontFamily: "'Avenir Next', 'Avenir', sans-serif", fontSize: 22, fontWeight: 700, color: '#F4F4FF', letterSpacing: '-0.02em' }}>beep</span>
+          <div
             style={{
               marginLeft: 4,
-              padding: '2px 8px',
+              padding: '3px 10px',
               borderRadius: 20,
-              background: 'rgba(124,58,237,0.2)',
-              border: '1px solid rgba(124,58,237,0.3)',
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 9,
-              color: '#A78BFA',
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase' as const,
+              background: 'rgba(124,58,237,0.18)',
+              border: '1px solid rgba(124,58,237,0.35)',
             }}
           >
-            Beta
-          </span>
+            <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 9, color: '#A78BFA', letterSpacing: '0.12em', textTransform: 'uppercase' as const }}>Beta</span>
+          </div>
         </div>
 
-        {/* Hero text */}
-        <div className="mb-8">
+        {/* Hero headline */}
+        <div style={{ marginBottom: 20 }}>
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              padding: '4px 12px',
+              borderRadius: 20,
+              background: 'rgba(124,58,237,0.12)',
+              border: '1px solid rgba(124,58,237,0.25)',
+              marginBottom: 14,
+            }}
+          >
+            <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#7C3AED', animation: 'pulse 2s ease-in-out infinite' }} />
+            <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 9, color: '#A78BFA', letterSpacing: '0.15em', textTransform: 'uppercase' as const }}>Early access now open</span>
+          </div>
+
           <h1
             style={{
               fontFamily: "'Avenir Next', 'Avenir', sans-serif",
-              fontSize: 38,
+              fontSize: 36,
               fontWeight: 300,
               lineHeight: 1.05,
-              letterSpacing: '-0.02em',
+              letterSpacing: '-0.025em',
               color: '#F4F4FF',
-              marginBottom: 16,
+              marginBottom: 12,
             }}
           >
             From intent
@@ -126,105 +117,143 @@ export default function LandingScreen({ onGetStarted }: Props) {
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
+                fontWeight: 400,
               }}
             >
               to checkout.
             </span>
             <br />
-            <em>Instantly.</em>
+            <em style={{ fontStyle: 'italic', color: '#F4F4FF' }}>Instantly.</em>
           </h1>
           <p
             style={{
               fontFamily: "'Avenir Next', 'Avenir', sans-serif",
-              fontSize: 15,
+              fontSize: 14,
               color: '#8B8BAA',
-              lineHeight: 1.6,
+              lineHeight: 1.65,
               fontWeight: 300,
             }}
           >
-            Tell Beep what you need. Our AI agent executes the entire commerce journey — search, compare, and checkout.
+            Tell Beep what you need. Our AI agent executes the entire commerce journey — search, compare, and checkout in seconds.
           </p>
         </div>
 
-        {/* Chat preview card */}
+        {/* Live chat preview */}
         <div
-          className="mb-8"
           style={{
-            background: 'rgba(255,255,255,0.04)',
-            border: '1px solid rgba(124,58,237,0.25)',
-            borderRadius: 20,
+            marginBottom: 20,
             padding: 16,
+            borderRadius: 20,
+            background: 'rgba(255,255,255,0.03)',
+            border: '1px solid rgba(124,58,237,0.2)',
+            backdropFilter: 'blur(10px)',
           }}
         >
-          <div className="flex items-center gap-2 mb-3">
-            <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#ef4444', opacity: 0.6 }} />
-            <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#eab308', opacity: 0.6 }} />
-            <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#22c55e', opacity: 0.6 }} />
-            <span style={{ marginLeft: 6, fontFamily: "'JetBrains Mono', monospace", fontSize: 9, color: '#8B8BAA', letterSpacing: '0.15em', textTransform: 'uppercase' as const }}>Beep · Live</span>
+          {/* Window chrome */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 14 }}>
+            {['#ef4444', '#eab308', '#22c55e'].map((c, i) => (
+              <div key={i} style={{ width: 8, height: 8, borderRadius: '50%', background: c, opacity: 0.7 }} />
+            ))}
+            <span style={{ marginLeft: 8, fontFamily: "'JetBrains Mono', monospace", fontSize: 9, color: '#8B8BAA', letterSpacing: '0.15em', textTransform: 'uppercase' as const }}>Beep · Live</span>
+            <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 4 }}>
+              <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#34d399', animation: 'pulse 1.5s ease-in-out infinite' }} />
+              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 9, color: '#34d399' }}>Live</span>
+            </div>
           </div>
 
           {/* User message */}
-          <div className="flex justify-end mb-2">
+          {chatStep >= 1 && (
             <div
               style={{
-                maxWidth: '85%',
-                padding: '10px 14px',
-                borderRadius: '16px 16px 4px 16px',
-                background: 'linear-gradient(135deg, #7C3AED, #4F46E5)',
-                fontSize: 13,
-                color: '#fff',
-                fontFamily: "'Avenir Next', 'Avenir', sans-serif",
-                fontWeight: 500,
+                display: 'flex',
+                justifyContent: 'flex-end',
+                marginBottom: 10,
+                animation: 'chatIn 0.4s cubic-bezier(0.16,1,0.3,1)',
               }}
             >
-              Book a flight to Bangalore tomorrow under ₹5000
+              <div
+                style={{
+                  maxWidth: '85%',
+                  padding: '10px 14px',
+                  borderRadius: '16px 16px 4px 16px',
+                  background: 'linear-gradient(135deg, #7C3AED, #4F46E5)',
+                  fontSize: 13,
+                  color: '#fff',
+                  fontFamily: "'Avenir Next', 'Avenir', sans-serif",
+                  fontWeight: 500,
+                  lineHeight: 1.4,
+                  boxShadow: '0 4px 20px rgba(124,58,237,0.3)',
+                }}
+              >
+                {chatMessages[0].text}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* AI response */}
-          <div className="flex gap-2">
+          {chatStep >= 2 && (
             <div
               style={{
-                width: 26,
-                height: 26,
-                borderRadius: '50%',
-                background: 'linear-gradient(135deg, #7C3AED, #60A5FA)',
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0,
-                fontSize: 12,
+                gap: 8,
+                animation: 'chatIn 0.4s cubic-bezier(0.16,1,0.3,1)',
               }}
             >
-              ✦
+              <div
+                style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #7C3AED, #60A5FA)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                  fontSize: 13,
+                  boxShadow: '0 0 12px rgba(124,58,237,0.4)',
+                }}
+              >
+                ✦
+              </div>
+              <div
+                style={{
+                  padding: '10px 14px',
+                  borderRadius: '4px 16px 16px 16px',
+                  background: 'rgba(16,185,129,0.1)',
+                  border: '1px solid rgba(16,185,129,0.3)',
+                  fontSize: 12,
+                  fontFamily: "'Avenir Next', 'Avenir', sans-serif",
+                }}
+              >
+                <span style={{ color: '#34d399', fontWeight: 600, fontSize: 13 }}>✓ Booking confirmed</span>
+                <p style={{ color: '#8B8BAA', marginTop: 4, fontSize: 11, lineHeight: 1.4 }}>IndiGo 6E-204 · ₹3,899 · Seat 14A · PNR: AI2026XK</p>
+              </div>
             </div>
-            <div
-              style={{
-                padding: '10px 14px',
-                borderRadius: '4px 16px 16px 16px',
-                background: 'rgba(16,185,129,0.1)',
-                border: '1px solid rgba(16,185,129,0.25)',
-                fontSize: 12,
-                color: '#F4F4FF',
-                fontFamily: "'Avenir Next', 'Avenir', sans-serif",
-              }}
-            >
-              <span style={{ color: '#34d399', fontWeight: 600 }}>✓ Booking confirmed</span>
-              <p style={{ color: '#8B8BAA', marginTop: 4, fontSize: 11 }}>IndiGo 6E-204 · ₹3,899 · Seat 14A · PNR: AI2026XK</p>
+          )}
+
+          {/* Typing indicator */}
+          {chatStep === 1 && (
+            <div style={{ display: 'flex', gap: 8, animation: 'chatIn 0.4s ease' }}>
+              <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, #7C3AED, #60A5FA)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 13 }}>✦</div>
+              <div style={{ padding: '10px 14px', borderRadius: '4px 16px 16px 16px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: 4 }}>
+                {[0, 1, 2].map((i) => (
+                  <div key={i} style={{ width: 5, height: 5, borderRadius: '50%', background: '#A78BFA', animation: `typingDot 1.2s ease-in-out ${i * 0.2}s infinite` }} />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Feature pills */}
-        <div className="flex flex-wrap gap-2 mb-10">
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 24 }}>
           {features.map((f, i) => (
             <div
               key={i}
               style={{
                 padding: '6px 12px',
                 borderRadius: 20,
-                background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(255,255,255,0.08)',
+                background: `${f.color}12`,
+                border: `1px solid ${f.color}30`,
                 fontSize: 12,
                 color: '#B0B0CC',
                 fontFamily: "'Avenir Next', 'Avenir', sans-serif",
@@ -239,41 +268,76 @@ export default function LandingScreen({ onGetStarted }: Props) {
           ))}
         </div>
 
-        {/* CTA */}
-        <div className="mt-auto flex flex-col gap-3">
+        {/* Stats row */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            padding: '14px 16px',
+            borderRadius: 16,
+            background: 'rgba(124,58,237,0.07)',
+            border: '1px solid rgba(124,58,237,0.15)',
+            marginBottom: 24,
+          }}
+        >
+          {[
+            { value: '8 sec', label: 'Avg. time' },
+            { value: '2.4M+', label: 'Intents' },
+            { value: '99.1%', label: 'Accuracy' },
+          ].map((s, i) => (
+            <div key={i} style={{ textAlign: 'center' as const }}>
+              <p style={{ fontFamily: "'Avenir Next', 'Avenir', sans-serif", fontSize: 18, fontWeight: 300, color: '#F4F4FF', letterSpacing: '-0.02em' }}>{s.value}</p>
+              <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 9, color: '#8B8BAA', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>{s.label}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA buttons */}
+        <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 10 }}>
           <button
             onClick={onGetStarted}
             style={{
               width: '100%',
-              padding: '16px',
-              borderRadius: 16,
+              padding: '17px',
+              borderRadius: 18,
               background: 'linear-gradient(135deg, #7C3AED, #4F46E5)',
               border: 'none',
               color: '#fff',
-              fontSize: 15,
+              fontSize: 16,
               fontWeight: 600,
               fontFamily: "'Avenir Next', 'Avenir', sans-serif",
-              letterSpacing: '-0.01em',
               cursor: 'pointer',
-              boxShadow: '0 0 30px rgba(124,58,237,0.4)',
+              boxShadow: '0 0 40px rgba(124,58,237,0.45), 0 4px 20px rgba(0,0,0,0.4)',
+              letterSpacing: '-0.01em',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
             }}
           >
-            Get Started
+            <span>Get Started</span>
+            <span style={{ fontSize: 18 }}>→</span>
           </button>
-          <p
-            style={{
-              textAlign: 'center',
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 10,
-              color: '#8B8BAA',
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase' as const,
-            }}
-          >
-            Built by founders from IIFT Delhi
+          <p style={{ textAlign: 'center', fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#8B8BAA', letterSpacing: '0.08em' }}>
+            Built by founders from IIFT Delhi · Zero-friction commerce
           </p>
         </div>
       </div>
+
+      <style>{`
+        @keyframes chatIn {
+          from { opacity: 0; transform: translateY(8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes typingDot {
+          0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+          30% { transform: translateY(-4px); opacity: 1; }
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.4; }
+        }
+      `}</style>
     </div>
   );
 }
