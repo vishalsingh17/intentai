@@ -115,6 +115,7 @@ export default function FinalCTASection() {
             <button
               type="submit"
               disabled={loading}
+              suppressHydrationWarning
               className="btn-primary px-7 py-3.5 text-[13px] font-semibold tracking-wide text-white whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed"
               aria-label="Request early access to Beep"
             >
