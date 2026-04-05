@@ -452,10 +452,3 @@ nav.scrolled {
   background: rgba(124, 58, 237, 0.3);
   color: #F4F4FF;
 }
-
-/* ── Scan bar animation (demo decision layer) ── */
-@keyframes scanBar {
-  0% { transform: translateX(-100%); }
-  50% { transform: translateX(0%); }
-  100% { transform: translateX(100%); }
-}

@@ -8,7 +8,6 @@ import WhyDifferentSection from './components/WhyDifferentSection';
 import UseCasesSection from './components/UseCasesSection';
 import FinalCTASection from './components/FinalCTASection';
 import ParallaxBackground from './components/ParallaxBackground';
-import FoundersSection from './components/FoundersSection';
 
 export default function HomePage() {
   return (
@@ -33,7 +32,6 @@ export default function HomePage() {
         <DemoSection />
         <HowItWorksSection />
         <WhyDifferentSection />
-        <FoundersSection />
         <UseCasesSection />
         <FinalCTASection />
       </div>
