@@ -10,6 +10,110 @@ interface ChatMessage {
   delay: number;
 }
 
+// ─── Decision Layer Component ─────────────────────────────────────────────────
+interface OptionCard {
+  label: string;
+  badge: 'Fastest' | 'Cheapest' | 'Best Value';
+  price: string;
+  meta: string;
+  selected?: boolean;
+}
+
+function DecisionOptions({ options, scanLabel, selectedIndex }: { options: OptionCard[]; scanLabel: string; selectedIndex?: number }) {
+  return (
+    <div className="space-y-2">
+      <p className="text-accent-warm font-semibold text-xs font-mono-custom uppercase tracking-wider mb-3 flex items-center gap-2">
+        <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent-warm animate-pulse" />
+        {scanLabel}
+      </p>
+      <div className="space-y-2">
+        {options.map((opt, i) => {
+          const isSelected = selectedIndex === i;
+          const badgeColors: Record<string, string> = {
+            'Fastest': 'rgba(16,185,129,0.3)',
+            'Cheapest': 'rgba(37,99,235,0.3)',
+            'Best Value': 'rgba(124,58,237,0.3)',
+          };
+          const badgeTextColors: Record<string, string> = {
+            'Fastest': '#6EE7B7',
+            'Cheapest': '#93C5FD',
+            'Best Value': '#C4B5FD',
+          };
+          return (
+            <div
+              key={i}
+              className="flex items-center justify-between px-3 py-2.5 rounded-lg text-xs transition-all duration-500"
+              style={{
+                background: isSelected ? 'rgba(124,58,237,0.18)' : 'rgba(255,255,255,0.04)',
+                border: `1px solid ${isSelected ? 'rgba(124,58,237,0.45)' : 'rgba(255,255,255,0.07)'}`,
+                boxShadow: isSelected ? '0 0 12px rgba(124,58,237,0.2)' : 'none',
+                transform: isSelected ? 'scale(1.01)' : 'scale(1)',
+              }}
+            >
+              <div className="flex items-center gap-2 flex-1 min-w-0">
+                <span
+                  className="text-[9px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full flex-shrink-0"
+                  style={{ background: badgeColors[opt.badge], color: badgeTextColors[opt.badge] }}
+                >
+                  {opt.badge}
+                </span>
+                <span className="text-foreground-muted truncate">{opt.label}</span>
+              </div>
+              <div className="flex items-center gap-3 flex-shrink-0 ml-2">
+                <span className="text-foreground-muted text-[10px]">{opt.meta}</span>
+                <span className="text-accent font-semibold">{opt.price}</span>
+                {isSelected && <Icon name="CheckIcon" size={12} className="text-accent-warm" />}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function ScanningStep({ label }: { label: string }) {
+  return (
+    <div className="space-y-2">
+      <p className="text-accent-warm font-semibold text-xs font-mono-custom uppercase tracking-wider flex items-center gap-2">
+        <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent-warm animate-pulse" />
+        {label}
+      </p>
+      <div className="h-1 rounded-full bg-[rgba(255,255,255,0.06)] overflow-hidden">
+        <div
+          className="h-full rounded-full"
+          style={{
+            width: '100%',
+            background: 'linear-gradient(to right, #7C3AED, #60A5FA)',
+            animation: 'scanBar 1.2s ease-in-out infinite',
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function SelectingStep({ label }: { label: string }) {
+  return (
+    <div>
+      <p className="text-foreground-muted text-xs mb-2 flex items-center gap-2">
+        <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent-warm animate-pulse" />
+        {label}
+      </p>
+      <div className="h-1.5 rounded-full bg-[rgba(255,255,255,0.08)] overflow-hidden">
+        <div
+          className="h-full rounded-full"
+          style={{
+            width: '100%',
+            background: 'linear-gradient(to right, #7C3AED, #60A5FA)',
+            transition: 'width 1.5s ease',
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
 // ─── Travel demo ─────────────────────────────────────────────────────────────
 const TRAVEL_MESSAGES: ChatMessage[] = [
   {
@@ -19,63 +123,27 @@ const TRAVEL_MESSAGES: ChatMessage[] = [
   },
   {
     role: 'ai',
-    content: (
-      <div className="space-y-2">
-        <p className="text-accent-warm font-semibold text-xs font-mono-custom uppercase tracking-wider mb-2">
-          ✦ Scanning 14 airlines &amp; 47 routes…
-        </p>
-        <div className="space-y-2">
-          {[
-            { airline: 'IndiGo 6E-204', time: '06:00 → 08:30', price: '₹3,899', tag: 'Best Value' },
-            { airline: 'Air India AI-506', time: '09:15 → 11:45', price: '₹4,299', tag: null },
-            { airline: 'SpiceJet SG-152', time: '14:20 → 16:50', price: '₹4,749', tag: null },
-          ].map((f, i) => (
-            <div
-              key={i}
-              className="flex items-center justify-between px-3 py-2 rounded-lg text-xs"
-              style={{
-                background: i === 0 ? 'rgba(124,58,237,0.15)' : 'rgba(255,255,255,0.04)',
-                border: `1px solid ${i === 0 ? 'rgba(124,58,237,0.3)' : 'rgba(255,255,255,0.07)'}`,
-              }}
-            >
-              <span className="text-foreground-muted w-28">{f.airline}</span>
-              <span className="text-foreground">{f.time}</span>
-              <span className="text-accent font-semibold">{f.price}</span>
-              {f.tag && (
-                <span
-                  className="text-[9px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full"
-                  style={{ background: 'rgba(124,58,237,0.3)', color: '#C4B5FD' }}
-                >
-                  {f.tag}
-                </span>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    ),
-    delay: 2200,
+    content: <ScanningStep label="Searching across providers…" />,
+    delay: 1400,
   },
   {
     role: 'ai',
     content: (
-      <div>
-        <p className="text-foreground-muted text-xs mb-2">
-          Selecting <span className="text-foreground font-medium">IndiGo 6E-204</span> — best value under ₹5,000. Proceeding to checkout…
-        </p>
-        <div className="h-1.5 rounded-full bg-[rgba(255,255,255,0.08)] overflow-hidden">
-          <div
-            className="h-full rounded-full"
-            style={{
-              width: '100%',
-              background: 'linear-gradient(to right, #7C3AED, #60A5FA)',
-              transition: 'width 1.5s ease',
-            }}
-          />
-        </div>
-      </div>
+      <DecisionOptions
+        scanLabel="Found 3 options"
+        options={[
+          { label: 'IndiGo 6E-204 · 06:00 → 08:30', badge: 'Best Value', price: '₹3,899', meta: '2h 30m' },
+          { label: 'Air India AI-506 · 09:15 → 11:45', badge: 'Cheapest', price: '₹4,299', meta: '2h 30m' },
+          { label: 'SpiceJet SG-152 · 14:20 → 16:50', badge: 'Fastest', price: '₹4,749', meta: '2h 30m' },
+        ]}
+      />
     ),
-    delay: 4000,
+    delay: 2800,
+  },
+  {
+    role: 'ai',
+    content: <SelectingStep label="Selecting best option — IndiGo 6E-204 · Best Value under ₹5,000. Proceeding to checkout…" />,
+    delay: 4400,
   },
   {
     role: 'ai',
@@ -88,7 +156,7 @@ const TRAVEL_MESSAGES: ChatMessage[] = [
           >
             <Icon name="CheckIcon" size={12} className="text-green-400" />
           </div>
-          <span className="text-green-400 font-semibold text-sm">Booking Confirmed!</span>
+          <span className="text-green-400 font-semibold text-sm">Flight Booked!</span>
         </div>
         <div className="grid grid-cols-2 gap-2 text-xs">
           {[
@@ -123,33 +191,27 @@ const SHOPPING_MESSAGES: ChatMessage[] = [
   },
   {
     role: 'ai',
+    content: <ScanningStep label="Searching across providers…" />,
+    delay: 1400,
+  },
+  {
+    role: 'ai',
     content: (
-      <div className="space-y-2">
-        <p className="text-accent-warm font-semibold text-xs font-mono-custom uppercase tracking-wider mb-2">
-          ✦ Checking quick commerce apps and e-commerce platforms…
-        </p>
-        <div className="space-y-2">
-          {[
-            { name: 'Vaseline Original Petroleum Jelly 100g', platform: 'quick commerce app', price: '₹149', eta: '12 min', tag: 'Fastest' },
-            { name: 'Maybelline Baby Lips Lip Balm', platform: 'e-commerce platform', price: '₹99', eta: '2 hrs', tag: null },
-          ].map((item, i) => (
-            <div key={i} className="px-3 py-2 rounded-lg text-xs"
-              style={{ background: i === 0 ? 'rgba(124,58,237,0.15)' : 'rgba(255,255,255,0.04)', border: `1px solid ${i === 0 ? 'rgba(124,58,237,0.3)' : 'rgba(255,255,255,0.07)'}` }}>
-              <div className="flex justify-between items-center mb-1">
-                <span className="text-foreground font-medium">{item.name}</span>
-                {item.tag && <span className="text-[9px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full" style={{ background: 'rgba(124,58,237,0.3)', color: '#C4B5FD' }}>{item.tag}</span>}
-              </div>
-              <div className="flex gap-3 text-foreground-muted">
-                <span>{item.platform}</span>
-                <span className="text-accent font-semibold">{item.price}</span>
-                <span>ETA {item.eta}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <DecisionOptions
+        scanLabel="Found 3 options"
+        options={[
+          { label: 'Blinkit · Vaseline 100g + Lip Balm', badge: 'Fastest', price: '₹248', meta: '10 min' },
+          { label: 'Zepto · Vaseline 100g + Lip Balm', badge: 'Cheapest', price: '₹229', meta: '15 min' },
+          { label: 'Amazon · Vaseline 100g + Lip Balm', badge: 'Best Value', price: '₹239', meta: '2 hrs' },
+        ]}
+      />
     ),
-    delay: 2200,
+    delay: 2800,
+  },
+  {
+    role: 'ai',
+    content: <SelectingStep label="Selecting best option — Blinkit · Fastest delivery in 10 min. Placing order…" />,
+    delay: 4400,
   },
   {
     role: 'ai',
@@ -162,7 +224,7 @@ const SHOPPING_MESSAGES: ChatMessage[] = [
           <span className="text-green-400 font-semibold text-sm">Order Placed!</span>
         </div>
         <div className="grid grid-cols-2 gap-2 text-xs">
-          {[['Items', '2 products'], ['Platform', 'quick commerce app'], ['Total', '₹248'], ['ETA', '12 minutes'], ['Address', 'Saved home'], ['Payment', 'UPI auto-pay']].map(([k, v]) => (
+          {[['Items', '2 products'], ['Platform', 'Blinkit'], ['Total', '₹248'], ['ETA', '10 minutes'], ['Address', 'Saved home'], ['Payment', 'UPI auto-pay']].map(([k, v]) => (
             <div key={k} className="flex flex-col gap-0.5">
               <span className="text-foreground-muted font-mono-custom text-[9px] uppercase tracking-wider">{k}</span>
               <span className="text-foreground font-medium">{v}</span>
@@ -171,7 +233,7 @@ const SHOPPING_MESSAGES: ChatMessage[] = [
         </div>
       </div>
     ),
-    delay: 4500,
+    delay: 5800,
   },
 ];
 
@@ -184,28 +246,27 @@ const QCOMMERCE_MESSAGES: ChatMessage[] = [
   },
   {
     role: 'ai',
+    content: <ScanningStep label="Searching across providers…" />,
+    delay: 1400,
+  },
+  {
+    role: 'ai',
     content: (
-      <div className="space-y-2">
-        <p className="text-accent-warm font-semibold text-xs font-mono-custom uppercase tracking-wider mb-2">
-          ✦ Hindi samjha, quick commerce apps check kar raha hoon…
-        </p>
-        <div className="space-y-1.5">
-          {[
-            { item: 'Amul Full Cream Milk 1L', price: '₹68' },
-            { item: 'Mother Dairy Dahi 400g', price: '₹55' },
-            { item: 'Britannia Bread (Brown)', price: '₹42' },
-          ].map((item, i) => (
-            <div key={i} className="flex justify-between items-center px-3 py-2 rounded-lg text-xs"
-              style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
-              <span className="text-foreground-muted">{item.item}</span>
-              <span className="text-accent font-semibold">{item.price}</span>
-            </div>
-          ))}
-        </div>
-        <p className="text-foreground-muted text-xs pt-1">Total: <span className="text-foreground font-medium">₹165</span> · quick commerce se · ETA 10 min</p>
-      </div>
+      <DecisionOptions
+        scanLabel="Found 3 options"
+        options={[
+          { label: 'Blinkit · Amul Milk + Dahi + Bread', badge: 'Fastest', price: '₹165', meta: '10 min' },
+          { label: 'Zepto · Amul Milk + Dahi + Bread', badge: 'Cheapest', price: '₹158', meta: '14 min' },
+          { label: 'Swiggy Instamart · Combo pack', badge: 'Best Value', price: '₹162', meta: '12 min' },
+        ]}
+      />
     ),
-    delay: 2200,
+    delay: 2800,
+  },
+  {
+    role: 'ai',
+    content: <SelectingStep label="Selecting best option — Blinkit · Fastest delivery. Order confirm ho raha hai…" />,
+    delay: 4400,
   },
   {
     role: 'ai',
@@ -217,10 +278,10 @@ const QCOMMERCE_MESSAGES: ChatMessage[] = [
           </div>
           <span className="text-green-400 font-semibold text-sm">Order confirmed! Delivery in 10 mins.</span>
         </div>
-        <p className="text-foreground-muted text-xs">Beep ne Hindi samjha, best option choose kiya, aur order place kar diya, bina ek bhi extra tap ke.</p>
+        <p className="text-foreground-muted text-xs">Beep ne Hindi samjha, best option choose kiya, aur order place kar diya — bina ek bhi extra tap ke.</p>
       </div>
     ),
-    delay: 4200,
+    delay: 5800,
   },
 ];
 
@@ -233,49 +294,27 @@ const CAB_MESSAGES: ChatMessage[] = [
   },
   {
     role: 'ai',
-    content: (
-      <div className="space-y-2">
-        <p className="text-accent-warm font-semibold text-xs font-mono-custom uppercase tracking-wider mb-2">
-          ✦ Finding nearby rides…
-        </p>
-        <p className="text-foreground-muted text-xs mb-2">3 options found · CP → Gurgaon · ~32 km</p>
-        <div className="space-y-2">
-          {[
-            { type: 'Mini', eta: '5 min', price: '₹320–380', tag: 'Best Value' },
-            { type: 'Sedan', eta: '8 min', price: '₹420–490', tag: null },
-            { type: 'Premium', eta: '6 min', price: '₹680–750', tag: null },
-          ].map((ride, i) => (
-            <div key={i} className="flex items-center justify-between px-3 py-2.5 rounded-lg text-xs"
-              style={{ background: i === 0 ? 'rgba(124,58,237,0.15)' : 'rgba(255,255,255,0.04)', border: `1px solid ${i === 0 ? 'rgba(124,58,237,0.3)' : 'rgba(255,255,255,0.07)'}` }}>
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-md flex items-center justify-center" style={{ background: 'rgba(124,58,237,0.2)' }}>
-                  <Icon name="TruckIcon" size={12} className="text-accent-warm" />
-                </div>
-                <span className="text-foreground font-medium">{ride.type}</span>
-              </div>
-              <span className="text-foreground-muted">ETA {ride.eta}</span>
-              <span className="text-accent font-semibold">{ride.price}</span>
-              {ride.tag && <span className="text-[9px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full" style={{ background: 'rgba(124,58,237,0.3)', color: '#C4B5FD' }}>{ride.tag}</span>}
-            </div>
-          ))}
-        </div>
-      </div>
-    ),
-    delay: 2000,
+    content: <ScanningStep label="Searching across providers…" />,
+    delay: 1400,
   },
   {
     role: 'ai',
     content: (
-      <div>
-        <p className="text-foreground-muted text-xs mb-2">
-          Booking <span className="text-foreground font-medium">Mini</span>, best value at ₹320. Confirming ride…
-        </p>
-        <div className="h-1.5 rounded-full bg-[rgba(255,255,255,0.08)] overflow-hidden">
-          <div className="h-full rounded-full" style={{ width: '100%', background: 'linear-gradient(to right, #7C3AED, #60A5FA)', transition: 'width 1.5s ease' }} />
-        </div>
-      </div>
+      <DecisionOptions
+        scanLabel="Found 3 options"
+        options={[
+          { label: 'Uber Mini · CP → Gurgaon ~32 km', badge: 'Best Value', price: '₹320–380', meta: 'ETA 5 min' },
+          { label: 'Ola Mini · CP → Gurgaon ~32 km', badge: 'Cheapest', price: '₹295–350', meta: 'ETA 8 min' },
+          { label: 'Uber Sedan · CP → Gurgaon ~32 km', badge: 'Fastest', price: '₹420–490', meta: 'ETA 4 min' },
+        ]}
+      />
     ),
-    delay: 3800,
+    delay: 2800,
+  },
+  {
+    role: 'ai',
+    content: <SelectingStep label="Selecting best option — Uber Mini · Best value at ₹320. Confirming ride…" />,
+    delay: 4400,
   },
   {
     role: 'ai',
@@ -285,10 +324,10 @@ const CAB_MESSAGES: ChatMessage[] = [
           <div className="w-6 h-6 rounded-full flex items-center justify-center" style={{ background: 'rgba(16,185,129,0.2)', border: '1px solid rgba(16,185,129,0.4)' }}>
             <Icon name="CheckIcon" size={12} className="text-green-400" />
           </div>
-          <span className="text-green-400 font-semibold text-sm">Ride confirmed</span>
+          <span className="text-green-400 font-semibold text-sm">Ride confirmed!</span>
         </div>
         <div className="grid grid-cols-2 gap-2 text-xs">
-          {[['Type', 'Mini'], ['Route', 'CP → Gurgaon'], ['Driver', 'Arriving in 5 mins'], ['Fare', '₹342'], ['Distance', '~32 km'], ['ETA', '45 min']].map(([k, v]) => (
+          {[['Type', 'Uber Mini'], ['Route', 'CP → Gurgaon'], ['Driver', 'Arriving in 5 mins'], ['Fare', '₹342'], ['Distance', '~32 km'], ['ETA', '45 min']].map(([k, v]) => (
             <div key={k} className="flex flex-col gap-0.5">
               <span className="text-foreground-muted font-mono-custom text-[9px] uppercase tracking-wider">{k}</span>
               <span className="text-foreground font-medium">{v}</span>
@@ -309,12 +348,29 @@ const DEMO_TABS = [
   { id: 'cab', label: 'Cab', icon: 'TruckIcon', messages: CAB_MESSAGES },
 ];
 
+// ─── Typing text effect ───────────────────────────────────────────────────────
+function TypingText({ text }: { text: string }) {
+  const [displayed, setDisplayed] = useState('');
+  useEffect(() => {
+    setDisplayed('');
+    let i = 0;
+    const interval = setInterval(() => {
+      i++;
+      setDisplayed(text.slice(0, i));
+      if (i >= text.length) clearInterval(interval);
+    }, 28);
+    return () => clearInterval(interval);
+  }, [text]);
+  return <span>{displayed}<span className="inline-block w-0.5 h-3.5 bg-white/60 ml-0.5 align-middle animate-pulse" /></span>;
+}
+
 export default function DemoSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeTab, setActiveTab] = useState(0);
   const [visibleMessages, setVisibleMessages] = useState<number>(0);
   const [showTyping, setShowTyping] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
+  const [typingUserMsg, setTypingUserMsg] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
@@ -325,19 +381,23 @@ export default function DemoSection() {
     timersRef.current = [];
     setVisibleMessages(0);
     setShowTyping(false);
+    setTypingUserMsg(false);
+
+    // Show typing effect for user message first
+    timersRef.current.push(setTimeout(() => setTypingUserMsg(true), 100));
 
     messages.forEach((msg, i) => {
       if (msg.role === 'ai') {
-        timersRef.current.push(setTimeout(() => setShowTyping(true), msg.delay - 900));
+        timersRef.current.push(setTimeout(() => setShowTyping(true), msg.delay - 700));
       }
       timersRef.current.push(setTimeout(() => {
         setShowTyping(false);
+        if (i === 0) setTypingUserMsg(false);
         setVisibleMessages(i + 1);
       }, msg.delay));
     });
   }, []);
 
-  // Intersection observer to trigger demo
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -357,7 +417,6 @@ export default function DemoSection() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasStarted, activeTab]);
 
-  // Scroll only the chat container, not the page
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
@@ -372,7 +431,7 @@ export default function DemoSection() {
     <section
       ref={sectionRef}
       id="demo"
-      className="relative py-16 md:py-20"
+      className="relative py-12 md:py-16"
       aria-label="Beep live demo"
     >
       {/* Glow */}
@@ -398,6 +457,23 @@ export default function DemoSection() {
               One sentence. That&apos;s all it takes. Beep parses your intent, scans live inventory across providers, compares options, and completes checkout,{' '}
               <span className="text-foreground font-semibold">without a single extra tap.</span>
             </p>
+
+            {/* Flow visual */}
+            <div className="space-y-2">
+              {[
+                { step: '01', label: 'Search', desc: 'Scans all providers' },
+                { step: '02', label: 'Compare', desc: 'Fastest · Cheapest · Best Value' },
+                { step: '03', label: 'Select', desc: 'AI picks the best match' },
+                { step: '04', label: 'Confirm', desc: 'Done in seconds' },
+              ].map((s, i) => (
+                <div key={i} className="flex items-center gap-3 text-xs">
+                  <span className="font-mono-custom text-[9px] text-foreground-muted w-5 flex-shrink-0">{s.step}</span>
+                  <div className="w-px h-4 bg-[rgba(124,58,237,0.3)] flex-shrink-0" />
+                  <span className="text-foreground font-medium w-16 flex-shrink-0">{s.label}</span>
+                  <span className="text-foreground-muted">{s.desc}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Right: chat UI */}
@@ -421,9 +497,14 @@ export default function DemoSection() {
               ))}
             </div>
 
+            {/* Demo container — ~15% larger via scale + glow */}
             <div
               className="gradient-border rounded-2xl overflow-hidden"
-              style={{ boxShadow: '0 0 80px rgba(124,58,237,0.28), 0 0 30px rgba(124,58,237,0.12), 0 8px 40px rgba(0,0,0,0.5)', transform: 'scale(1.04)', transformOrigin: 'top right' }}
+              style={{
+                boxShadow: '0 0 100px rgba(124,58,237,0.32), 0 0 40px rgba(124,58,237,0.16), 0 8px 60px rgba(0,0,0,0.6)',
+                transform: 'scale(1.06)',
+                transformOrigin: 'top right',
+              }}
             >
               {/* Window chrome */}
               <div
@@ -448,13 +529,13 @@ export default function DemoSection() {
               <div
                 ref={chatContainerRef}
                 className="p-6 space-y-4 overflow-y-auto"
-                style={{ background: 'rgba(8,8,16,0.95)', minHeight: 380, maxHeight: 480 }}
+                style={{ background: 'rgba(8,8,16,0.95)', minHeight: 400, maxHeight: 520 }}
               >
                 {currentMessages.slice(0, visibleMessages).map((msg, i) => (
                   <div
                     key={`${activeTab}-${i}`}
                     className={`flex gap-3 chat-bubble-enter ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                    style={{ animationDelay: `${i * 0.05}s` }}
+                    style={{ animationDelay: `${i * 0.04}s` }}
                   >
                     {msg.role === 'ai' && (
                       <div
@@ -466,7 +547,7 @@ export default function DemoSection() {
                       </div>
                     )}
                     <div
-                      className={`max-w-[78%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
+                      className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
                         msg.role === 'user' ? 'rounded-br-sm text-white font-medium' : 'rounded-bl-sm text-foreground-strong'
                       }`}
                       style={
@@ -479,6 +560,18 @@ export default function DemoSection() {
                     </div>
                   </div>
                 ))}
+
+                {/* Typing user message with effect */}
+                {typingUserMsg && visibleMessages === 0 && (
+                  <div className="flex gap-3 justify-end chat-bubble-enter">
+                    <div
+                      className="max-w-[80%] px-4 py-3 rounded-2xl rounded-br-sm text-sm text-white font-medium"
+                      style={{ background: 'linear-gradient(135deg, #7C3AED, #4F46E5)' }}
+                    >
+                      <TypingText text={typeof currentMessages[0].content === 'string' ? currentMessages[0].content : ''} />
+                    </div>
+                  </div>
+                )}
 
                 {/* Typing indicator */}
                 {showTyping && (

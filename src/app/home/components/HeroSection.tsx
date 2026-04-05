@@ -75,7 +75,7 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden"
+      className="relative min-h-screen flex items-center pt-24 pb-8 overflow-hidden"
       aria-label="Beep Hero"
     >
       {/* Atmospheric glow orbs */}
@@ -144,6 +144,11 @@ export default function HeroSection() {
               <Icon name="ArrowRightIcon" size={16} className="text-current" />
             </button>
           </div>
+
+          {/* Platform availability */}
+          <p className="text-[11px] text-foreground-muted font-mono-custom tracking-wider" style={{ opacity: 0.55 }}>
+            Available on web &nbsp;·&nbsp; iOS &amp; Android coming soon
+          </p>
 
           {/* Trust micro-copy */}
           <p className="text-[12px] text-foreground-muted font-mono-custom tracking-widest uppercase">
