@@ -139,6 +139,7 @@ export default function FinalCTASection() {
               className="btn-ghost px-6 py-2.5 text-[13px] font-medium text-foreground-muted hover:text-foreground transition-colors"
               onClick={() => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })}
               aria-label="Try Beep demo"
+              suppressHydrationWarning
             >
               Try demo
             </button>
