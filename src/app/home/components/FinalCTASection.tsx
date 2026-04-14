@@ -149,7 +149,6 @@ export default function FinalCTASection() {
             {[
               { icon: 'LockClosedIcon', label: 'No spam, ever' },
               { icon: 'BoltIcon', label: 'Instant access on launch' },
-              { icon: 'GiftIcon', label: 'Free for first 3 months' },
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-1.5">
                 <Icon name={item.icon as Parameters<typeof Icon>[0]['name']} size={13} className="text-accent-warm" />
@@ -160,12 +159,8 @@ export default function FinalCTASection() {
         </div>
 
         {/* Bottom decorative stats */}
-        <div className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="mt-24 grid grid-cols-1 md:grid-cols-1 gap-4">
           {[
-            { value: '2.4M+', label: 'Intents processed' },
-            { value: '8 sec', label: 'Avg completion time' },
-            { value: '50+', label: 'Commerce providers' },
-            { value: '99.1%', label: 'AI accuracy rate' },
           ].map((stat, i) => (
             <div
               key={i}

@@ -12,7 +12,7 @@ const useCases = [
   title: 'Book flights, hotels & cabs',
   description:
   'Tell Beep your destination, dates, and budget. It scans IndiGo, Air India, MakeMyTrip, and Booking.com simultaneously, and books the best option.',
-  example: '"Book me a round trip to Mumbai this weekend under ₹8,000"',
+  example: '"Book me a hotel in Goa for this weekend under ₹4,000"',
   metrics: [
   { value: '14 sec', label: 'Avg booking time' },
   { value: '23%', label: 'Avg savings vs manual' }],
@@ -20,22 +20,6 @@ const useCases = [
   image: "https://images.unsplash.com/photo-1506789374587-131fdb9a6550",
   imageAlt: 'Aerial view of airplane wing over clouds during golden hour flight',
   color: '#7C3AED'
-},
-{
-  id: 'shopping',
-  icon: 'ShoppingBagIcon',
-  label: 'Shopping',
-  title: 'Find & buy products instantly',
-  description:
-  'From skincare to daily essentials, describe what you want and Beep compares e-commerce platforms, then completes checkout with your saved address.',
-  example: '"Order me lip balm and Vaseline"',
-  metrics: [
-  { value: '50+', label: 'Retailers connected' },
-  { value: '4.8★', label: 'Purchase satisfaction' }],
-
-  image: "https://images.unsplash.com/photo-1570723968307-49834ffa3cce",
-  imageAlt: 'Neatly arranged skincare and beauty products on a clean white surface',
-  color: '#4F46E5'
 },
 {
   id: 'subscriptions',
