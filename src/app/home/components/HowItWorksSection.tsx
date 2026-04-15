@@ -9,7 +9,7 @@ const steps = [
     icon: 'ChatBubbleLeftRightIcon',
     title: 'Tell us what you need',
     description:
-      'Type your intent in plain language, "Book me a hotel in Goa for this weekend under ₹4,000". No forms, no filters.',
+      'Type your intent in plain language, "Book a flight to Goa this weekend under ₹6,000" or "order my weekly groceries, take care of my navratri concerns". No forms, no filters.',
     detail: 'Natural language · Any device · 2 seconds',
     color: '#7C3AED',
   },

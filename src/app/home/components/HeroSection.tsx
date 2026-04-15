@@ -4,6 +4,27 @@ import React, { useEffect, useRef, useState } from 'react';
 import Icon from '@/components/ui/AppIcon';
 import { userInputService } from '@/lib/services/userInputService';
 
+const stats = [
+  {
+    icon: 'BoltIcon',
+    label: 'Avg. Completion Time',
+    value: '8 sec',
+    sub: 'From intent to checkout',
+  },
+  {
+    icon: 'ShoppingCartIcon',
+    label: 'Intents Processed',
+    value: '2.4M+',
+    sub: 'Across categories',
+  },
+  {
+    icon: 'CpuChipIcon',
+    label: 'AI Accuracy',
+    value: '99.1%',
+    sub: 'Correct purchase match',
+  },
+];
+
 export default function HeroSection() {
   const titleRef = useRef<HTMLDivElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
@@ -203,6 +224,26 @@ export default function HeroSection() {
               </div>
             </div>
           </div>
+
+          {/* Stats row */}
+          {stats.map((stat, i) => (
+            <div
+              key={i}
+              className="spotlight-card flex items-center gap-4 px-5 py-4"
+            >
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                style={{ background: 'rgba(124,58,237,0.15)', border: '1px solid rgba(124,58,237,0.25)' }}
+              >
+                <Icon name={stat.icon as Parameters<typeof Icon>[0]['name']} size={18} className="text-accent-warm" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-mono-custom text-[10px] uppercase tracking-widest text-foreground-muted mb-0.5">{stat.label}</p>
+                <p className="font-display text-2xl font-light text-foreground tracking-tight">{stat.value}</p>
+              </div>
+              <p className="text-[11px] text-foreground-muted text-right max-w-[80px] leading-tight hidden sm:block">{stat.sub}</p>
+            </div>
+          ))}
         </div>
       </div>
 
