@@ -45,7 +45,7 @@ export default function FoundingStory() {
                 We started with a simple question: what if commerce worked the way you think?
               </p>
               <p className="text-[16px] text-[#3a3a4a] leading-relaxed" style={{ fontFamily: 'Geist, sans-serif' }}>
-                You do not think "let me open four apps, filter by airline, compare prices, enter card details, and wonder if I got a good deal." You think "I need a flight to Mumbai tomorrow." That thought should be enough. So we built the layer that makes it enough.
+                You do not think <strong>&ldquo;let me open four apps&rdquo;</strong>, filter by airline, compare prices, enter card details, and wonder if I got a good deal. You think <strong>&ldquo;I need a flight to Mumbai tomorrow&rdquo;</strong>. That thought should be enough. So we built the layer that makes it enough.
               </p>
               <p className="text-[16px] text-[#3a3a4a] leading-relaxed" style={{ fontFamily: 'Geist, sans-serif' }}>
                 Beep is the agentic execution layer that sits between human intent and commercial transaction. Not a chatbot. Not a search wrapper. An agent that acts.
@@ -70,15 +70,16 @@ export default function FoundingStory() {
           </div>
         </div>
 
-        {/* Right — team photo */}
+        {/* Right — team photo uncropped */}
         <div className="reveal-from-bottom reveal-delay-1">
-          <div className="glass-card rounded-2xl overflow-hidden p-2">
-            <div className="rounded-xl overflow-hidden aspect-[4/3] relative">
+          <div className="glass-card rounded-2xl overflow-hidden p-3" style={{ background: 'rgba(255,255,255,0.35)', backdropFilter: 'blur(20px)', border: '1px solid rgba(95,64,222,0.15)' }}>
+            <div className="rounded-xl overflow-hidden w-full" style={{ background: '#f5f3ff' }}>
               <Image
-                src="/assets/images/WhatsApp_Image_2026-05-06_at_1.25.57_AM-1778057419763.jpeg"
+                src="/assets/images/WhatsApp_Image_2026-05-06_at_1.25.57_AM-1778062387332.jpeg"
                 alt="Three founders working at a desk with laptop, papers and a Coke can in a warm startup environment"
-                fill
-                className="object-cover"
+                width={800}
+                height={600}
+                className="w-full h-auto object-contain"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>

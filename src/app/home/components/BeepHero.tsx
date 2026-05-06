@@ -352,16 +352,16 @@ export default function BeepHero() {
                         <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
                       </svg>
                     </div>
-                    {/* AI Orb chip — clicking opens full-screen AI orb */}
+                    {/* AI Orb chip — static, clicking opens full-screen AI orb */}
                     <button
                       onClick={handleOrbChipClick}
                       suppressHydrationWarning
-                      className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 cursor-none orb-breathe"
+                      className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
                       style={{ background: 'radial-gradient(circle at 35% 35%, #7c5ff0, #5f40de, #1a0a6e)', boxShadow: '0 0 12px rgba(95,64,222,0.6), 0 0 24px rgba(95,64,222,0.3)' }}
                     >
                       <div className="flex gap-0.5 items-center">
                         {[0,1,2].map(i => (
-                          <div key={i} className="w-0.5 bg-white rounded-full wave-bar" style={{ '--dur': `${0.6 + i * 0.15}s`, '--delay': `${i * 0.15}s` } as React.CSSProperties} />
+                          <div key={i} className="w-0.5 h-2.5 bg-white rounded-full" />
                         ))}
                       </div>
                     </button>

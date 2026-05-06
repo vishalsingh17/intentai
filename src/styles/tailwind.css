@@ -34,7 +34,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  cursor: none;
+  cursor: default;
 }
 
 /* ── Cursor spotlight ── */
@@ -51,36 +51,18 @@ body {
   mix-blend-mode: normal;
 }
 
-/* ── Custom purple cursor ── */
+/* ── Remove old dot cursor styles ── */
 .custom-cursor {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  background: #5f40de;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
-  box-shadow: 0 0 12px rgba(95, 64, 222, 0.8), 0 0 24px rgba(95, 64, 222, 0.4);
+  display: none;
 }
 
 .custom-cursor-ring {
-  position: fixed;
-  width: 34px;
-  height: 34px;
-  border: 1.5px solid rgba(95, 64, 222, 0.55);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99998;
-  transform: translate(-50%, -50%);
-  transition: transform 0.15s ease, width 0.25s ease, height 0.25s ease, opacity 0.2s ease;
-  box-shadow: 0 0 8px rgba(95, 64, 222, 0.2);
+  display: none;
 }
 
 /* Pointer cursor on interactive elements */
 a, button, [role="button"], input, select, textarea, label {
-  cursor: none !important;
+  cursor: pointer !important;
 }
 
 /* ── Scroll reveal ── */
