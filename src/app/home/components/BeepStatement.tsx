@@ -21,13 +21,13 @@ export default function StatementSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #f0eef8 0%, #ebe8f5 100%)' }}>
+    <section ref={sectionRef} className="pt-20 pb-8 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #e8e5f5 0%, #e2dff0 100%)' }}>
       {/* Background glow */}
       <div className="absolute top-1/2 left-0 w-96 h-96 rounded-full opacity-15 pointer-events-none -translate-y-1/2" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.3) 0%, transparent 70%)' }} />
 
       <div className="max-w-[1280px] mx-auto relative z-10">
         {/* Giant headline */}
-        <div className="mb-12 reveal-from-bottom">
+        <div className="mb-10 reveal-from-bottom">
           <h2 className="font-display text-[72px] md:text-[96px] leading-[0.9] tracking-wide text-[#0a0a0a]">
             We are an agentic
           </h2>
@@ -48,7 +48,7 @@ export default function StatementSection() {
         </div>
 
         {/* Gradient rule */}
-        <hr className="hr-gradient mb-12" />
+        <hr className="hr-gradient mb-8" />
 
         {/* Two columns */}
         <div className="grid md:grid-cols-2 gap-12 items-start">
@@ -60,7 +60,7 @@ export default function StatementSection() {
           <div className="reveal-from-bottom reveal-delay-2">
             <div className="glass-strong rounded-2xl p-8 border border-[rgba(95,64,222,0.15)]">
               <p className="text-[18px] text-[#0a0a0a] leading-relaxed mb-6 italic" style={{ fontFamily: 'Instrument Serif' }}>
-                "What if commerce worked the way you think? You think it. Beep does it. The rest is noise."
+                &ldquo;What if commerce worked the way you think? You think it. Beep does it. The rest is noise.&rdquo;
               </p>
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-[#5f40de] flex items-center justify-center text-white text-[12px] font-bold">S</div>

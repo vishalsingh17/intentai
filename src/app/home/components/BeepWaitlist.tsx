@@ -36,7 +36,7 @@ export default function BeepWaitlist() {
   };
 
   return (
-    <section id="waitlist" ref={sectionRef} className="py-28 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #f0eef8 0%, #ebe8f5 50%, #e8e4f5 100%)' }}>
+    <section id="waitlist" ref={sectionRef} className="py-28 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #e8e5f5 0%, #e2dff0 50%, #ddd9ee 100%)' }}>
       {/* Background orbs */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-15 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.4) 0%, transparent 70%)' }} />
 

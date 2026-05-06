@@ -12,11 +12,11 @@ interface ChatMessage {
 }
 
 const CHAT_SEQUENCE: ChatMessage[] = [
-  { id: 1, type: 'user', text: 'Book me a flight from Delhi to Mumbai tomorrow, under 7,000' },
+  { id: 1, type: 'user', text: 'Book me a flight from Delhi to Mumbai tomorrow, under ₹7,000' },
   { id: 2, type: 'typing' },
   { id: 3, type: 'ai', text: 'Found the best option for you.', card: true },
   { id: 4, type: 'user', text: 'Book it.' },
-  { id: 5, type: 'system', text: 'Booking confirmed · IndiGo 6E-201 · 5,100 · Your ticket is on your email. Do not forget your ID.' },
+  { id: 5, type: 'system', text: 'Booking confirmed · IndiGo 6E-201 · ₹5,100 · Your ticket is on your email. Do not forget your ID.' },
   { id: 6, type: 'user', text: 'Also block my calendar and set a reminder.' },
   { id: 7, type: 'system', text: 'Done · Calendar blocked · Reminder set.' },
 ];
@@ -29,13 +29,15 @@ export default function BeepHero() {
   const [loading, setLoading] = useState(false);
   const [visibleMessages, setVisibleMessages] = useState<number[]>([]);
   const [showVoice, setShowVoice] = useState(false);
-  const [showOrb, setShowOrb] = useState(false);
-  const [showKeyboard, setShowKeyboard] = useState(false);
-  const [typedText, setTypedText] = useState('');
+  const [showAIOrb, setShowAIOrb] = useState(false);
   const [currentLang, setCurrentLang] = useState(0);
   const [chatCycle, setChatCycle] = useState(0);
+  const [orbPhase, setOrbPhase] = useState<'human' | 'ai' | 'idle'>('idle');
+  const [humanText, setHumanText] = useState('');
+  const [aiText, setAIText] = useState('');
   const chatRef = useRef<HTMLDivElement>(null);
   const langIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
 
   // Auto-play and loop chat animation
   useEffect(() => {
@@ -57,7 +59,6 @@ export default function BeepHero() {
           if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
         }, delays[i])
       );
-      // Loop after full sequence
       const loopTimer = setTimeout(() => {
         setChatCycle(c => c + 1);
       }, 10000);
@@ -80,28 +81,83 @@ export default function BeepHero() {
     return () => { if (langIntervalRef.current) clearInterval(langIntervalRef.current); };
   }, [showVoice]);
 
-  // Keyboard typing animation
-  const handlePillTap = () => {
-    setShowKeyboard(true);
-    const text = 'Book me a flight to Goa';
+  // AI Orb: human voice then AI voice
+  const handleOrbChipClick = () => {
+    setShowAIOrb(true);
+    setOrbPhase('human');
+    setHumanText('');
+    setAIText('');
+
+    // Type out human prompt
+    const humanPrompt = 'Book me a flight from Delhi to Mumbai tomorrow, under seven thousand rupees.';
     let i = 0;
-    setTypedText('');
-    const interval = setInterval(() => {
+    const typeInterval = setInterval(() => {
       i++;
-      setTypedText(text.slice(0, i));
-      if (i >= text.length) {
-        clearInterval(interval);
-        setTimeout(() => { setShowKeyboard(false); setTypedText(''); }, 1800);
+      setHumanText(humanPrompt.slice(0, i));
+      if (i >= humanPrompt.length) {
+        clearInterval(typeInterval);
+        // Speak human voice (Indian female if available)
+        if (typeof window !== 'undefined' && window.speechSynthesis) {
+          const utter = new SpeechSynthesisUtterance(humanPrompt);
+          utter.lang = 'en-IN';
+          utter.rate = 0.95;
+          utter.pitch = 1.1;
+          // Try to find Indian voice
+          const voices = window.speechSynthesis.getVoices();
+          const indianVoice = voices.find(v => v.lang === 'en-IN') || voices.find(v => v.lang.startsWith('en-IN')) || voices.find(v => v.name.toLowerCase().includes('india'));
+          if (indianVoice) utter.voice = indianVoice;
+          speechRef.current = utter;
+          utter.onend = () => {
+            // Switch to AI phase
+            setTimeout(() => {
+              setOrbPhase('ai');
+              const aiResponse = 'Got it. IndiGo 6E-201, five thousand one hundred rupees, departing 9 AM. Booking confirmed. Your ticket is on your email.';
+              setAIText('');
+              let j = 0;
+              const aiTypeInterval = setInterval(() => {
+                j++;
+                setAIText(aiResponse.slice(0, j));
+                if (j >= aiResponse.length) clearInterval(aiTypeInterval);
+              }, 35);
+              // Speak AI response
+              const aiUtter = new SpeechSynthesisUtterance(aiResponse);
+              aiUtter.lang = 'en-US';
+              aiUtter.rate = 0.9;
+              aiUtter.pitch = 0.85;
+              const aiVoice = voices.find(v => v.name.toLowerCase().includes('google') && v.lang === 'en-US') || voices.find(v => v.lang === 'en-US');
+              if (aiVoice) aiUtter.voice = aiVoice;
+              window.speechSynthesis.speak(aiUtter);
+              aiUtter.onend = () => {
+                setTimeout(() => {
+                  setShowAIOrb(false);
+                  setOrbPhase('idle');
+                }, 1200);
+              };
+            }, 500);
+          };
+          window.speechSynthesis.speak(utter);
+        } else {
+          // No speech API — just animate
+          setTimeout(() => {
+            setOrbPhase('ai');
+            const aiResponse = 'Got it. IndiGo 6E-201, five thousand one hundred rupees, departing 9 AM. Booking confirmed. Your ticket is on your email.';
+            let j = 0;
+            const aiTypeInterval = setInterval(() => {
+              j++;
+              setAIText(aiResponse.slice(0, j));
+              if (j >= aiResponse.length) clearInterval(aiTypeInterval);
+            }, 35);
+            setTimeout(() => { setShowAIOrb(false); setOrbPhase('idle'); }, 5000);
+          }, 2500);
+        }
       }
-    }, 80);
+    }, 40);
   };
 
   const handleVoiceTap = () => {
     setShowVoice(true);
     setTimeout(() => {
       setShowVoice(false);
-      setShowOrb(true);
-      setTimeout(() => setShowOrb(false), 3500);
     }, 4000);
   };
 
@@ -121,24 +177,22 @@ export default function BeepHero() {
   };
 
   return (
-    <section id="hero" className="min-h-screen pt-24 pb-16 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #f0eef8 0%, #ebe8f5 50%, #e8e4f5 100%)' }}>
+    <section id="hero" className="min-h-screen pt-24 pb-16 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #e8e5f5 0%, #e2dff0 50%, #ddd9ee 100%)' }}>
       {/* Floating background orbs */}
-      <div className="absolute top-20 right-20 w-96 h-96 rounded-full opacity-20 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.3) 0%, transparent 70%)', '--dur': '7s', '--delay': '0s' } as React.CSSProperties} />
-      <div className="absolute bottom-32 left-10 w-64 h-64 rounded-full opacity-15 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.25) 0%, transparent 70%)', '--dur': '9s', '--delay': '2s' } as React.CSSProperties} />
-      <div className="absolute top-1/2 left-1/3 w-48 h-48 rounded-full opacity-10 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.2) 0%, transparent 70%)', '--dur': '11s', '--delay': '1s' } as React.CSSProperties} />
+      <div className="absolute top-20 right-20 w-96 h-96 rounded-full opacity-25 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.35) 0%, transparent 70%)', '--dur': '7s', '--delay': '0s' } as React.CSSProperties} />
+      <div className="absolute bottom-32 left-10 w-64 h-64 rounded-full opacity-20 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.3) 0%, transparent 70%)', '--dur': '9s', '--delay': '2s' } as React.CSSProperties} />
+      <div className="absolute top-1/2 left-1/3 w-48 h-48 rounded-full opacity-15 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.25) 0%, transparent 70%)', '--dur': '11s', '--delay': '1s' } as React.CSSProperties} />
 
       <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16 min-h-[calc(100vh-6rem)] relative z-10">
         {/* Left column */}
         <div className="flex-1 flex flex-col justify-center">
-          {/* Eyebrow */}
           <div className="flex items-center gap-2 mb-6">
             <span className="w-2 h-2 rounded-full bg-green-500 green-pulse flex-shrink-0" />
-            <span className="text-[13px] text-[#6b6b80] font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>
+            <span className="text-[13px] text-[#5a5a70] font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>
               Launching May 2026 · Starting with travel
             </span>
           </div>
 
-          {/* Headline */}
           <h1 className="font-display text-[80px] md:text-[96px] leading-[0.92] tracking-wide text-[#0a0a0a] mb-2">
             AI Commerce
           </h1>
@@ -151,12 +205,10 @@ export default function BeepHero() {
             </span>
           </div>
 
-          {/* Body */}
           <p className="text-[17px] text-[#3a3a4a] leading-relaxed max-w-[480px] mb-8" style={{ fontFamily: 'Geist, sans-serif' }}>
             Tell beep what you need. Beep finds the best option, decides and completes checkout powered by real agentic payment infrastructure. Not a search. An execution.
           </p>
 
-          {/* Email form */}
           {!submitted ? (
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-[440px]">
               <input
@@ -189,7 +241,7 @@ export default function BeepHero() {
 
         {/* Right column — iPhone mockup */}
         <div className="flex-shrink-0 flex items-center justify-center float-element" style={{ '--dur': '6s', '--delay': '0.5s' } as React.CSSProperties}>
-          <div className="relative" style={{ width: 300, height: 620 }}>
+          <div className="relative" style={{ width: 300, height: 640 }}>
             {/* Phone frame */}
             <div
               className="relative w-full h-full rounded-[44px] overflow-hidden shadow-2xl"
@@ -198,7 +250,7 @@ export default function BeepHero() {
               {/* Notch */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-[#0d0c17] rounded-b-2xl z-20" />
 
-              {/* App bar — no Live badge */}
+              {/* App bar */}
               <div className="flex items-center justify-between px-4 pt-8 pb-3 border-b border-white/5">
                 <div className="flex items-center gap-2">
                   <Image src="/assets/images/beepAI___LOGO-1778057442337.jpg" alt="beep" width={22} height={22} className="object-contain rounded-md" />
@@ -210,7 +262,7 @@ export default function BeepHero() {
               </div>
 
               {/* Chat area */}
-              <div ref={chatRef} className="flex-1 overflow-y-auto px-3 py-3 space-y-2" style={{ height: 440, scrollbarWidth: 'none' }}>
+              <div ref={chatRef} className="overflow-y-auto px-3 py-3 space-y-2" style={{ height: 360, scrollbarWidth: 'none' }}>
                 {CHAT_SEQUENCE.map(msg => {
                   if (!visibleMessages.includes(msg.id)) return null;
                   if (msg.type === 'typing') {
@@ -246,7 +298,7 @@ export default function BeepHero() {
                             <span className="text-white/30">--</span>
                             <span>BOM 11:10 AM</span>
                           </div>
-                          <div className="mt-2 text-[#5f40de] text-[15px] font-bold">5,100</div>
+                          <div className="mt-2 text-[#5f40de] text-[15px] font-bold">₹5,100</div>
                           <div className="text-white/40 text-[10px]">All inclusive · No hidden charges</div>
                         </div>
                       </div>
@@ -288,63 +340,179 @@ export default function BeepHero() {
                 </div>
               )}
 
-              {/* AI Orb overlay */}
-              {showOrb && (
-                <div className="absolute inset-0 bg-[#06050e] flex flex-col items-center justify-center z-30">
-                  <div className="relative mb-6">
-                    <div className="w-24 h-24 rounded-full orb-breathe" style={{ background: 'radial-gradient(circle at 35% 35%, #7c5ff0, #5f40de, #1a0a6e)' }}>
-                      <div className="absolute inset-0 rounded-full" style={{ background: 'radial-gradient(circle at 35% 35%, rgba(255,255,255,0.3), transparent 60%)' }} />
+              {/* Static keyboard always visible at bottom */}
+              <div className="absolute bottom-0 left-0 right-0 z-10">
+                {/* Input bar */}
+                <div className="px-3 pb-2 pt-2 bg-gradient-to-t from-[#0d0c17] via-[#0d0c17] to-transparent">
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 flex items-center justify-between bg-white/8 border border-white/10 rounded-full px-3 py-2">
+                      <span className="text-white/40 text-[11px]" style={{ fontFamily: 'Geist, sans-serif' }}>What&apos;s your intent</span>
+                      <svg className="w-3.5 h-3.5 text-white/30" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                        <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+                      </svg>
                     </div>
-                    {[1, 2, 3].map(i => (
-                      <div key={i} className="absolute inset-0 rounded-full border border-[#5f40de]/30 ring-expand" style={{ animationDelay: `${i * 0.8}s` }} />
-                    ))}
+                    {/* AI Orb chip — clicking opens full-screen AI orb */}
+                    <button
+                      onClick={handleOrbChipClick}
+                      suppressHydrationWarning
+                      className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 cursor-none orb-breathe"
+                      style={{ background: 'radial-gradient(circle at 35% 35%, #7c5ff0, #5f40de, #1a0a6e)', boxShadow: '0 0 12px rgba(95,64,222,0.6), 0 0 24px rgba(95,64,222,0.3)' }}
+                    >
+                      <div className="flex gap-0.5 items-center">
+                        {[0,1,2].map(i => (
+                          <div key={i} className="w-0.5 bg-white rounded-full wave-bar" style={{ '--dur': `${0.6 + i * 0.15}s`, '--delay': `${i * 0.15}s` } as React.CSSProperties} />
+                        ))}
+                      </div>
+                    </button>
                   </div>
-                  <p className="text-white text-[12px] text-center px-6 leading-relaxed" style={{ fontFamily: 'Geist, sans-serif' }}>
-                    Got it. IndiGo, 5100 rupees, departing 9 AM. Booked. Your ticket is on your email.
-                  </p>
                 </div>
-              )}
 
-              {/* Input bar */}
-              <div className="absolute bottom-0 left-0 right-0 px-3 pb-4 pt-2 bg-gradient-to-t from-[#0d0c17] to-transparent">
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={handlePillTap}
-                    className="flex-1 flex items-center justify-between bg-white/8 border border-white/10 rounded-full px-3 py-2 cursor-none"
-                    suppressHydrationWarning
-                  >
-                    <span className="text-white/40 text-[11px]" style={{ fontFamily: 'Geist, sans-serif' }}>
-                      {showKeyboard ? typedText || 'What\'s your intent' : 'What\'s your intent'}
-                    </span>
-                    <svg className="w-3.5 h-3.5 text-white/30" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
-                      <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
-                    </svg>
-                  </button>
-                  <button
-                    onClick={handleVoiceTap}
-                    className="w-9 h-9 rounded-full bg-[#5f40de] flex items-center justify-center flex-shrink-0 cursor-none"
-                    suppressHydrationWarning
-                  >
-                    <div className="flex gap-0.5 items-center">
-                      {[0,1,2].map(i => (
-                        <div key={i} className="w-0.5 bg-white rounded-full wave-bar" style={{ '--dur': `${0.6 + i * 0.15}s`, '--delay': `${i * 0.15}s` } as React.CSSProperties} />
-                      ))}
-                    </div>
-                  </button>
-                </div>
-                {showKeyboard && (
-                  <div className="mt-2 bg-[#1a1a2e] rounded-xl p-2 grid grid-cols-10 gap-1">
-                    {['q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l',';','z','x','c','v','b','n','m',',','.'].map((k, i) => (
-                      <div key={i} className="bg-white/10 rounded text-white/60 text-[8px] text-center py-1">{k}</div>
+                {/* Static keyboard */}
+                <div className="bg-[#1a1828] px-1.5 pb-2 pt-1.5">
+                  {/* Row 1 */}
+                  <div className="flex gap-1 mb-1 justify-center">
+                    {['q','w','e','r','t','y','u','i','o','p'].map((k) => (
+                      <div key={k} className="flex-1 bg-[#2d2b3d] rounded text-white/50 text-[9px] text-center py-1.5 font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>{k}</div>
                     ))}
                   </div>
-                )}
+                  {/* Row 2 */}
+                  <div className="flex gap-1 mb-1 justify-center px-2">
+                    {['a','s','d','f','g','h','j','k','l'].map((k) => (
+                      <div key={k} className="flex-1 bg-[#2d2b3d] rounded text-white/50 text-[9px] text-center py-1.5 font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>{k}</div>
+                    ))}
+                  </div>
+                  {/* Row 3 */}
+                  <div className="flex gap-1 mb-1 justify-center">
+                    <div className="bg-[#3d3b50] rounded text-white/40 text-[8px] text-center py-1.5 px-2">⇧</div>
+                    {['z','x','c','v','b','n','m'].map((k) => (
+                      <div key={k} className="flex-1 bg-[#2d2b3d] rounded text-white/50 text-[9px] text-center py-1.5 font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>{k}</div>
+                    ))}
+                    <div className="bg-[#3d3b50] rounded text-white/40 text-[8px] text-center py-1.5 px-2">⌫</div>
+                  </div>
+                  {/* Row 4 - space */}
+                  <div className="flex gap-1 justify-center">
+                    <div className="bg-[#3d3b50] rounded text-white/40 text-[8px] text-center py-1.5 px-2">123</div>
+                    <div className="flex-1 bg-[#2d2b3d] rounded text-white/30 text-[9px] text-center py-1.5">space</div>
+                    <div className="bg-[#5f40de] rounded text-white text-[8px] text-center py-1.5 px-2">return</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Full-screen AI Orb overlay — outside phone, covers entire viewport */}
+      {showAIOrb && (
+        <div
+          className="fixed inset-0 z-[99990] flex flex-col items-center justify-center"
+          style={{ background: 'rgba(6,5,14,0.97)', backdropFilter: 'blur(20px)' }}
+        >
+          {/* Close button */}
+          <button
+            onClick={() => { setShowAIOrb(false); setOrbPhase('idle'); if (typeof window !== 'undefined') window.speechSynthesis?.cancel(); }}
+            suppressHydrationWarning
+            className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:bg-white/20 transition-all cursor-none text-[18px]"
+          >
+            ×
+          </button>
+
+          {/* Floating particles */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {Array.from({ length: 20 }).map((_, i) => (
+              <div
+                key={i}
+                className="absolute rounded-full bg-[#5f40de] particle-rise"
+                style={{
+                  left: `${(i * 17 + 5) % 95}%`,
+                  bottom: `${(i * 13 + 5) % 80}%`,
+                  width: 2 + (i % 3),
+                  height: 2 + (i % 3),
+                  opacity: 0.4,
+                  '--dur': `${3 + (i % 4)}s`,
+                  '--delay': `${(i % 6) * 0.4}s`,
+                  '--drift': `${(i % 2 === 0 ? 1 : -1) * (8 + i % 15)}px`,
+                } as React.CSSProperties}
+              />
+            ))}
+          </div>
+
+          {/* Central orb */}
+          <div className="relative mb-10">
+            {/* Outer glow rings */}
+            {[1, 2, 3, 4].map(i => (
+              <div
+                key={i}
+                className="absolute rounded-full ring-expand"
+                style={{
+                  inset: `-${i * 20}px`,
+                  border: `1px solid rgba(95,64,222,${0.3 - i * 0.06})`,
+                  animationDelay: `${i * 0.6}s`,
+                }}
+              />
+            ))}
+            {/* Main orb */}
+            <div
+              className="w-36 h-36 rounded-full orb-breathe relative"
+              style={{
+                background: orbPhase === 'human' ?'radial-gradient(circle at 35% 35%, #e8a87c, #d4845a, #8b4513)' :'radial-gradient(circle at 35% 35%, #7c5ff0, #5f40de, #1a0a6e)',
+                boxShadow: orbPhase === 'human' ?'0 0 60px rgba(212,132,90,0.5), 0 0 120px rgba(212,132,90,0.2)' :'0 0 60px rgba(95,64,222,0.6), 0 0 120px rgba(95,64,222,0.25)',
+                transition: 'background 0.8s ease, box-shadow 0.8s ease',
+              }}
+            >
+              <div className="absolute inset-0 rounded-full" style={{ background: 'radial-gradient(circle at 35% 35%, rgba(255,255,255,0.35), transparent 60%)' }} />
+              {/* Waveform bars inside orb */}
+              <div className="absolute inset-0 flex items-center justify-center gap-1">
+                {[0,1,2,3,4,5,6].map(i => (
+                  <div
+                    key={i}
+                    className="rounded-full wave-bar"
+                    style={{
+                      width: 3,
+                      background: 'rgba(255,255,255,0.7)',
+                      '--dur': `${0.4 + i * 0.08}s`,
+                      '--delay': `${i * 0.08}s`,
+                    } as React.CSSProperties}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Phase label */}
+          <div className="mb-4">
+            {orbPhase === 'human' ? (
+              <span className="text-[12px] tracking-[0.2em] uppercase text-[#d4845a] font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>
+                Human · en-IN
+              </span>
+            ) : (
+              <span className="text-[12px] tracking-[0.2em] uppercase text-[#5f40de] font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>
+                beep AI · Responding
+              </span>
+            )}
+          </div>
+
+          {/* Transcript */}
+          <div className="max-w-[480px] px-8 text-center min-h-[80px]">
+            {orbPhase === 'human' && humanText && (
+              <p className="text-white/80 text-[16px] leading-relaxed" style={{ fontFamily: 'Instrument Serif', fontStyle: 'italic' }}>
+                &ldquo;{humanText}<span className="animate-pulse">|</span>&rdquo;
+              </p>
+            )}
+            {orbPhase === 'ai' && aiText && (
+              <p className="text-[#a78bfa] text-[16px] leading-relaxed" style={{ fontFamily: 'Instrument Serif', fontStyle: 'italic' }}>
+                &ldquo;{aiText}<span className="animate-pulse">|</span>&rdquo;
+              </p>
+            )}
+          </div>
+
+          {/* Bottom label */}
+          <p className="mt-8 text-white/30 text-[11px] tracking-[0.15em] uppercase" style={{ fontFamily: 'Geist, sans-serif' }}>
+            Tap orb to close
+          </p>
+        </div>
+      )}
     </section>
   );
 }

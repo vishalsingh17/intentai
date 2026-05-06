@@ -159,35 +159,67 @@ export default function EnterpriseSection() {
           ))}
         </div>
 
-        {/* Form */}
+        {/* Form — clearly visible on dark background */}
         <div className="max-w-[480px] reveal-from-bottom reveal-delay-4">
           {!submitted ? (
-            <form onSubmit={handleSubmit} className="space-y-3">
-              <input
-                type="email"
-                value={workEmail}
-                onChange={e => setWorkEmail(e.target.value)}
-                placeholder="Work email"
-                required
-                suppressHydrationWarning
-                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-[rgba(255,107,0,0.2)] text-white placeholder-white/30 text-[14px] focus:outline-none focus:border-[#ff6b00] transition-all"
-                style={{ fontFamily: 'Geist, sans-serif' }}
-              />
-              <input
-                type="text"
-                value={company}
-                onChange={e => setCompany(e.target.value)}
-                placeholder="Company name"
-                required
-                suppressHydrationWarning
-                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-[rgba(255,107,0,0.2)] text-white placeholder-white/30 text-[14px] focus:outline-none focus:border-[#ff6b00] transition-all"
-                style={{ fontFamily: 'Geist, sans-serif' }}
-              />
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-[12px] text-white/60 mb-1.5 font-medium tracking-wide" style={{ fontFamily: 'Geist, sans-serif' }}>
+                  WORK EMAIL
+                </label>
+                <input
+                  type="email"
+                  value={workEmail}
+                  onChange={e => setWorkEmail(e.target.value)}
+                  placeholder="you@company.com"
+                  required
+                  suppressHydrationWarning
+                  className="w-full px-4 py-3.5 rounded-xl text-white text-[14px] focus:outline-none transition-all"
+                  style={{
+                    fontFamily: 'Geist, sans-serif',
+                    background: 'rgba(255,255,255,0.08)',
+                    border: '1.5px solid rgba(255,107,0,0.35)',
+                    color: '#ffffff',
+                  }}
+                  onFocus={e => { e.target.style.borderColor = '#ff6b00'; e.target.style.boxShadow = '0 0 0 3px rgba(255,107,0,0.15)'; }}
+                  onBlur={e => { e.target.style.borderColor = 'rgba(255,107,0,0.35)'; e.target.style.boxShadow = 'none'; }}
+                />
+              </div>
+              <div>
+                <label className="block text-[12px] text-white/60 mb-1.5 font-medium tracking-wide" style={{ fontFamily: 'Geist, sans-serif' }}>
+                  COMPANY NAME
+                </label>
+                <input
+                  type="text"
+                  value={company}
+                  onChange={e => setCompany(e.target.value)}
+                  placeholder="Your company"
+                  required
+                  suppressHydrationWarning
+                  className="w-full px-4 py-3.5 rounded-xl text-white text-[14px] focus:outline-none transition-all"
+                  style={{
+                    fontFamily: 'Geist, sans-serif',
+                    background: 'rgba(255,255,255,0.08)',
+                    border: '1.5px solid rgba(255,107,0,0.35)',
+                    color: '#ffffff',
+                  }}
+                  onFocus={e => { e.target.style.borderColor = '#ff6b00'; e.target.style.boxShadow = '0 0 0 3px rgba(255,107,0,0.15)'; }}
+                  onBlur={e => { e.target.style.borderColor = 'rgba(255,107,0,0.35)'; e.target.style.boxShadow = 'none'; }}
+                />
+              </div>
               <button
                 type="submit"
                 disabled={loading}
                 suppressHydrationWarning
-                className="btn-orange w-full py-3 text-[14px] cursor-none"
+                className="w-full py-4 rounded-xl text-[15px] font-semibold cursor-none transition-all duration-200"
+                style={{
+                  fontFamily: 'Geist, sans-serif',
+                  background: '#ff6b00',
+                  color: '#ffffff',
+                  boxShadow: '0 4px 20px rgba(255,107,0,0.4)',
+                }}
+                onMouseEnter={e => { (e.target as HTMLButtonElement).style.background = '#e55f00'; (e.target as HTMLButtonElement).style.transform = 'translateY(-1px)'; }}
+                onMouseLeave={e => { (e.target as HTMLButtonElement).style.background = '#ff6b00'; (e.target as HTMLButtonElement).style.transform = 'translateY(0)'; }}
               >
                 {loading ? 'Sending...' : 'Request access'}
               </button>

@@ -5,18 +5,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --color-bg: #f0eef8;
-  --color-bg-alt: #ebe8f5;
-  --color-surface: rgba(95, 64, 222, 0.06);
-  --color-surface-hover: rgba(95, 64, 222, 0.1);
-  --color-border: rgba(95, 64, 222, 0.14);
-  --color-border-strong: rgba(95, 64, 222, 0.28);
+  --color-bg: #e8e5f5;
+  --color-bg-alt: #e2dff0;
+  --color-surface: rgba(95, 64, 222, 0.07);
+  --color-surface-hover: rgba(95, 64, 222, 0.12);
+  --color-border: rgba(95, 64, 222, 0.16);
+  --color-border-strong: rgba(95, 64, 222, 0.3);
   --color-primary: #5f40de;
   --color-primary-light: #7c5ff0;
   --color-foreground: #0a0a0a;
   --color-muted: #6b6b80;
   --color-muted-strong: #3a3a4a;
-  --glow-primary: rgba(95, 64, 222, 0.3);
+  --glow-primary: rgba(95, 64, 222, 0.35);
 }
 
 * {
@@ -28,7 +28,7 @@ html {
 }
 
 body {
-  background-color: #f0eef8;
+  background-color: #e8e5f5;
   color: #0a0a0a;
   font-family: 'Geist', 'Inter', sans-serif;
   overflow-x: hidden;
@@ -42,12 +42,12 @@ body {
   position: fixed;
   pointer-events: none;
   z-index: 99997;
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(95, 64, 222, 0.12) 0%, rgba(95, 64, 222, 0.05) 40%, transparent 70%);
+  background: radial-gradient(circle, rgba(95, 64, 222, 0.16) 0%, rgba(95, 64, 222, 0.07) 40%, transparent 70%);
   transform: translate(-50%, -50%);
-  transition: left 0.08s ease, top 0.08s ease;
+  transition: left 0.06s ease, top 0.06s ease;
   mix-blend-mode: normal;
 }
 
@@ -259,27 +259,27 @@ a, button, [role="button"], input, select, textarea, label {
 
 /* ── Glassmorphism — light gray-purple base ── */
 .glass {
-  background: rgba(240, 238, 248, 0.65);
+  background: rgba(225, 222, 242, 0.7);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(95, 64, 222, 0.14);
-  box-shadow: 0 8px 32px rgba(95, 64, 222, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(95, 64, 222, 0.16);
+  box-shadow: 0 8px 32px rgba(95, 64, 222, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.55);
 }
 
 .glass-card {
-  background: rgba(248, 246, 255, 0.7);
+  background: rgba(235, 232, 250, 0.75);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(95, 64, 222, 0.12);
-  box-shadow: 0 4px 24px rgba(95, 64, 222, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(95, 64, 222, 0.14);
+  box-shadow: 0 4px 24px rgba(95, 64, 222, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 .glass-strong {
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(245, 243, 255, 0.6);
   backdrop-filter: blur(32px);
   -webkit-backdrop-filter: blur(32px);
-  border: 1px solid rgba(95, 64, 222, 0.18);
-  box-shadow: 0 12px 40px rgba(95, 64, 222, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(95, 64, 222, 0.2);
+  box-shadow: 0 12px 40px rgba(95, 64, 222, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.75);
 }
 
 /* Legacy white glass */

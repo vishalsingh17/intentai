@@ -12,10 +12,10 @@ const TABS = [
   moat: 'Price shown is the price paid. No surprise checkout.',
   body: 'Beep searches live inventory across all major carriers, picks the best value flight for your budget, and completes the booking — including seat selection, invoice and calendar block.',
   checklist: ['Live fare comparison', 'Instant booking', 'Invoice on email', 'Calendar sync'],
-  image: "https://images.unsplash.com/photo-1735049773096-8bda50c36ad4",
-  imageAlt: 'Aerial view of airplane wing above clouds during flight',
-  intent: 'Book me a flight from Delhi to Mumbai tomorrow under 7,000',
-  steps: ['Searched 6 carriers', 'Found IndiGo 6E-201 at 5,100', 'Confirmed booking', 'Sent invoice to email']
+  image: "https://images.unsplash.com/photo-1688708150112-fccf8ce616dd",
+  imageAlt: 'Aerial view from airplane window showing wing above dramatic clouds at golden hour',
+  intent: 'Book me a flight from Delhi to Mumbai tomorrow under ₹7,000',
+  steps: ['Searched 6 carriers', 'Found IndiGo 6E-201 at ₹5,100', 'Confirmed booking', 'Sent invoice to email']
 },
 {
   id: 'hotels',
@@ -25,9 +25,9 @@ const TABS = [
   moat: 'You set the vibe. Beep finds the room.',
   body: 'Describe the kind of stay you want — rooftop pool, quiet neighbourhood, near the airport. Beep understands context and books the right room without you scrolling through 200 options.',
   checklist: ['Natural language search', 'Multi-platform inventory', 'Instant confirmation', 'Cancellation handled'],
-  image: "https://img.rocket.new/generatedImages/rocket_gen_img_112c638d0-1773070150670.png",
-  imageAlt: 'Luxury hotel room with large bed, warm lighting and city view through window',
-  intent: 'Find me a quiet hotel near Bandra with a pool, under 4,000 a night',
+  image: "https://img.rocket.new/generatedImages/rocket_gen_img_17afdfe26-1772463487998.png",
+  imageAlt: 'Luxury hotel room with king bed, warm ambient lighting, floor-to-ceiling windows and city skyline view',
+  intent: 'Find me a quiet hotel near Bandra with a pool, under ₹4,000 a night',
   steps: ['Parsed your vibe', 'Matched 3 properties', 'Confirmed best rate', 'Booking confirmed']
 },
 {
@@ -38,8 +38,8 @@ const TABS = [
   moat: 'Your grocery list, handled in one sentence.',
   body: 'Tell beep what you need from the store. Beep places the order across the fastest available provider and tracks delivery — no app switching, no cart building.',
   checklist: ['Multi-store search', 'Fastest delivery routing', 'Order tracking', 'Reorder memory'],
-  image: "https://images.unsplash.com/photo-1689760661335-d2dcb23faa49",
-  imageAlt: 'Fresh vegetables and grocery items in a basket at a market',
+  image: "https://images.unsplash.com/photo-1597352258938-b7897228e7db",
+  imageAlt: 'Dark moody overhead shot of fresh produce, vegetables and grocery items arranged on dark surface',
   intent: 'Order milk, eggs, bread and bananas for delivery in 30 minutes',
   steps: ['Parsed your list', 'Found fastest provider', 'Placed order', 'Tracking delivery']
 },
@@ -51,8 +51,8 @@ const TABS = [
   moat: 'Say where you are going. Beep handles the rest.',
   body: 'From airport pickups to daily commutes, beep books the right cab at the right time — and adds it to your calendar so you never miss a ride.',
   checklist: ['Multi-provider booking', 'Scheduled rides', 'Calendar integration', 'Fare comparison'],
-  image: "https://images.unsplash.com/photo-1607932991164-cce4653ff0dd",
-  imageAlt: 'City street at night with cars and illuminated buildings',
+  image: "https://images.unsplash.com/photo-1698066068746-6da2ce42cba0",
+  imageAlt: 'City skyline at night with illuminated skyscrapers and busy street traffic below',
   intent: 'Book a cab to the airport tomorrow at 5 AM, I have a 7 AM flight',
   steps: ['Checked flight time', 'Scheduled cab for 5 AM', 'Confirmed booking', 'Reminder set']
 }];
@@ -76,7 +76,7 @@ export default function ExperienceSection() {
   const tab = TABS?.[activeTab];
 
   return (
-    <section id="experience" ref={sectionRef} className="bg-[#f8f8ff] py-24 px-6 md:px-12">
+    <section id="experience" ref={sectionRef} className="py-24 px-6 md:px-12" style={{ background: 'linear-gradient(135deg, #ddd9ee 0%, #d8d4eb 100%)' }}>
       <div className="max-w-[1280px] mx-auto">
         <div className="mb-3 reveal-from-bottom">
           <span className="section-label">Experience</span>
@@ -95,7 +95,7 @@ export default function ExperienceSection() {
             className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-[13px] font-medium transition-all duration-200 cursor-none ${
             activeTab === i ?
             'bg-[#5f40de] text-white shadow-md' :
-            'bg-white text-[#3a3a4a] border border-[rgba(95,64,222,0.15)] hover:border-[rgba(95,64,222,0.3)]'}`
+            'glass-card text-[#3a3a4a] border border-[rgba(95,64,222,0.15)] hover:border-[rgba(95,64,222,0.3)]'}`
             }
             style={{ fontFamily: 'Geist, sans-serif' }}>
             
@@ -131,20 +131,20 @@ export default function ExperienceSection() {
 
           {/* Right */}
           <div className="space-y-4">
-            <div className="rounded-2xl overflow-hidden aspect-video relative">
+            <div className="rounded-2xl overflow-hidden aspect-video relative shadow-xl">
               <Image
                 src={tab?.image}
                 alt={tab?.imageAlt}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw" />
-              
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
             {/* Intent card */}
-            <div className="bg-white rounded-2xl p-5 border border-[rgba(95,64,222,0.1)]">
+            <div className="glass-card rounded-2xl p-5 border border-[rgba(95,64,222,0.12)]">
               <div className="flex items-start gap-3 mb-4">
                 <div className="w-7 h-7 rounded-full bg-[#5f40de] flex items-center justify-center text-white text-[11px] flex-shrink-0 mt-0.5">U</div>
-                <div className="bg-[#f0edff] rounded-xl rounded-tl-sm px-3 py-2 text-[13px] text-[#0a0a0a]" style={{ fontFamily: 'Geist, sans-serif' }}>
+                <div className="bg-[#e8e4f8] rounded-xl rounded-tl-sm px-3 py-2 text-[13px] text-[#0a0a0a]" style={{ fontFamily: 'Geist, sans-serif' }}>
                   {tab?.intent}
                 </div>
               </div>

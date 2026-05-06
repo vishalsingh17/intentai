@@ -26,7 +26,7 @@ export default function BenefitsSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #ebe8f5 0%, #e8e4f5 100%)' }}>
+    <section ref={sectionRef} className="pt-8 pb-24 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #e2dff0 0%, #ddd9ee 100%)' }}>
       {/* Floating orb */}
       <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full opacity-15 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.3) 0%, transparent 70%)', '--dur': '8s', '--delay': '1s' } as React.CSSProperties} />
 
