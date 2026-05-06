@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Header() {
   const navRef = useRef<HTMLElement>(null);
@@ -59,10 +60,17 @@ export default function Header() {
               key={item.id}
               onClick={() => scrollToSection(item.id)}
               className="text-[12px] font-medium tracking-[0.15em] uppercase text-foreground-muted hover:text-foreground transition-colors duration-200"
+              suppressHydrationWarning
             >
               {item.label}
             </button>
           ))}
+          <Link
+            href="/mobile"
+            className="text-[12px] font-medium tracking-[0.15em] uppercase text-foreground-muted hover:text-foreground transition-colors duration-200"
+          >
+            App Demo
+          </Link>
         </nav>
 
         {/* CTA */}

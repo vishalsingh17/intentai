@@ -98,6 +98,7 @@ export default function FinalCTASection() {
               onChange={(e) => setEmail(e.target.value)}
               required
               disabled={loading}
+              suppressHydrationWarning
               className="flex-1 px-5 py-3.5 rounded-xl text-foreground-strong placeholder-foreground-muted text-sm outline-none focus:ring-2 transition-all"
               style={{
                 background: 'rgba(255,255,255,0.06)',
@@ -114,6 +115,7 @@ export default function FinalCTASection() {
             <button
               type="submit"
               disabled={loading}
+              suppressHydrationWarning
               className="btn-primary px-7 py-3.5 text-[13px] font-semibold tracking-wide text-white whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed"
               aria-label="Request early access to Beep"
             >

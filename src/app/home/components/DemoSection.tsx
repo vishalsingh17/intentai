@@ -517,6 +517,7 @@ export default function DemoSection() {
                 <button
                   className="btn-primary w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
                   aria-label="Send message"
+                  suppressHydrationWarning
                 >
                   <span>
                     <Icon name="ArrowUpIcon" size={16} className="text-white" />

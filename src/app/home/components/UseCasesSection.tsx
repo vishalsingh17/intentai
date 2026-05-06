@@ -147,6 +147,7 @@ export default function UseCasesSection() {
           <button
             key={uc.id}
             onClick={() => handleTabChange(i)}
+            suppressHydrationWarning
             className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
             activeCase === i ?
             'text-white' : 'text-foreground-muted hover:text-foreground btn-ghost'}`
