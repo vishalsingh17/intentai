@@ -36,24 +36,24 @@ export default function BeepWaitlist() {
   };
 
   return (
-    <section id="waitlist" ref={sectionRef} className="py-28 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #edeaf7 0%, #f0eef8 50%, #e8e5f5 100%)' }}>
+    <section id="waitlist" ref={sectionRef} className="py-28 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #e8e5f5 0%, #e2dff0 50%, #ddd9ee 100%)' }}>
       {/* Background orbs */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-20 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(91,63,212,0.25) 0%, transparent 70%)' }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-15 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.4) 0%, transparent 70%)' }} />
 
       <div className="max-w-[900px] mx-auto text-center relative z-10">
         <div className="mb-4 reveal-from-bottom">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-[rgba(91,63,212,0.2)] text-[#5b3fd4] text-[12px] font-semibold tracking-[0.15em]" style={{ fontFamily: 'Geist, sans-serif' }}>
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-[rgba(95,64,222,0.2)] text-[#5f40de] text-[12px] font-semibold tracking-[0.15em]" style={{ fontFamily: 'Geist, sans-serif' }}>
             FULL COMMERCE OS · ON ROADMAP
           </span>
         </div>
 
         <div className="reveal-from-bottom reveal-delay-1">
-          <h2 className="font-display text-[80px] md:text-[112px] leading-[0.88] tracking-wide text-[#1a1630]">
+          <h2 className="font-display text-[80px] md:text-[112px] leading-[0.88] tracking-wide text-[#0a0a0a]">
             Let beep
           </h2>
           <div>
             <span
-              className="text-[80px] md:text-[112px] leading-[0.88] text-[#5b3fd4]"
+              className="text-[80px] md:text-[112px] leading-[0.88] text-[#5f40de]"
               style={{ fontFamily: 'Instrument Serif', fontStyle: 'italic' }}
             >
               handle it.
@@ -61,7 +61,7 @@ export default function BeepWaitlist() {
           </div>
         </div>
 
-        <p className="text-[17px] text-[#6b6890] mt-6 mb-10 reveal-from-bottom reveal-delay-2" style={{ fontFamily: 'Geist, sans-serif' }}>
+        <p className="text-[17px] text-[#6b6b80] mt-6 mb-10 reveal-from-bottom reveal-delay-2" style={{ fontFamily: 'Geist, sans-serif' }}>
           One sentence. That is all it takes.
         </p>
 
@@ -74,14 +74,14 @@ export default function BeepWaitlist() {
               placeholder="your@email.com"
               required
               suppressHydrationWarning
-              className="flex-1 px-4 py-3 rounded-full border border-[rgba(91,63,212,0.25)] bg-white text-[#1a1630] placeholder-[#9090aa] text-[14px] focus:outline-none focus:border-[#5b3fd4] focus:ring-2 focus:ring-[rgba(91,63,212,0.15)] transition-all shadow-sm"
+              className="flex-1 px-4 py-3 rounded-full border border-[rgba(95,64,222,0.2)] text-[#0a0a0a] placeholder-[#9999aa] text-[14px] focus:outline-none focus:border-[#5f40de] focus:ring-2 focus:ring-[rgba(95,64,222,0.15)] transition-all glass-card"
               style={{ fontFamily: 'Geist, sans-serif' }}
             />
             <button
               type="submit"
               disabled={loading}
               suppressHydrationWarning
-              className="btn-violet px-6 py-3 text-[14px] whitespace-nowrap"
+              className="btn-violet px-6 py-3 text-[14px] whitespace-nowrap cursor-none"
             >
               {loading ? 'Joining...' : 'Join now'}
             </button>
@@ -93,12 +93,12 @@ export default function BeepWaitlist() {
           </div>
         )}
 
-        <p className="text-[12px] text-[#9090aa] mt-3 reveal-from-bottom reveal-delay-4" style={{ fontFamily: 'Geist, sans-serif' }}>No spam, ever.</p>
+        <p className="text-[12px] text-[#9999aa] mt-3 reveal-from-bottom reveal-delay-4" style={{ fontFamily: 'Geist, sans-serif' }}>No spam, ever.</p>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-4 text-[13px] text-[#6b6890] reveal-from-bottom reveal-delay-4" style={{ fontFamily: 'Geist, sans-serif' }}>
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-4 text-[13px] text-[#6b6b80] reveal-from-bottom reveal-delay-4" style={{ fontFamily: 'Geist, sans-serif' }}>
           <span>Built in India</span>
-          <span className="w-1 h-1 rounded-full bg-[rgba(91,63,212,0.3)]" />
-          <a href="https://beepnpay.com" className="text-[#5b3fd4] hover:underline">beepnpay.com</a>
+          <span className="w-1 h-1 rounded-full bg-[#cccccc]" />
+          <a href="https://beepnpay.com" className="text-[#5f40de] hover:underline">beepnpay.com</a>
         </div>
       </div>
     </section>

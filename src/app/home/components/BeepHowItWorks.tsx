@@ -41,27 +41,28 @@ export default function BeepHowItWorks() {
   }, []);
 
   return (
-    <section id="how-it-works" ref={sectionRef} className="py-24 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #edeaf7 0%, #f0eef8 100%)' }}>
-      <div className="absolute top-10 right-10 w-72 h-72 rounded-full opacity-20 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(91,63,212,0.18) 0%, transparent 70%)', '--dur': '10s', '--delay': '0s' } as React.CSSProperties} />
+    <section id="how-it-works" ref={sectionRef} className="py-24 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #f0eef8 0%, #ebe8f5 100%)' }}>
+      {/* Floating orbs */}
+      <div className="absolute top-10 right-10 w-72 h-72 rounded-full opacity-15 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.3) 0%, transparent 70%)', '--dur': '10s', '--delay': '0s' } as React.CSSProperties} />
 
       <div className="max-w-[1280px] mx-auto relative z-10">
         <div className="mb-3 reveal-from-bottom">
           <span className="section-label">How it works</span>
         </div>
-        <h2 className="font-display text-[56px] md:text-[72px] text-[#1a1630] tracking-wide mb-14 reveal-from-bottom">
+        <h2 className="font-display text-[56px] md:text-[72px] text-[#0a0a0a] tracking-wide mb-14 reveal-from-bottom">
           Three steps. That is it.
         </h2>
         <div className="grid md:grid-cols-3 gap-8">
           {STEPS?.map((step, i) => (
-            <div key={i} className={`glass-card rounded-2xl p-8 border border-[rgba(91,63,212,0.12)] hover:border-[rgba(91,63,212,0.28)] hover:shadow-xl transition-all duration-400 card-reveal stagger-${i + 1}`}>
-              <div className="font-display text-[64px] text-[#5b3fd4] leading-none mb-4 opacity-30">{step?.num}</div>
-              <h3 className="font-display text-[36px] text-[#1a1630] tracking-wide mb-3">{step?.title}</h3>
-              <p className="text-[15px] text-[#6b6890] leading-relaxed mb-5" style={{ fontFamily: 'Geist, sans-serif' }}>{step?.desc}</p>
+            <div key={i} className={`glass-card rounded-2xl p-8 border border-[rgba(95,64,222,0.12)] hover:border-[rgba(95,64,222,0.28)] hover:shadow-xl transition-all duration-400 card-reveal stagger-${i + 1}`}>
+              <div className="font-display text-[64px] text-[#5f40de] leading-none mb-4 opacity-30">{step?.num}</div>
+              <h3 className="font-display text-[36px] text-[#0a0a0a] tracking-wide mb-3">{step?.title}</h3>
+              <p className="text-[15px] text-[#6b6b80] leading-relaxed mb-5" style={{ fontFamily: 'Geist, sans-serif' }}>{step?.desc}</p>
               <div className="flex flex-wrap gap-2">
                 {step?.chips?.map((chip, j) => (
                   <span
                     key={j}
-                    className="text-[12px] px-3 py-1.5 rounded-full border border-[rgba(91,63,212,0.2)] text-[#5b3fd4] bg-[rgba(91,63,212,0.07)]"
+                    className="text-[12px] px-3 py-1.5 rounded-full border border-[rgba(95,64,222,0.2)] text-[#5f40de] bg-[rgba(95,64,222,0.06)]"
                     style={{ fontFamily: 'Geist, sans-serif' }}
                   >
                     {chip}

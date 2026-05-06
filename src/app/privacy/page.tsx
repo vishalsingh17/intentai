@@ -3,6 +3,9 @@
 import React from 'react';
 import Link from 'next/link';
 
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+
 const sections = [
   {
     title: '1. Information We Collect',
@@ -124,81 +127,89 @@ const sections = [
 
 export default function PrivacyPage() {
   return (
-    <main className="relative min-h-screen overflow-x-hidden" style={{ background: 'linear-gradient(135deg, #f5f4fa 0%, #edeaf7 50%, #f0eef8 100%)' }}>
-      {/* Background orbs */}
+    <main className="relative min-h-screen bg-[#080810] overflow-x-hidden">
+      {/* Background glow */}
       <div className="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
         <div
-          className="absolute top-[-10%] left-[5%] w-[500px] h-[500px] rounded-full opacity-20"
-          style={{ background: 'radial-gradient(circle, rgba(91,63,212,0.3) 0%, transparent 70%)' }}
+          className="absolute top-[-20%] left-[10%] w-[600px] h-[600px] rounded-full opacity-10"
+          style={{ background: 'radial-gradient(circle, #7c3aed 0%, transparent 70%)' }}
         />
         <div
-          className="absolute bottom-[10%] right-[5%] w-[350px] h-[350px] rounded-full opacity-15"
-          style={{ background: 'radial-gradient(circle, rgba(91,63,212,0.2) 0%, transparent 70%)' }}
+          className="absolute bottom-[10%] right-[5%] w-[400px] h-[400px] rounded-full opacity-8"
+          style={{ background: 'radial-gradient(circle, #3b82f6 0%, transparent 70%)' }}
         />
       </div>
-
-      {/* Nav */}
-      <header className="fixed top-0 left-0 w-full z-50 border-b border-[rgba(91,63,212,0.12)]" style={{ background: 'rgba(245,244,250,0.92)', backdropFilter: 'blur(20px)' }}>
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
-          <Link href="/home" className="font-bold text-lg text-[#1a1630] tracking-tight" style={{ fontFamily: 'Geist, Inter, sans-serif' }}>
-            beep
-          </Link>
-          <Link href="/home" className="text-[13px] text-[#5b3fd4] hover:text-[#4a30b8] font-medium transition-colors">
-            ← Back to Home
-          </Link>
-        </div>
-      </header>
-
+      {/* Grid lines */}
+      <div
+        className="fixed inset-0 max-w-[1440px] mx-auto pointer-events-none z-0"
+        style={{
+          borderLeft: '1px solid rgba(124,58,237,0.05)',
+          borderRight: '1px solid rgba(124,58,237,0.05)',
+        }}
+        aria-hidden="true"
+      />
+      <Header />
       <div className="relative z-10 pt-32 pb-24 px-6 md:px-12 max-w-[900px] mx-auto">
+        {/* Back link */}
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-[13px] font-medium text-foreground-muted hover:text-foreground transition-colors duration-200 mb-10 group"
+        >
+          <svg className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to Home
+        </Link>
+
         {/* Header */}
         <div className="mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[rgba(91,63,212,0.25)] bg-[rgba(91,63,212,0.07)] mb-6">
-            <span className="text-[11px] font-semibold tracking-[0.15em] uppercase text-[#5b3fd4]">Legal</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[rgba(124,58,237,0.3)] bg-[rgba(124,58,237,0.08)] mb-6">
+            <span className="text-[11px] font-semibold tracking-[0.15em] uppercase text-purple-400">Legal</span>
           </div>
           <h1
-            className="text-4xl md:text-5xl font-bold text-[#1a1630] mb-4"
-            style={{ fontFamily: 'Geist, sans-serif', letterSpacing: '-0.02em' }}
+            className="text-4xl md:text-5xl font-bold text-white mb-4"
+            style={{ fontFamily: "'Avenir Next', 'Avenir', sans-serif", letterSpacing: '-0.02em' }}
           >
             Privacy Policy
           </h1>
-          <p className="text-[#3d3a5c] text-base leading-relaxed max-w-[600px]">
-            At <span className="text-[#1a1630] font-semibold">BeepnPay (BeepAI)</span>, we are committed to protecting your privacy and handling your data with transparency and care.
+          <p className="text-foreground-muted text-base leading-relaxed max-w-[600px]">
+            At <span className="text-white font-semibold">BeepnPay (BeepAI)</span>, we are committed to protecting your privacy and handling your data with transparency and care.
           </p>
           <div className="mt-4 flex items-center gap-2">
-            <span className="text-[13px] text-[#6b6890]">Last updated:</span>
-            <span className="text-[13px] text-[#5b3fd4] font-medium">March 29, 2026</span>
+            <span className="text-[13px] text-foreground-muted">Last updated:</span>
+            <span className="text-[13px] text-purple-400 font-medium">March 29, 2026</span>
           </div>
         </div>
 
         {/* Intro card */}
         <div
-          className="rounded-2xl border border-[rgba(91,63,212,0.15)] p-6 mb-10"
-          style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(16px)' }}
+          className="rounded-2xl border border-[rgba(124,58,237,0.2)] p-6 mb-10"
+          style={{ background: 'rgba(124,58,237,0.06)', backdropFilter: 'blur(12px)' }}
         >
-          <p className="text-[#3d3a5c] text-[15px] leading-relaxed">
-            This Privacy Policy describes how <span className="text-[#1a1630] font-semibold">BeepnPay (BeepAI)</span> collects, uses, and shares information about you when you use our AI-powered shopping and payment platform. By using our services, you agree to the collection and use of information in accordance with this policy.
+          <p className="text-foreground-muted text-[15px] leading-relaxed">
+            This Privacy Policy describes how <span className="text-white font-semibold">BeepnPay (BeepAI)</span> collects, uses, and shares information about you when you use our AI-powered shopping and payment platform. By using our services, you agree to the collection and use of information in accordance with this policy.
           </p>
         </div>
 
         {/* Sections */}
-        <div className="space-y-6">
+        <div className="space-y-8">
           {sections?.map((section, idx) => (
             <div
               key={idx}
-              className="rounded-2xl border border-[rgba(91,63,212,0.12)] p-6 md:p-8"
-              style={{ background: 'rgba(255,255,255,0.65)', backdropFilter: 'blur(12px)' }}
+              className="rounded-2xl border border-[rgba(255,255,255,0.06)] p-6 md:p-8"
+              style={{ background: 'rgba(255,255,255,0.02)', backdropFilter: 'blur(8px)' }}
             >
               <h2
-                className="text-xl font-bold text-[#1a1630] mb-5"
-                style={{ fontFamily: 'Geist, sans-serif' }}
+                className="text-xl font-bold text-white mb-5"
+                style={{ fontFamily: "'Avenir Next', 'Avenir', sans-serif" }}
               >
                 {section?.title}
               </h2>
               <div className="space-y-5">
                 {section?.content?.map((item, i) => (
                   <div key={i}>
-                    <h3 className="text-[14px] font-semibold text-[#5b3fd4] mb-1.5">{item?.subtitle}</h3>
-                    <p className="text-[#3d3a5c] text-[15px] leading-relaxed">{item?.text}</p>
+                    <h3 className="text-[14px] font-semibold text-purple-300 mb-1.5">{item?.subtitle}</h3>
+                    <p className="text-foreground-muted text-[15px] leading-relaxed">{item?.text}</p>
                   </div>
                 ))}
               </div>
@@ -208,20 +219,21 @@ export default function PrivacyPage() {
 
         {/* Footer note */}
         <div className="mt-12 text-center">
-          <p className="text-[#6b6890] text-[14px]">
+          <p className="text-foreground-muted text-[14px]">
             Have questions?{' '}
-            <a href="mailto:privacy@beepnpay.com" className="text-[#5b3fd4] hover:text-[#4a30b8] transition-colors duration-200 font-medium">
+            <a href="mailto:privacy@beepnpay.com" className="text-purple-400 hover:text-purple-300 transition-colors duration-200 font-medium">
               Contact our Privacy Team
             </a>
           </p>
-          <p className="text-[#6b6890] text-[13px] mt-2">
+          <p className="text-foreground-muted text-[13px] mt-2">
             Also read our{' '}
-            <Link href="/terms" className="text-[#5b3fd4] hover:text-[#4a30b8] transition-colors duration-200 font-medium">
+            <Link href="/terms" className="text-purple-400 hover:text-purple-300 transition-colors duration-200 font-medium">
               Terms & Conditions
             </Link>
           </p>
         </div>
       </div>
+      <Footer />
     </main>
   );
 }

@@ -15,17 +15,17 @@ const MARQUEE_TEXT = [
 export default function MarqueeStrip() {
   const items = [...MARQUEE_TEXT, ...MARQUEE_TEXT];
   return (
-    <div className="py-4 overflow-hidden border-y border-[rgba(91,63,212,0.12)]" style={{ background: 'rgba(245, 244, 250, 0.9)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
+    <div className="py-4 overflow-hidden border-y border-[rgba(95,64,222,0.1)]" style={{ background: 'rgba(235,232,245,0.7)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
       <div className="marquee-track">
         {items?.map((text, i) => (
           <span key={i} className="flex items-center gap-4 mx-4">
             <span
-              className="text-[13px] font-semibold tracking-[0.18em] text-[#3d3a5c] whitespace-nowrap"
+              className="text-[13px] font-semibold tracking-[0.18em] text-[#0a0a0a] whitespace-nowrap"
               style={{ fontFamily: 'Geist, sans-serif' }}
             >
               {text}
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#5b3fd4] flex-shrink-0" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#5f40de] flex-shrink-0" />
           </span>
         ))}
       </div>

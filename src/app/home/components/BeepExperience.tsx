@@ -8,11 +8,11 @@ const TABS = [
   id: 'flights',
   label: 'Flights',
   badge: 'Live',
-  badgeColor: 'bg-green-900/40 text-green-400',
+  badgeColor: 'bg-green-100 text-green-700',
   moat: 'Price shown is the price paid. No surprise checkout.',
   body: 'Beep searches live inventory across all major carriers, picks the best value flight for your budget, and completes the booking — including seat selection, invoice and calendar block.',
   checklist: ['Live fare comparison', 'Instant booking', 'Invoice on email', 'Calendar sync'],
-  image: '/assets/images/PHOTO-2026-03-15-12-16-20-1774547691667.jpg',
+  image: "https://images.unsplash.com/photo-1688708150112-fccf8ce616dd",
   imageAlt: 'Aerial view from airplane window showing wing above dramatic clouds at golden hour',
   intent: 'Book me a flight from Delhi to Mumbai tomorrow under ₹7,000',
   steps: ['Searched 6 carriers', 'Found IndiGo 6E-201 at ₹5,100', 'Confirmed booking', 'Sent invoice to email']
@@ -21,11 +21,11 @@ const TABS = [
   id: 'hotels',
   label: 'Hotels',
   badge: 'Live',
-  badgeColor: 'bg-green-900/40 text-green-400',
+  badgeColor: 'bg-green-100 text-green-700',
   moat: 'You set the vibe. Beep finds the room.',
   body: 'Describe the kind of stay you want — rooftop pool, quiet neighbourhood, near the airport. Beep understands context and books the right room without you scrolling through 200 options.',
   checklist: ['Natural language search', 'Multi-platform inventory', 'Instant confirmation', 'Cancellation handled'],
-  image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80',
+  image: "https://img.rocket.new/generatedImages/rocket_gen_img_17afdfe26-1772463487998.png",
   imageAlt: 'Luxury hotel room with king bed, warm ambient lighting, floor-to-ceiling windows and city skyline view',
   intent: 'Find me a quiet hotel near Bandra with a pool, under ₹4,000 a night',
   steps: ['Parsed your vibe', 'Matched 3 properties', 'Confirmed best rate', 'Booking confirmed']
@@ -34,12 +34,12 @@ const TABS = [
   id: 'qcommerce',
   label: 'Q-Commerce',
   badge: 'Coming',
-  badgeColor: 'bg-amber-900/40 text-amber-400',
+  badgeColor: 'bg-amber-100 text-amber-700',
   moat: 'Your grocery list, handled in one sentence.',
   body: 'Tell beep what you need from the store. Beep places the order across the fastest available provider and tracks delivery — no app switching, no cart building.',
   checklist: ['Multi-store search', 'Fastest delivery routing', 'Order tracking', 'Reorder memory'],
-  image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&q=80',
-  imageAlt: 'Fresh produce and grocery items on a dark surface with vibrant colors',
+  image: "https://images.unsplash.com/photo-1597352258938-b7897228e7db",
+  imageAlt: 'Dark moody overhead shot of fresh produce, vegetables and grocery items arranged on dark surface',
   intent: 'Order milk, eggs, bread and bananas for delivery in 30 minutes',
   steps: ['Parsed your list', 'Found fastest provider', 'Placed order', 'Tracking delivery']
 },
@@ -47,11 +47,11 @@ const TABS = [
   id: 'mobility',
   label: 'Mobility',
   badge: 'Coming',
-  badgeColor: 'bg-amber-900/40 text-amber-400',
+  badgeColor: 'bg-amber-100 text-amber-700',
   moat: 'Say where you are going. Beep handles the rest.',
   body: 'From airport pickups to daily commutes, beep books the right cab at the right time — and adds it to your calendar so you never miss a ride.',
   checklist: ['Multi-provider booking', 'Scheduled rides', 'Calendar integration', 'Fare comparison'],
-  image: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=80',
+  image: "https://images.unsplash.com/photo-1698066068746-6da2ce42cba0",
   imageAlt: 'City skyline at night with illuminated skyscrapers and busy street traffic below',
   intent: 'Book a cab to the airport tomorrow at 5 AM, I have a 7 AM flight',
   steps: ['Checked flight time', 'Scheduled cab for 5 AM', 'Confirmed booking', 'Reminder set']
@@ -76,12 +76,12 @@ export default function ExperienceSection() {
   const tab = TABS?.[activeTab];
 
   return (
-    <section id="experience" ref={sectionRef} className="py-24 px-6 md:px-12" style={{ background: 'linear-gradient(135deg, rgba(245,244,250,0.9) 0%, rgba(237,234,247,0.95) 100%)' }}>
+    <section id="experience" ref={sectionRef} className="py-24 px-6 md:px-12" style={{ background: 'linear-gradient(135deg, #ddd9ee 0%, #d8d4eb 100%)' }}>
       <div className="max-w-[1280px] mx-auto">
         <div className="mb-3 reveal-from-bottom">
-          <span className="section-label" style={{ color: 'rgba(91,63,212,0.7)' }}>Experience</span>
+          <span className="section-label">Experience</span>
         </div>
-        <h2 className="font-display text-[56px] md:text-[72px] text-[#1a1630] tracking-wide mb-10 reveal-from-bottom">
+        <h2 className="font-display text-[56px] md:text-[72px] text-[#0a0a0a] tracking-wide mb-10 reveal-from-bottom">
           Beep in action.
         </h2>
 
@@ -92,10 +92,10 @@ export default function ExperienceSection() {
             key={t?.id}
             onClick={() => setActiveTab(i)}
             suppressHydrationWarning
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-[13px] font-medium transition-all duration-200 ${
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-[13px] font-medium transition-all duration-200 cursor-none ${
             activeTab === i ?
-            'bg-[#5b3fd4] text-white shadow-md' :
-            'glass-card text-[#3d3a5c] border border-[rgba(91,63,212,0.15)] hover:border-[rgba(91,63,212,0.3)]'}`
+            'bg-[#5f40de] text-white shadow-md' :
+            'glass-card text-[#3a3a4a] border border-[rgba(95,64,222,0.15)] hover:border-[rgba(95,64,222,0.3)]'}`
             }
             style={{ fontFamily: 'Geist, sans-serif' }}>
             
@@ -113,16 +113,16 @@ export default function ExperienceSection() {
         <div className="grid md:grid-cols-2 gap-10 items-start">
           {/* Left */}
           <div>
-            <h3 className="font-display text-[40px] md:text-[48px] text-[#1a1630] tracking-wide leading-tight mb-4">
+            <h3 className="font-display text-[40px] md:text-[48px] text-[#0a0a0a] tracking-wide leading-tight mb-4">
               {tab?.moat}
             </h3>
-            <p className="text-[16px] text-[#3d3a5c] leading-relaxed mb-6" style={{ fontFamily: 'Geist, sans-serif' }}>
+            <p className="text-[16px] text-[#3a3a4a] leading-relaxed mb-6" style={{ fontFamily: 'Geist, sans-serif' }}>
               {tab?.body}
             </p>
             <ul className="space-y-2">
               {tab?.checklist?.map((item, i) =>
-              <li key={i} className="flex items-center gap-3 text-[14px] text-[#3d3a5c]" style={{ fontFamily: 'Geist, sans-serif' }}>
-                  <span className="w-5 h-5 rounded-full flex items-center justify-center text-[11px] flex-shrink-0" style={{ background: 'rgba(91,63,212,0.15)', color: '#5b3fd4' }}>✓</span>
+              <li key={i} className="flex items-center gap-3 text-[14px] text-[#3a3a4a]" style={{ fontFamily: 'Geist, sans-serif' }}>
+                  <span className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-[11px] flex-shrink-0">✓</span>
                   {item}
                 </li>
               )}
@@ -137,23 +137,21 @@ export default function ExperienceSection() {
                 alt={tab?.imageAlt}
                 fill
                 className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                unoptimized />
-              
+                sizes="(max-width: 768px) 100vw, 50vw" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
             {/* Intent card */}
-            <div className="glass-card rounded-2xl p-5 border border-[rgba(91,63,212,0.15)]">
+            <div className="glass-card rounded-2xl p-5 border border-[rgba(95,64,222,0.12)]">
               <div className="flex items-start gap-3 mb-4">
-                <div className="w-7 h-7 rounded-full bg-[#5b3fd4] flex items-center justify-center text-white text-[11px] flex-shrink-0 mt-0.5">U</div>
-                <div className="rounded-xl rounded-tl-sm px-3 py-2 text-[13px] text-[#1a1630]" style={{ fontFamily: 'Geist, sans-serif', background: 'rgba(91,63,212,0.10)' }}>
+                <div className="w-7 h-7 rounded-full bg-[#5f40de] flex items-center justify-center text-white text-[11px] flex-shrink-0 mt-0.5">U</div>
+                <div className="bg-[#e8e4f8] rounded-xl rounded-tl-sm px-3 py-2 text-[13px] text-[#0a0a0a]" style={{ fontFamily: 'Geist, sans-serif' }}>
                   {tab?.intent}
                 </div>
               </div>
               <div className="space-y-1.5 pl-10">
                 {tab?.steps?.map((step, i) =>
-                <div key={i} className="flex items-center gap-2 text-[12px] text-[#6b6890]" style={{ fontFamily: 'Geist, sans-serif' }}>
-                    <span className="w-4 h-4 rounded-full flex items-center justify-center text-[9px] flex-shrink-0" style={{ background: 'rgba(91,63,212,0.12)', border: '1px solid rgba(91,63,212,0.25)', color: '#5b3fd4' }}>✓</span>
+                <div key={i} className="flex items-center gap-2 text-[12px] text-[#6b6b80]" style={{ fontFamily: 'Geist, sans-serif' }}>
+                    <span className="w-4 h-4 rounded-full bg-green-50 border border-green-200 flex items-center justify-center text-green-600 text-[9px] flex-shrink-0">✓</span>
                     {step}
                   </div>
                 )}

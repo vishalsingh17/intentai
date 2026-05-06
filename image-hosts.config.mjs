@@ -19,8 +19,4 @@ export const imageHosts = [
         protocol: 'https',
         hostname: 'img.rocket.new',
     },
-    {
-        protocol: 'https',
-        hostname: 'www.beepnpay.com',
-    },
 ];
