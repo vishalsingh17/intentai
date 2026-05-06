@@ -33,7 +33,7 @@ export default function BeepNav() {
             alt="beep logo"
             width={36}
             height={36}
-            className="flex-shrink-0 object-contain rounded-lg"
+            className="flex-shrink-0 object-contain rounded-full"
             priority
           />
           <span className="font-bold text-lg text-[#0a0a0a] tracking-tight" style={{ fontFamily: 'Geist, Inter, sans-serif' }}>

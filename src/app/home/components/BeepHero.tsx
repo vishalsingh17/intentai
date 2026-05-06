@@ -35,6 +35,7 @@ export default function BeepHero() {
   const [orbPhase, setOrbPhase] = useState<'human' | 'ai' | 'idle'>('idle');
   const [humanText, setHumanText] = useState('');
   const [aiText, setAIText] = useState('');
+  const [showKeyboard, setShowKeyboard] = useState(false);
   const chatRef = useRef<HTMLDivElement>(null);
   const langIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
@@ -45,20 +46,37 @@ export default function BeepHero() {
 
     const runCycle = () => {
       setVisibleMessages([]);
+      setShowKeyboard(false);
+      // delays: msg1(user), msg2(typing), msg3(ai card), msg4(user), msg5(system), msg6(user), msg7(system)
       const delays = [600, 1400, 2800, 4000, 4800, 5800, 6800];
-      timers = CHAT_SEQUENCE.map((msg, i) =>
-        setTimeout(() => {
-          setVisibleMessages(prev => {
-            if (msg.type === 'typing') return [...prev, msg.id];
-            const filtered = prev.filter(id => {
-              const m = CHAT_SEQUENCE.find(m => m.id === id);
-              return m?.type !== 'typing';
+      // Show keyboard just before user messages appear, hide after
+      // User messages are at indices 0 (id:1), 3 (id:4), 5 (id:6)
+      const keyboardShowDelays = [200, 3600, 5400];   // slightly before user msg appears
+      const keyboardHideDelays = [1200, 4600, 6400];  // shortly after user msg appears
+
+      keyboardShowDelays.forEach(d => {
+        timers.push(setTimeout(() => setShowKeyboard(true), d));
+      });
+      keyboardHideDelays.forEach(d => {
+        timers.push(setTimeout(() => setShowKeyboard(false), d));
+      });
+
+      timers = [
+        ...timers,
+        ...CHAT_SEQUENCE.map((msg, i) =>
+          setTimeout(() => {
+            setVisibleMessages(prev => {
+              if (msg.type === 'typing') return [...prev, msg.id];
+              const filtered = prev.filter(id => {
+                const m = CHAT_SEQUENCE.find(m => m.id === id);
+                return m?.type !== 'typing';
+              });
+              return [...filtered, msg.id];
             });
-            return [...filtered, msg.id];
-          });
-          if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
-        }, delays[i])
-      );
+            if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
+          }, delays[i])
+        ),
+      ];
       const loopTimer = setTimeout(() => {
         setChatCycle(c => c + 1);
       }, 10000);
@@ -253,7 +271,7 @@ export default function BeepHero() {
               {/* App bar */}
               <div className="flex items-center justify-between px-4 pt-8 pb-3 border-b border-white/5">
                 <div className="flex items-center gap-2">
-                  <Image src="/assets/images/beepAI___LOGO-1778057442337.jpg" alt="beep" width={22} height={22} className="object-contain rounded-md" />
+                  <Image src="/assets/images/beepAI___LOGO-1778057442337.jpg" alt="beep" width={22} height={22} className="object-contain rounded-full" />
                   <span className="text-white text-[14px] font-semibold" style={{ fontFamily: 'Geist, sans-serif' }}>beep</span>
                 </div>
                 <div className="flex items-center gap-1.5">
@@ -340,7 +358,7 @@ export default function BeepHero() {
                 </div>
               )}
 
-              {/* Static keyboard always visible at bottom */}
+              {/* Static keyboard — only visible when user is typing */}
               <div className="absolute bottom-0 left-0 right-0 z-10">
                 {/* Input bar */}
                 <div className="px-3 pb-2 pt-2 bg-gradient-to-t from-[#0d0c17] via-[#0d0c17] to-transparent">
@@ -368,33 +386,38 @@ export default function BeepHero() {
                   </div>
                 </div>
 
-                {/* Static keyboard */}
-                <div className="bg-[#1a1828] px-1.5 pb-2 pt-1.5">
-                  {/* Row 1 */}
-                  <div className="flex gap-1 mb-1 justify-center">
-                    {['q','w','e','r','t','y','u','i','o','p'].map((k) => (
-                      <div key={k} className="flex-1 bg-[#2d2b3d] rounded text-white/50 text-[9px] text-center py-1.5 font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>{k}</div>
-                    ))}
-                  </div>
-                  {/* Row 2 */}
-                  <div className="flex gap-1 mb-1 justify-center px-2">
-                    {['a','s','d','f','g','h','j','k','l'].map((k) => (
-                      <div key={k} className="flex-1 bg-[#2d2b3d] rounded text-white/50 text-[9px] text-center py-1.5 font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>{k}</div>
-                    ))}
-                  </div>
-                  {/* Row 3 */}
-                  <div className="flex gap-1 mb-1 justify-center">
-                    <div className="bg-[#3d3b50] rounded text-white/40 text-[8px] text-center py-1.5 px-2">⇧</div>
-                    {['z','x','c','v','b','n','m'].map((k) => (
-                      <div key={k} className="flex-1 bg-[#2d2b3d] rounded text-white/50 text-[9px] text-center py-1.5 font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>{k}</div>
-                    ))}
-                    <div className="bg-[#3d3b50] rounded text-white/40 text-[8px] text-center py-1.5 px-2">⌫</div>
-                  </div>
-                  {/* Row 4 - space */}
-                  <div className="flex gap-1 justify-center">
-                    <div className="bg-[#3d3b50] rounded text-white/40 text-[8px] text-center py-1.5 px-2">123</div>
-                    <div className="flex-1 bg-[#2d2b3d] rounded text-white/30 text-[9px] text-center py-1.5">space</div>
-                    <div className="bg-[#5f40de] rounded text-white text-[8px] text-center py-1.5 px-2">return</div>
+                {/* Keyboard — slides up only when user is typing */}
+                <div
+                  className="overflow-hidden transition-all duration-300 ease-in-out"
+                  style={{ maxHeight: showKeyboard ? '160px' : '0px', opacity: showKeyboard ? 1 : 0 }}
+                >
+                  <div className="bg-[#1a1828] px-1.5 pb-2 pt-1.5">
+                    {/* Row 1 */}
+                    <div className="flex gap-1 mb-1 justify-center">
+                      {['q','w','e','r','t','y','u','i','o','p'].map((k) => (
+                        <div key={k} className="flex-1 bg-[#2d2b3d] rounded text-white/50 text-[9px] text-center py-1.5 font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>{k}</div>
+                      ))}
+                    </div>
+                    {/* Row 2 */}
+                    <div className="flex gap-1 mb-1 justify-center px-2">
+                      {['a','s','d','f','g','h','j','k','l'].map((k) => (
+                        <div key={k} className="flex-1 bg-[#2d2b3d] rounded text-white/50 text-[9px] text-center py-1.5 font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>{k}</div>
+                      ))}
+                    </div>
+                    {/* Row 3 */}
+                    <div className="flex gap-1 mb-1 justify-center">
+                      <div className="bg-[#3d3b50] rounded text-white/40 text-[8px] text-center py-1.5 px-2">⇧</div>
+                      {['z','x','c','v','b','n','m'].map((k) => (
+                        <div key={k} className="flex-1 bg-[#2d2b3d] rounded text-white/50 text-[9px] text-center py-1.5 font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>{k}</div>
+                      ))}
+                      <div className="bg-[#3d3b50] rounded text-white/40 text-[8px] text-center py-1.5 px-2">⌫</div>
+                    </div>
+                    {/* Row 4 - space */}
+                    <div className="flex gap-1 justify-center">
+                      <div className="bg-[#3d3b50] rounded text-white/40 text-[8px] text-center py-1.5 px-2">123</div>
+                      <div className="flex-1 bg-[#2d2b3d] rounded text-white/30 text-[9px] text-center py-1.5">space</div>
+                      <div className="bg-[#5f40de] rounded text-white text-[8px] text-center py-1.5 px-2">return</div>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -127,7 +127,7 @@ export default function EnterpriseSection() {
           {[
             { title: 'Agentic Payment Infrastructure', desc: 'A programmable payment layer that executes transactions based on intent, not manual input.' },
             { title: 'Agentic Execution Layer', desc: 'The middleware that connects natural language commands to real-world commerce actions.' },
-            { title: 'Corporate Travel Platform', desc: 'End-to-end travel management for teams — policy-aware, budget-smart, zero friction.' },
+            { title: 'Your Business Travel Platform', desc: 'End-to-end travel management for teams — policy-aware, budget-smart, zero friction.' },
           ].map((col, i) => (
             <div key={i} className="border border-[rgba(255,107,0,0.2)] rounded-2xl p-6 bg-white/[0.03]">
               <h3 className="text-[16px] font-semibold text-white mb-3" style={{ fontFamily: 'Geist, sans-serif' }}>{col.title}</h3>

@@ -8,15 +8,13 @@ export default function BeepFooter() {
       <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Left: Logo + wordmark */}
         <div className="flex items-center gap-2.5">
-          <div className="rounded-xl overflow-hidden bg-[#0d0c17] p-1 flex-shrink-0">
-            <Image
-              src="/assets/images/beepAI___LOGO-1778057442337.jpg"
-              alt="beep logo"
-              width={36}
-              height={36}
-              className="object-contain rounded-lg"
-            />
-          </div>
+          <Image
+            src="/assets/images/beepAI___LOGO-1778057442337.jpg"
+            alt="beep logo"
+            width={36}
+            height={36}
+            className="object-contain rounded-full flex-shrink-0"
+          />
           <span className="font-bold text-[18px] text-[#0a0a0a] tracking-tight" style={{ fontFamily: 'Geist, sans-serif' }}>
             beep
           </span>
