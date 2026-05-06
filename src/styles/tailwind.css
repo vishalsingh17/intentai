@@ -5,18 +5,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --color-bg: #1e1c2e;
-  --color-bg-alt: #252338;
-  --color-surface: rgba(95, 64, 222, 0.09);
-  --color-surface-hover: rgba(95, 64, 222, 0.15);
-  --color-border: rgba(95, 64, 222, 0.18);
-  --color-border-strong: rgba(95, 64, 222, 0.32);
-  --color-primary: #7c5ff0;
-  --color-primary-light: #9b7ff8;
-  --color-foreground: #e8e4f8;
-  --color-muted: #9090aa;
-  --color-muted-strong: #c0bcd8;
-  --glow-primary: rgba(124, 95, 240, 0.35);
+  --color-bg: #f5f4fa;
+  --color-bg-alt: #eeecf7;
+  --color-surface: rgba(95, 64, 222, 0.07);
+  --color-surface-hover: rgba(95, 64, 222, 0.12);
+  --color-border: rgba(95, 64, 222, 0.15);
+  --color-border-strong: rgba(95, 64, 222, 0.28);
+  --color-primary: #5b3fd4;
+  --color-primary-light: #7c5ff0;
+  --color-foreground: #1a1630;
+  --color-muted: #6b6890;
+  --color-muted-strong: #3d3a5c;
+  --glow-primary: rgba(91, 63, 212, 0.3);
 }
 
 * {
@@ -28,59 +28,45 @@ html {
 }
 
 body {
-  background-color: #1e1c2e;
-  color: #e8e4f8;
+  background-color: #f5f4fa;
+  color: #1a1630;
   font-family: 'Geist', 'Inter', sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  cursor: none;
+  cursor: auto;
 }
 
-/* ── Cursor spotlight ── */
+/* ── Cursor spotlight only — no custom cursor dot/ring ── */
 .cursor-spotlight {
   position: fixed;
   pointer-events: none;
   z-index: 99997;
-  width: 500px;
-  height: 500px;
+  width: 480px;
+  height: 480px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(124, 95, 240, 0.12) 0%, rgba(124, 95, 240, 0.05) 40%, transparent 70%);
+  background: radial-gradient(circle, rgba(91, 63, 212, 0.10) 0%, rgba(91, 63, 212, 0.04) 45%, transparent 70%);
   transform: translate(-50%, -50%);
-  transition: left 0.06s ease, top 0.06s ease;
+  transition: left 0.05s ease, top 0.05s ease;
   mix-blend-mode: normal;
 }
 
-/* ── Custom purple cursor ── */
+/* ── No custom cursor elements — use system cursor ── */
 .custom-cursor {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  background: #7c5ff0;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
-  box-shadow: 0 0 12px rgba(124, 95, 240, 0.8), 0 0 24px rgba(124, 95, 240, 0.4);
+  display: none;
 }
 
 .custom-cursor-ring {
-  position: fixed;
-  width: 34px;
-  height: 34px;
-  border: 1.5px solid rgba(124, 95, 240, 0.55);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99998;
-  transform: translate(-50%, -50%);
-  transition: transform 0.15s ease, width 0.25s ease, height 0.25s ease, opacity 0.2s ease;
-  box-shadow: 0 0 8px rgba(124, 95, 240, 0.2);
+  display: none;
 }
 
-/* Pointer cursor on interactive elements */
-a, button, [role="button"], input, select, textarea, label {
-  cursor: none !important;
+/* ── Pointer cursor on interactive elements ── */
+a, button, [role="button"], input[type="submit"], input[type="button"], label[for], select {
+  cursor: pointer !important;
+}
+
+input[type="text"], input[type="email"], input[type="password"], textarea {
+  cursor: text !important;
 }
 
 /* ── Scroll reveal ── */
@@ -249,7 +235,7 @@ a, button, [role="button"], input, select, textarea, label {
 }
 
 .shimmer-text {
-  background: linear-gradient(90deg, #7c5ff0 0%, #b09af8 40%, #7c5ff0 80%);
+  background: linear-gradient(90deg, #5b3fd4 0%, #9b7ff8 40%, #5b3fd4 80%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -257,42 +243,41 @@ a, button, [role="button"], input, select, textarea, label {
   animation: shimmer 3s linear infinite;
 }
 
-/* ── Glassmorphism — lighter dark base ── */
+/* ── Glassmorphism — white/gray light base ── */
 .glass {
-  background: rgba(52, 48, 82, 0.75);
+  background: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(124, 95, 240, 0.2);
-  box-shadow: 0 8px 32px rgba(124, 95, 240, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(91, 63, 212, 0.14);
+  box-shadow: 0 8px 32px rgba(91, 63, 212, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .glass-card {
-  background: rgba(48, 44, 75, 0.82);
+  background: rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(124, 95, 240, 0.18);
-  box-shadow: 0 4px 24px rgba(124, 95, 240, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(91, 63, 212, 0.12);
+  box-shadow: 0 4px 24px rgba(91, 63, 212, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
 .glass-strong {
-  background: rgba(58, 54, 90, 0.72);
+  background: rgba(255, 255, 255, 0.80);
   backdrop-filter: blur(32px);
   -webkit-backdrop-filter: blur(32px);
-  border: 1px solid rgba(124, 95, 240, 0.25);
-  box-shadow: 0 12px 40px rgba(124, 95, 240, 0.13), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(91, 63, 212, 0.18);
+  box-shadow: 0 12px 40px rgba(91, 63, 212, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 
-/* Legacy white glass */
 .glass-white {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(124, 95, 240, 0.12);
+  border: 1px solid rgba(91, 63, 212, 0.10);
 }
 
 /* ── Violet gradient text ── */
 .violet-text {
-  color: #9b7ff8;
+  color: #5b3fd4;
 }
 
 /* ── Section label ── */
@@ -307,25 +292,25 @@ a, button, [role="button"], input, select, textarea, label {
 /* ── Gradient rule ── */
 .hr-gradient {
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(124, 95, 240, 0.5), rgba(124, 95, 240, 0.2), transparent);
+  background: linear-gradient(to right, transparent, rgba(91, 63, 212, 0.4), rgba(91, 63, 212, 0.15), transparent);
   border: none;
 }
 
 /* ── Violet pill button ── */
 .btn-violet {
-  background: #7c5ff0;
+  background: #5b3fd4;
   color: #ffffff;
   border-radius: 9999px;
   font-family: 'Geist', sans-serif;
   font-weight: 600;
   transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 20px rgba(124, 95, 240, 0.4);
+  box-shadow: 0 4px 20px rgba(91, 63, 212, 0.35);
 }
 
 .btn-violet:hover {
-  background: #6a4fd8;
+  background: #4a30b8;
   transform: translateY(-1px);
-  box-shadow: 0 8px 30px rgba(124, 95, 240, 0.5);
+  box-shadow: 0 8px 30px rgba(91, 63, 212, 0.45);
 }
 
 /* ── Scroll-triggered card animation ── */
@@ -351,8 +336,8 @@ a, button, [role="button"], input, select, textarea, label {
 
 /* ── Animated gradient border ── */
 @keyframes borderGlow {
-  0%, 100% { border-color: rgba(124, 95, 240, 0.15); box-shadow: 0 0 0 0 rgba(124, 95, 240, 0); }
-  50% { border-color: rgba(124, 95, 240, 0.35); box-shadow: 0 0 20px rgba(124, 95, 240, 0.12); }
+  0%, 100% { border-color: rgba(91, 63, 212, 0.12); box-shadow: 0 0 0 0 rgba(91, 63, 212, 0); }
+  50% { border-color: rgba(91, 63, 212, 0.28); box-shadow: 0 0 20px rgba(91, 63, 212, 0.10); }
 }
 
 .border-glow {

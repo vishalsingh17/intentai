@@ -183,35 +183,35 @@ export default function BeepHero() {
   };
 
   return (
-    <section id="hero" className="min-h-screen pt-24 pb-16 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #2a2842 0%, #2e2b4a 50%, #332550 100%)' }}>
+    <section id="hero" className="min-h-screen pt-24 pb-16 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #f5f4fa 0%, #edeaf7 50%, #f0eef8 100%)' }}>
       {/* Floating background orbs */}
-      <div className="absolute top-20 right-20 w-96 h-96 rounded-full opacity-20 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(124,95,240,0.35) 0%, transparent 70%)', '--dur': '7s', '--delay': '0s' } as React.CSSProperties} />
-      <div className="absolute bottom-32 left-10 w-64 h-64 rounded-full opacity-15 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(124,95,240,0.3) 0%, transparent 70%)', '--dur': '9s', '--delay': '2s' } as React.CSSProperties} />
-      <div className="absolute top-1/2 left-1/3 w-48 h-48 rounded-full opacity-10 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(124,95,240,0.25) 0%, transparent 70%)', '--dur': '11s', '--delay': '1s' } as React.CSSProperties} />
+      <div className="absolute top-20 right-20 w-96 h-96 rounded-full opacity-30 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(91,63,212,0.18) 0%, transparent 70%)', '--dur': '7s', '--delay': '0s' } as React.CSSProperties} />
+      <div className="absolute bottom-32 left-10 w-64 h-64 rounded-full opacity-20 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(91,63,212,0.15) 0%, transparent 70%)', '--dur': '9s', '--delay': '2s' } as React.CSSProperties} />
+      <div className="absolute top-1/2 left-1/3 w-48 h-48 rounded-full opacity-15 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(91,63,212,0.12) 0%, transparent 70%)', '--dur': '11s', '--delay': '1s' } as React.CSSProperties} />
 
       <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16 min-h-[calc(100vh-6rem)] relative z-10">
         {/* Left column */}
         <div className="flex-1 flex flex-col justify-center">
           <div className="flex items-center gap-2 mb-6">
-            <span className="w-2 h-2 rounded-full bg-green-400 green-pulse flex-shrink-0" />
-            <span className="text-[13px] text-[#9090aa] font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>
+            <span className="w-2 h-2 rounded-full bg-green-500 green-pulse flex-shrink-0" />
+            <span className="text-[13px] text-[#6b6890] font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>
               Launching May 2026 · Starting with travel
             </span>
           </div>
 
-          <h1 className="font-display text-[80px] md:text-[96px] leading-[0.92] tracking-wide text-[#e8e4f8] mb-2">
+          <h1 className="font-display text-[80px] md:text-[96px] leading-[0.92] tracking-wide text-[#1a1630] mb-2">
             AI Commerce
           </h1>
           <div className="mb-6">
             <span
-              className="text-[72px] md:text-[88px] leading-[0.95] text-[#9b7ff8]"
+              className="text-[72px] md:text-[88px] leading-[0.95] text-[#5b3fd4]"
               style={{ fontFamily: 'Instrument Serif', fontStyle: 'italic' }}
             >
               for real life.
             </span>
           </div>
 
-          <p className="text-[17px] text-[#c0bcd8] leading-relaxed max-w-[480px] mb-8" style={{ fontFamily: 'Geist, sans-serif' }}>
+          <p className="text-[17px] text-[#3d3a5c] leading-relaxed max-w-[480px] mb-8" style={{ fontFamily: 'Geist, sans-serif' }}>
             Tell beep what you need. Beep finds the best option, decides and completes checkout powered by real agentic payment infrastructure. Not a search. An execution.
           </p>
 
@@ -224,25 +224,25 @@ export default function BeepHero() {
                 placeholder="your@email.com"
                 required
                 suppressHydrationWarning
-                className="flex-1 px-4 py-3 rounded-full border border-[rgba(124,95,240,0.25)] bg-[rgba(255,255,255,0.06)] text-[#e8e4f8] placeholder-[#6060780] text-[14px] focus:outline-none focus:border-[#7c5ff0] focus:ring-2 focus:ring-[rgba(124,95,240,0.2)] transition-all"
+                className="flex-1 px-4 py-3 rounded-full border border-[rgba(91,63,212,0.25)] bg-white text-[#1a1630] placeholder-[#9090aa] text-[14px] focus:outline-none focus:border-[#5b3fd4] focus:ring-2 focus:ring-[rgba(91,63,212,0.15)] transition-all shadow-sm"
                 style={{ fontFamily: 'Geist, sans-serif' }}
               />
               <button
                 type="submit"
                 disabled={loading}
                 suppressHydrationWarning
-                className="btn-violet px-6 py-3 text-[14px] whitespace-nowrap cursor-none"
+                className="btn-violet px-6 py-3 text-[14px] whitespace-nowrap"
               >
                 {loading ? 'Joining...' : 'Get early access'}
               </button>
             </form>
           ) : (
-            <div className="flex items-center gap-2 text-green-400 font-medium text-[15px]">
-              <span className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 text-xs">✓</span>
+            <div className="flex items-center gap-2 text-green-600 font-medium text-[15px]">
+              <span className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-xs">✓</span>
               You are on the list. We will be in touch.
             </div>
           )}
-          <p className="text-[12px] text-[#6060780] mt-2" style={{ fontFamily: 'Geist, sans-serif' }}>No spam, ever.</p>
+          <p className="text-[12px] text-[#9090aa] mt-2" style={{ fontFamily: 'Geist, sans-serif' }}>No spam, ever.</p>
         </div>
 
         {/* Right column — iPhone mockup */}

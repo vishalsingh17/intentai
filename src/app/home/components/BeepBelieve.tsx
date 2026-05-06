@@ -52,21 +52,22 @@ export default function WhatWeBelieve() {
     <section
       ref={sectionRef}
       className="relative overflow-hidden py-32 px-6 md:px-12"
-      style={{ background: '#16142a' }}
+      style={{ background: 'linear-gradient(135deg, #edeaf7 0%, #e8e5f5 100%)' }}
     >
       {/* Floating words background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {floatingWords.map((word, i) => (
           <span
             key={i}
-            className="absolute float-word text-white font-medium select-none"
+            className="absolute float-word font-medium select-none"
             style={{
               left: `${word.x}%`,
               top: `${word.y}%`,
-              opacity: word.opacity,
+              opacity: word.opacity * 0.6,
               fontSize: `${word.size}px`,
               fontFamily: 'Geist, sans-serif',
-              '--base-opacity': word.opacity,
+              color: '#5b3fd4',
+              '--base-opacity': word.opacity * 0.6,
               '--duration': `${word.duration}s`,
               '--delay': `${word.delay}s`,
             } as React.CSSProperties}
@@ -79,26 +80,26 @@ export default function WhatWeBelieve() {
       {/* Centered content */}
       <div className="relative z-10 max-w-[900px] mx-auto text-center">
         <div className="mb-6 reveal-from-bottom">
-          <span className="text-[#9b7ff8] text-[12px] tracking-[0.25em] uppercase font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>
+          <span className="text-[#5b3fd4] text-[12px] tracking-[0.25em] uppercase font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>
             What we believe
           </span>
         </div>
 
         <div className="mb-4 reveal-from-bottom">
-          <h2 className="font-display text-[96px] md:text-[128px] leading-[0.88] tracking-wide text-white">
+          <h2 className="font-display text-[96px] md:text-[128px] leading-[0.88] tracking-wide text-[#1a1630]">
             Think less
           </h2>
         </div>
         <div className="mb-8 reveal-from-bottom reveal-delay-1">
           <span
-            className="text-[96px] md:text-[128px] leading-[0.88] text-[#9b7ff8]"
+            className="text-[96px] md:text-[128px] leading-[0.88] text-[#5b3fd4]"
             style={{ fontFamily: 'Instrument Serif', fontStyle: 'italic' }}
           >
             do more.
           </span>
         </div>
 
-        <p className="text-[18px] text-white/50 mb-10 reveal-from-bottom reveal-delay-2" style={{ fontFamily: 'Geist, sans-serif' }}>
+        <p className="text-[18px] text-[#6b6890] mb-10 reveal-from-bottom reveal-delay-2" style={{ fontFamily: 'Geist, sans-serif' }}>
           We sweat the details, you just command.
         </p>
 
@@ -108,7 +109,7 @@ export default function WhatWeBelieve() {
               const el = document.getElementById('waitlist');
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="btn-violet px-8 py-4 text-[15px] cursor-none"
+            className="btn-violet px-8 py-4 text-[15px]"
             suppressHydrationWarning
           >
             Start with beep →

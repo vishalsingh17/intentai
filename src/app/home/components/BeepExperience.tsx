@@ -76,12 +76,12 @@ export default function ExperienceSection() {
   const tab = TABS?.[activeTab];
 
   return (
-    <section id="experience" ref={sectionRef} className="py-24 px-6 md:px-12" style={{ background: 'linear-gradient(135deg, #252240 0%, #2a2748 100%)' }}>
+    <section id="experience" ref={sectionRef} className="py-24 px-6 md:px-12" style={{ background: 'linear-gradient(135deg, rgba(245,244,250,0.9) 0%, rgba(237,234,247,0.95) 100%)' }}>
       <div className="max-w-[1280px] mx-auto">
         <div className="mb-3 reveal-from-bottom">
-          <span className="section-label" style={{ color: 'rgba(180,170,230,0.7)' }}>Experience</span>
+          <span className="section-label" style={{ color: 'rgba(91,63,212,0.7)' }}>Experience</span>
         </div>
-        <h2 className="font-display text-[56px] md:text-[72px] text-[#e8e4f8] tracking-wide mb-10 reveal-from-bottom">
+        <h2 className="font-display text-[56px] md:text-[72px] text-[#1a1630] tracking-wide mb-10 reveal-from-bottom">
           Beep in action.
         </h2>
 
@@ -92,10 +92,10 @@ export default function ExperienceSection() {
             key={t?.id}
             onClick={() => setActiveTab(i)}
             suppressHydrationWarning
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-[13px] font-medium transition-all duration-200 cursor-none ${
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-[13px] font-medium transition-all duration-200 ${
             activeTab === i ?
-            'bg-[#7c5ff0] text-white shadow-md' :
-            'glass-card text-[#c0bcd8] border border-[rgba(124,95,240,0.15)] hover:border-[rgba(124,95,240,0.3)]'}`
+            'bg-[#5b3fd4] text-white shadow-md' :
+            'glass-card text-[#3d3a5c] border border-[rgba(91,63,212,0.15)] hover:border-[rgba(91,63,212,0.3)]'}`
             }
             style={{ fontFamily: 'Geist, sans-serif' }}>
             
@@ -113,16 +113,16 @@ export default function ExperienceSection() {
         <div className="grid md:grid-cols-2 gap-10 items-start">
           {/* Left */}
           <div>
-            <h3 className="font-display text-[40px] md:text-[48px] text-[#e8e4f8] tracking-wide leading-tight mb-4">
+            <h3 className="font-display text-[40px] md:text-[48px] text-[#1a1630] tracking-wide leading-tight mb-4">
               {tab?.moat}
             </h3>
-            <p className="text-[16px] text-[#b8b4d0] leading-relaxed mb-6" style={{ fontFamily: 'Geist, sans-serif' }}>
+            <p className="text-[16px] text-[#3d3a5c] leading-relaxed mb-6" style={{ fontFamily: 'Geist, sans-serif' }}>
               {tab?.body}
             </p>
             <ul className="space-y-2">
               {tab?.checklist?.map((item, i) =>
-              <li key={i} className="flex items-center gap-3 text-[14px] text-[#b8b4d0]" style={{ fontFamily: 'Geist, sans-serif' }}>
-                  <span className="w-5 h-5 rounded-full flex items-center justify-center text-[11px] flex-shrink-0" style={{ background: 'rgba(124,95,240,0.25)', color: '#9b7ff8' }}>✓</span>
+              <li key={i} className="flex items-center gap-3 text-[14px] text-[#3d3a5c]" style={{ fontFamily: 'Geist, sans-serif' }}>
+                  <span className="w-5 h-5 rounded-full flex items-center justify-center text-[11px] flex-shrink-0" style={{ background: 'rgba(91,63,212,0.15)', color: '#5b3fd4' }}>✓</span>
                   {item}
                 </li>
               )}
@@ -140,20 +140,20 @@ export default function ExperienceSection() {
                 sizes="(max-width: 768px) 100vw, 50vw"
                 unoptimized />
               
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
             {/* Intent card */}
-            <div className="glass-card rounded-2xl p-5 border border-[rgba(124,95,240,0.18)]">
+            <div className="glass-card rounded-2xl p-5 border border-[rgba(91,63,212,0.15)]">
               <div className="flex items-start gap-3 mb-4">
-                <div className="w-7 h-7 rounded-full bg-[#7c5ff0] flex items-center justify-center text-white text-[11px] flex-shrink-0 mt-0.5">U</div>
-                <div className="rounded-xl rounded-tl-sm px-3 py-2 text-[13px] text-[#e8e4f8]" style={{ fontFamily: 'Geist, sans-serif', background: 'rgba(124,95,240,0.18)' }}>
+                <div className="w-7 h-7 rounded-full bg-[#5b3fd4] flex items-center justify-center text-white text-[11px] flex-shrink-0 mt-0.5">U</div>
+                <div className="rounded-xl rounded-tl-sm px-3 py-2 text-[13px] text-[#1a1630]" style={{ fontFamily: 'Geist, sans-serif', background: 'rgba(91,63,212,0.10)' }}>
                   {tab?.intent}
                 </div>
               </div>
               <div className="space-y-1.5 pl-10">
                 {tab?.steps?.map((step, i) =>
-                <div key={i} className="flex items-center gap-2 text-[12px] text-[#9090aa]" style={{ fontFamily: 'Geist, sans-serif' }}>
-                    <span className="w-4 h-4 rounded-full flex items-center justify-center text-[9px] flex-shrink-0" style={{ background: 'rgba(124,95,240,0.2)', border: '1px solid rgba(124,95,240,0.35)', color: '#9b7ff8' }}>✓</span>
+                <div key={i} className="flex items-center gap-2 text-[12px] text-[#6b6890]" style={{ fontFamily: 'Geist, sans-serif' }}>
+                    <span className="w-4 h-4 rounded-full flex items-center justify-center text-[9px] flex-shrink-0" style={{ background: 'rgba(91,63,212,0.12)', border: '1px solid rgba(91,63,212,0.25)', color: '#5b3fd4' }}>✓</span>
                     {step}
                   </div>
                 )}
