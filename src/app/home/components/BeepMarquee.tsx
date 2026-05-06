@@ -15,7 +15,7 @@ const MARQUEE_TEXT = [
 export default function MarqueeStrip() {
   const items = [...MARQUEE_TEXT, ...MARQUEE_TEXT];
   return (
-    <div className="bg-[#f5f4ff] py-4 overflow-hidden border-y border-[rgba(95,64,222,0.08)]">
+    <div className="py-4 overflow-hidden border-y border-[rgba(95,64,222,0.1)]" style={{ background: 'rgba(235,232,245,0.7)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
       <div className="marquee-track">
         {items?.map((text, i) => (
           <span key={i} className="flex items-center gap-4 mx-4">

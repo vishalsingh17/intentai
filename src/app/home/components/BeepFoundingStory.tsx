@@ -26,8 +26,11 @@ export default function FoundingStory() {
   }, []);
 
   return (
-    <section id="our-story" ref={sectionRef} className="bg-[#f8f8ff] py-24 px-6 md:px-12">
-      <div className="max-w-[1280px] mx-auto grid md:grid-cols-2 gap-16 items-start">
+    <section id="our-story" ref={sectionRef} className="py-24 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #ebe8f5 0%, #e8e4f5 100%)' }}>
+      {/* Background glow */}
+      <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-20 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.3) 0%, transparent 70%)' }} />
+
+      <div className="max-w-[1280px] mx-auto grid md:grid-cols-2 gap-16 items-start relative z-10">
         {/* Left */}
         <div>
           <div className="font-display text-[160px] md:text-[200px] leading-none text-[#5f40de] opacity-10 select-none mb-0 -mt-8">
@@ -39,13 +42,13 @@ export default function FoundingStory() {
             </h2>
             <div className="space-y-4 mb-10 reveal-from-bottom reveal-delay-1">
               <p className="text-[16px] text-[#3a3a4a] leading-relaxed" style={{ fontFamily: 'Geist, sans-serif' }}>
-                We kept asking ourselves: why does buying something still require so much effort? You know what you want. You have the money. But you still have to open five apps, compare prices, fill forms, and hope nothing goes wrong at checkout.
+                We started with a simple question: what if commerce worked the way you think?
               </p>
               <p className="text-[16px] text-[#3a3a4a] leading-relaxed" style={{ fontFamily: 'Geist, sans-serif' }}>
-                A thought should be enough to complete a purchase. That is the insight we built beep on. Not a better search. Not a smarter recommendation engine. An actual execution layer that takes your intent and turns it into a completed transaction.
+                You do not think "let me open four apps, filter by airline, compare prices, enter card details, and wonder if I got a good deal." You think "I need a flight to Mumbai tomorrow." That thought should be enough. So we built the layer that makes it enough.
               </p>
               <p className="text-[16px] text-[#3a3a4a] leading-relaxed" style={{ fontFamily: 'Geist, sans-serif' }}>
-                We are three people from IIFT Delhi who decided to build the infrastructure that makes this possible. The agentic payments layer. The multi-provider execution engine. The thing that sits between what you want and what actually happens.
+                Beep is the agentic execution layer that sits between human intent and commercial transaction. Not a chatbot. Not a search wrapper. An agent that acts.
               </p>
             </div>
 
@@ -67,18 +70,20 @@ export default function FoundingStory() {
           </div>
         </div>
 
-        {/* Right */}
+        {/* Right — team photo */}
         <div className="reveal-from-bottom reveal-delay-1">
-          <div className="rounded-2xl overflow-hidden aspect-[4/3] relative mb-4">
-            <Image
-              src="/assets/images/PHOTO-2026-03-15-12-16-20-1774547691667.jpg"
-              alt="Three founders at a desk with laptop, papers and a Coke can in a warm startup environment"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
+          <div className="glass-card rounded-2xl overflow-hidden p-2">
+            <div className="rounded-xl overflow-hidden aspect-[4/3] relative">
+              <Image
+                src="/assets/images/WhatsApp_Image_2026-05-06_at_1.25.57_AM-1778057419763.jpeg"
+                alt="Three founders working at a desk with laptop, papers and a Coke can in a warm startup environment"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
           </div>
-          <p className="text-[13px] text-[#6b6b80] text-center italic" style={{ fontFamily: 'Instrument Serif' }}>
+          <p className="text-[13px] text-[#6b6b80] text-center italic mt-4" style={{ fontFamily: 'Instrument Serif' }}>
             Just three people trying to make the crazy idea work.
           </p>
         </div>

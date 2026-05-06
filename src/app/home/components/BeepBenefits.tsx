@@ -14,7 +14,10 @@ export default function BenefitsSection() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => entries.forEach(e => {
-        if (e.isIntersecting) e.target.querySelectorAll('.reveal-from-bottom').forEach(el => el.classList.add('active'));
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.reveal-from-bottom').forEach(el => el.classList.add('active'));
+          e.target.querySelectorAll('.card-reveal').forEach(el => el.classList.add('active'));
+        }
       }),
       { threshold: 0.15 }
     );
@@ -23,8 +26,11 @@ export default function BenefitsSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-[#f8f8ff] py-24 px-6 md:px-12">
-      <div className="max-w-[1280px] mx-auto">
+    <section ref={sectionRef} className="py-24 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #ebe8f5 0%, #e8e4f5 100%)' }}>
+      {/* Floating orb */}
+      <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full opacity-15 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.3) 0%, transparent 70%)', '--dur': '8s', '--delay': '1s' } as React.CSSProperties} />
+
+      <div className="max-w-[1280px] mx-auto relative z-10">
         <h2 className="font-display text-[56px] md:text-[72px] text-[#0a0a0a] tracking-wide mb-12 reveal-from-bottom">
           What you actually get.
         </h2>
@@ -32,7 +38,7 @@ export default function BenefitsSection() {
           {BENEFITS?.map((b, i) => (
             <div
               key={i}
-              className={`bg-white rounded-2xl p-8 border border-[rgba(95,64,222,0.1)] hover:border-[rgba(95,64,222,0.25)] transition-all duration-300 reveal-from-bottom reveal-delay-${i + 1}`}
+              className={`glass-card rounded-2xl p-8 border border-[rgba(95,64,222,0.12)] hover:border-[rgba(95,64,222,0.3)] hover:shadow-xl transition-all duration-400 card-reveal stagger-${i + 1} border-glow`}
             >
               <div className="font-display text-[80px] leading-none text-[#5f40de] mb-4">{b?.stat}</div>
               <h3 className="text-[18px] font-semibold text-[#0a0a0a] mb-2" style={{ fontFamily: 'Geist, sans-serif' }}>{b?.label}</h3>

@@ -33,32 +33,40 @@ export default function BeepHero() {
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [typedText, setTypedText] = useState('');
   const [currentLang, setCurrentLang] = useState(0);
+  const [chatCycle, setChatCycle] = useState(0);
   const chatRef = useRef<HTMLDivElement>(null);
   const langIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Animate chat messages
+  // Auto-play and loop chat animation
   useEffect(() => {
-    const delays = [800, 1600, 3200, 4400, 5200, 6200, 7200];
-    const timers = CHAT_SEQUENCE.map((msg, i) =>
-      setTimeout(() => {
-        setVisibleMessages(prev => {
-          if (msg.type === 'typing') {
-            return [...prev, msg.id];
-          }
-          // Remove typing when AI responds
-          const filtered = prev.filter(id => {
-            const m = CHAT_SEQUENCE.find(m => m.id === id);
-            return m?.type !== 'typing';
+    let timers: ReturnType<typeof setTimeout>[] = [];
+
+    const runCycle = () => {
+      setVisibleMessages([]);
+      const delays = [600, 1400, 2800, 4000, 4800, 5800, 6800];
+      timers = CHAT_SEQUENCE.map((msg, i) =>
+        setTimeout(() => {
+          setVisibleMessages(prev => {
+            if (msg.type === 'typing') return [...prev, msg.id];
+            const filtered = prev.filter(id => {
+              const m = CHAT_SEQUENCE.find(m => m.id === id);
+              return m?.type !== 'typing';
+            });
+            return [...filtered, msg.id];
           });
-          return [...filtered, msg.id];
-        });
-        if (chatRef.current) {
-          chatRef.current.scrollTop = chatRef.current.scrollHeight;
-        }
-      }, delays[i])
-    );
+          if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
+        }, delays[i])
+      );
+      // Loop after full sequence
+      const loopTimer = setTimeout(() => {
+        setChatCycle(c => c + 1);
+      }, 10000);
+      timers.push(loopTimer);
+    };
+
+    runCycle();
     return () => timers.forEach(clearTimeout);
-  }, []);
+  }, [chatCycle]);
 
   // Language cycling when voice active
   useEffect(() => {
@@ -69,9 +77,7 @@ export default function BeepHero() {
     } else {
       if (langIntervalRef.current) clearInterval(langIntervalRef.current);
     }
-    return () => {
-      if (langIntervalRef.current) clearInterval(langIntervalRef.current);
-    };
+    return () => { if (langIntervalRef.current) clearInterval(langIntervalRef.current); };
   }, [showVoice]);
 
   // Keyboard typing animation
@@ -85,15 +91,11 @@ export default function BeepHero() {
       setTypedText(text.slice(0, i));
       if (i >= text.length) {
         clearInterval(interval);
-        setTimeout(() => {
-          setShowKeyboard(false);
-          setTypedText('');
-        }, 1800);
+        setTimeout(() => { setShowKeyboard(false); setTypedText(''); }, 1800);
       }
     }, 80);
   };
 
-  // Voice button
   const handleVoiceTap = () => {
     setShowVoice(true);
     setTimeout(() => {
@@ -119,8 +121,13 @@ export default function BeepHero() {
   };
 
   return (
-    <section id="hero" className="min-h-screen bg-white pt-24 pb-16 px-6 md:px-12">
-      <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16 min-h-[calc(100vh-6rem)]">
+    <section id="hero" className="min-h-screen pt-24 pb-16 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #f0eef8 0%, #ebe8f5 50%, #e8e4f5 100%)' }}>
+      {/* Floating background orbs */}
+      <div className="absolute top-20 right-20 w-96 h-96 rounded-full opacity-20 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.3) 0%, transparent 70%)', '--dur': '7s', '--delay': '0s' } as React.CSSProperties} />
+      <div className="absolute bottom-32 left-10 w-64 h-64 rounded-full opacity-15 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.25) 0%, transparent 70%)', '--dur': '9s', '--delay': '2s' } as React.CSSProperties} />
+      <div className="absolute top-1/2 left-1/3 w-48 h-48 rounded-full opacity-10 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.2) 0%, transparent 70%)', '--dur': '11s', '--delay': '1s' } as React.CSSProperties} />
+
+      <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16 min-h-[calc(100vh-6rem)] relative z-10">
         {/* Left column */}
         <div className="flex-1 flex flex-col justify-center">
           {/* Eyebrow */}
@@ -146,7 +153,7 @@ export default function BeepHero() {
 
           {/* Body */}
           <p className="text-[17px] text-[#3a3a4a] leading-relaxed max-w-[480px] mb-8" style={{ fontFamily: 'Geist, sans-serif' }}>
-            Tell beep what you need. Beep finds the best option, decides and completes checkout — powered by real agentic payment infrastructure. Not a search. An execution.
+            Tell beep what you need. Beep finds the best option, decides and completes checkout powered by real agentic payment infrastructure. Not a search. An execution.
           </p>
 
           {/* Email form */}
@@ -159,7 +166,7 @@ export default function BeepHero() {
                 placeholder="your@email.com"
                 required
                 suppressHydrationWarning
-                className="flex-1 px-4 py-3 rounded-full border border-[rgba(95,64,222,0.2)] bg-white text-[#0a0a0a] placeholder-[#9999aa] text-[14px] focus:outline-none focus:border-[#5f40de] focus:ring-2 focus:ring-[rgba(95,64,222,0.15)] transition-all"
+                className="flex-1 px-4 py-3 rounded-full border border-[rgba(95,64,222,0.2)] text-[#0a0a0a] placeholder-[#9999aa] text-[14px] focus:outline-none focus:border-[#5f40de] focus:ring-2 focus:ring-[rgba(95,64,222,0.15)] transition-all glass-card"
                 style={{ fontFamily: 'Geist, sans-serif' }}
               />
               <button
@@ -181,25 +188,24 @@ export default function BeepHero() {
         </div>
 
         {/* Right column — iPhone mockup */}
-        <div className="flex-shrink-0 flex items-center justify-center">
+        <div className="flex-shrink-0 flex items-center justify-center float-element" style={{ '--dur': '6s', '--delay': '0.5s' } as React.CSSProperties}>
           <div className="relative" style={{ width: 300, height: 620 }}>
             {/* Phone frame */}
             <div
               className="relative w-full h-full rounded-[44px] overflow-hidden shadow-2xl"
-              style={{ background: '#0d0c17', border: '2px solid rgba(255,255,255,0.12)' }}
+              style={{ background: '#0d0c17', border: '2px solid rgba(255,255,255,0.12)', boxShadow: '0 32px 80px rgba(95,64,222,0.3), 0 0 0 1px rgba(95,64,222,0.15)' }}
             >
               {/* Notch */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-[#0d0c17] rounded-b-2xl z-20" />
 
-              {/* App bar */}
+              {/* App bar — no Live badge */}
               <div className="flex items-center justify-between px-4 pt-8 pb-3 border-b border-white/5">
                 <div className="flex items-center gap-2">
-                  <Image src="/assets/images/beep_logo-1774785208526.png" alt="beep" width={22} height={22} className="object-contain" />
+                  <Image src="/assets/images/beepAI___LOGO-1778057442337.jpg" alt="beep" width={22} height={22} className="object-contain rounded-md" />
                   <span className="text-white text-[14px] font-semibold" style={{ fontFamily: 'Geist, sans-serif' }}>beep</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-green-400 green-pulse" />
-                  <span className="text-green-400 text-[11px] font-medium">live</span>
                 </div>
               </div>
 
@@ -249,8 +255,8 @@ export default function BeepHero() {
                   if (msg.type === 'system') {
                     return (
                       <div key={msg.id} className="chat-bubble-enter">
-                        <div className="bg-white/6 border border-white/8 rounded-2xl rounded-bl-sm px-3 py-2 max-w-[230px]">
-                          <p className="text-white/80 text-[11px] leading-relaxed" style={{ fontFamily: 'Geist, sans-serif' }}>{msg.text}</p>
+                        <div className="bg-white/5 border border-white/8 rounded-xl px-3 py-2 max-w-[230px]">
+                          <p className="text-white/70 text-[11px] leading-relaxed" style={{ fontFamily: 'Geist, sans-serif' }}>{msg.text}</p>
                         </div>
                       </div>
                     );
@@ -259,114 +265,83 @@ export default function BeepHero() {
                 })}
               </div>
 
-              {/* Input bar */}
-              <div className="absolute bottom-0 left-0 right-0 px-3 pb-5 pt-2 bg-gradient-to-t from-[#0d0c17] to-transparent">
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={handlePillTap}
-                    className="flex-1 flex items-center justify-between bg-white/8 border border-white/10 rounded-full px-4 py-2.5 cursor-none"
-                  >
-                    <span className="text-white/40 text-[12px]" style={{ fontFamily: 'Geist, sans-serif' }}>
-                      {typedText || 'What\'s your intent'}
-                    </span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-white/30 flex-shrink-0">
-                      <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                      <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                    </svg>
-                  </button>
-                  {/* Voice button */}
-                  <button
-                    onClick={handleVoiceTap}
-                    className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0 cursor-none relative"
-                  >
-                    <div className="flex items-end gap-0.5 h-4">
-                      {[0, 1, 2, 3].map(i => (
-                        <div
-                          key={i}
-                          className="w-0.5 bg-white rounded-full wave-bar"
-                          style={{ '--dur': `${0.6 + i * 0.15}s`, '--delay': `${i * 0.1}s` } as React.CSSProperties}
-                        />
-                      ))}
-                    </div>
-                  </button>
-                </div>
-              </div>
-
-              {/* Keyboard overlay */}
-              {showKeyboard && (
-                <div className="absolute bottom-0 left-0 right-0 keyboard-slide-up z-30">
-                  <div className="bg-[#1a1a2e] rounded-t-2xl p-2">
-                    <div className="grid grid-cols-10 gap-1 mb-1">
-                      {'qwertyuiop'.split('').map(k => (
-                        <div key={k} className="bg-white/15 rounded text-white text-[10px] text-center py-1.5 font-medium">{k}</div>
-                      ))}
-                    </div>
-                    <div className="grid grid-cols-9 gap-1 mb-1 px-3">
-                      {'asdfghjkl'.split('').map(k => (
-                        <div key={k} className="bg-white/15 rounded text-white text-[10px] text-center py-1.5 font-medium">{k}</div>
-                      ))}
-                    </div>
-                    <div className="grid grid-cols-7 gap-1 px-6">
-                      {'zxcvbnm'.split('').map(k => (
-                        <div key={k} className="bg-white/15 rounded text-white text-[10px] text-center py-1.5 font-medium">{k}</div>
-                      ))}
-                    </div>
-                    <div className="mt-1 bg-white/10 rounded-lg text-white/40 text-[11px] text-center py-2">space</div>
-                  </div>
-                </div>
-              )}
-
-              {/* Voice recording overlay */}
+              {/* Voice overlay */}
               {showVoice && (
-                <div className="absolute inset-0 bg-[#0d0c17]/95 z-30 flex flex-col items-center justify-center">
-                  {/* Pulsing red orb */}
+                <div className="absolute inset-0 bg-[#0d0c17] flex flex-col items-center justify-center z-30">
                   <div className="relative mb-6">
-                    <div className="w-16 h-16 rounded-full bg-red-500/20 absolute inset-0 animate-ping" />
-                    <div className="w-16 h-16 rounded-full bg-red-500 flex items-center justify-center relative">
-                      <div className="flex items-end gap-1 h-6">
-                        {[0,1,2,3,4].map(i => (
-                          <div key={i} className="w-1 bg-white rounded-full wave-bar" style={{ '--dur': `${0.5 + i * 0.1}s`, '--delay': `${i * 0.08}s` } as React.CSSProperties} />
-                        ))}
+                    <div className="w-20 h-20 rounded-full bg-red-500/20 flex items-center justify-center orb-breathe">
+                      <div className="w-12 h-12 rounded-full bg-red-500/60 flex items-center justify-center">
+                        <div className="w-6 h-6 rounded-full bg-red-500" />
                       </div>
                     </div>
+                    {[1, 2, 3].map(i => (
+                      <div key={i} className="absolute inset-0 rounded-full border border-red-500/30 ring-expand" style={{ animationDelay: `${i * 0.7}s` }} />
+                    ))}
                   </div>
-                  {/* Language display */}
-                  <div className="h-8 flex items-center justify-center mb-3">
-                    <span key={currentLang} className="lang-float text-white/80 text-[16px] font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>
-                      {LANGUAGES[currentLang]}
-                    </span>
+                  <div className="flex gap-1 mb-4">
+                    {[0,1,2,3,4].map(i => (
+                      <div key={i} className="w-1 bg-red-400 rounded-full wave-bar" style={{ '--dur': `${0.5 + i * 0.1}s`, '--delay': `${i * 0.1}s` } as React.CSSProperties} />
+                    ))}
                   </div>
-                  <p className="text-white/60 text-[12px] text-center" style={{ fontFamily: 'Geist, sans-serif' }}>
-                    Listening... speak in any language
-                  </p>
+                  <p className="text-white/80 text-[12px] mb-2" style={{ fontFamily: 'Geist, sans-serif' }}>Listening... speak in any language</p>
+                  <p className="text-[#5f40de] text-[14px] font-semibold" style={{ fontFamily: 'Geist, sans-serif' }}>{LANGUAGES[currentLang]}</p>
                 </div>
               )}
 
               {/* AI Orb overlay */}
               {showOrb && (
-                <div className="absolute inset-0 bg-[#0d0c17]/95 z-30 flex flex-col items-center justify-center">
+                <div className="absolute inset-0 bg-[#06050e] flex flex-col items-center justify-center z-30">
                   <div className="relative mb-6">
+                    <div className="w-24 h-24 rounded-full orb-breathe" style={{ background: 'radial-gradient(circle at 35% 35%, #7c5ff0, #5f40de, #1a0a6e)' }}>
+                      <div className="absolute inset-0 rounded-full" style={{ background: 'radial-gradient(circle at 35% 35%, rgba(255,255,255,0.3), transparent 60%)' }} />
+                    </div>
                     {[1, 2, 3].map(i => (
-                      <div
-                        key={i}
-                        className="absolute inset-0 rounded-full border border-blue-400/40 ring-expand"
-                        style={{ animationDelay: `${i * 0.7}s` }}
-                      />
+                      <div key={i} className="absolute inset-0 rounded-full border border-[#5f40de]/30 ring-expand" style={{ animationDelay: `${i * 0.8}s` }} />
                     ))}
-                    <div className="w-20 h-20 rounded-full orb-breathe relative" style={{
-                      background: 'radial-gradient(circle at 35% 35%, #60a5fa, #3b82f6, #1d4ed8)',
-                      boxShadow: '0 0 40px rgba(96,165,250,0.6), 0 0 80px rgba(59,130,246,0.3)',
-                    }} />
                   </div>
-                  <p className="text-white text-[13px] text-center px-6 leading-relaxed" style={{ fontFamily: 'Geist, sans-serif' }}>
+                  <p className="text-white text-[12px] text-center px-6 leading-relaxed" style={{ fontFamily: 'Geist, sans-serif' }}>
                     Got it. IndiGo, 5100 rupees, departing 9 AM. Booked. Your ticket is on your email.
                   </p>
                 </div>
               )}
-            </div>
 
-            {/* Glow under phone */}
-            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-48 h-12 rounded-full blur-2xl" style={{ background: 'rgba(95,64,222,0.2)' }} />
+              {/* Input bar */}
+              <div className="absolute bottom-0 left-0 right-0 px-3 pb-4 pt-2 bg-gradient-to-t from-[#0d0c17] to-transparent">
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handlePillTap}
+                    className="flex-1 flex items-center justify-between bg-white/8 border border-white/10 rounded-full px-3 py-2 cursor-none"
+                    suppressHydrationWarning
+                  >
+                    <span className="text-white/40 text-[11px]" style={{ fontFamily: 'Geist, sans-serif' }}>
+                      {showKeyboard ? typedText || 'What\'s your intent' : 'What\'s your intent'}
+                    </span>
+                    <svg className="w-3.5 h-3.5 text-white/30" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                      <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+                    </svg>
+                  </button>
+                  <button
+                    onClick={handleVoiceTap}
+                    className="w-9 h-9 rounded-full bg-[#5f40de] flex items-center justify-center flex-shrink-0 cursor-none"
+                    suppressHydrationWarning
+                  >
+                    <div className="flex gap-0.5 items-center">
+                      {[0,1,2].map(i => (
+                        <div key={i} className="w-0.5 bg-white rounded-full wave-bar" style={{ '--dur': `${0.6 + i * 0.15}s`, '--delay': `${i * 0.15}s` } as React.CSSProperties} />
+                      ))}
+                    </div>
+                  </button>
+                </div>
+                {showKeyboard && (
+                  <div className="mt-2 bg-[#1a1a2e] rounded-xl p-2 grid grid-cols-10 gap-1">
+                    {['q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l',';','z','x','c','v','b','n','m',',','.'].map((k, i) => (
+                      <div key={i} className="bg-white/10 rounded text-white/60 text-[8px] text-center py-1">{k}</div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>

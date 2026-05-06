@@ -36,10 +36,13 @@ export default function BeepWaitlist() {
   };
 
   return (
-    <section id="waitlist" ref={sectionRef} className="bg-white py-28 px-6 md:px-12">
-      <div className="max-w-[900px] mx-auto text-center">
+    <section id="waitlist" ref={sectionRef} className="py-28 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #f0eef8 0%, #ebe8f5 50%, #e8e4f5 100%)' }}>
+      {/* Background orbs */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-15 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.4) 0%, transparent 70%)' }} />
+
+      <div className="max-w-[900px] mx-auto text-center relative z-10">
         <div className="mb-4 reveal-from-bottom">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[rgba(95,64,222,0.08)] border border-[rgba(95,64,222,0.15)] text-[#5f40de] text-[12px] font-semibold tracking-[0.15em]" style={{ fontFamily: 'Geist, sans-serif' }}>
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-[rgba(95,64,222,0.2)] text-[#5f40de] text-[12px] font-semibold tracking-[0.15em]" style={{ fontFamily: 'Geist, sans-serif' }}>
             FULL COMMERCE OS · ON ROADMAP
           </span>
         </div>
@@ -59,7 +62,7 @@ export default function BeepWaitlist() {
         </div>
 
         <p className="text-[17px] text-[#6b6b80] mt-6 mb-10 reveal-from-bottom reveal-delay-2" style={{ fontFamily: 'Geist, sans-serif' }}>
-          One sentence. That is all it takes. The rest is beep's problem.
+          One sentence. That is all it takes.
         </p>
 
         {!submitted ? (
@@ -71,7 +74,7 @@ export default function BeepWaitlist() {
               placeholder="your@email.com"
               required
               suppressHydrationWarning
-              className="flex-1 px-4 py-3 rounded-full border border-[rgba(95,64,222,0.2)] bg-white text-[#0a0a0a] placeholder-[#9999aa] text-[14px] focus:outline-none focus:border-[#5f40de] focus:ring-2 focus:ring-[rgba(95,64,222,0.15)] transition-all"
+              className="flex-1 px-4 py-3 rounded-full border border-[rgba(95,64,222,0.2)] text-[#0a0a0a] placeholder-[#9999aa] text-[14px] focus:outline-none focus:border-[#5f40de] focus:ring-2 focus:ring-[rgba(95,64,222,0.15)] transition-all glass-card"
               style={{ fontFamily: 'Geist, sans-serif' }}
             />
             <button
@@ -94,8 +97,6 @@ export default function BeepWaitlist() {
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4 text-[13px] text-[#6b6b80] reveal-from-bottom reveal-delay-4" style={{ fontFamily: 'Geist, sans-serif' }}>
           <span>Built in India</span>
-          <span className="w-1 h-1 rounded-full bg-[#cccccc]" />
-          <span>IIFT Delhi founders</span>
           <span className="w-1 h-1 rounded-full bg-[#cccccc]" />
           <a href="https://beepnpay.com" className="text-[#5f40de] hover:underline">beepnpay.com</a>
         </div>

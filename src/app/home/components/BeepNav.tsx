@@ -21,7 +21,7 @@ export default function BeepNav() {
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-white/80 backdrop-blur-2xl border-b border-[rgba(95,64,222,0.12)] shadow-sm'
+          ? 'glass border-b border-[rgba(95,64,222,0.14)] shadow-lg'
           : 'bg-transparent border-b border-transparent'
       }`}
     >
@@ -29,11 +29,11 @@ export default function BeepNav() {
         {/* Logo */}
         <button onClick={() => scrollTo('hero')} className="flex items-center gap-2.5 cursor-none">
           <Image
-            src="/assets/images/beep_logo-1774785208526.png"
+            src="/assets/images/beepAI___LOGO-1778057442337.jpg"
             alt="beep logo"
-            width={34}
-            height={34}
-            className="flex-shrink-0 object-contain"
+            width={36}
+            height={36}
+            className="flex-shrink-0 object-contain rounded-lg"
             priority
           />
           <span className="font-bold text-lg text-[#0a0a0a] tracking-tight" style={{ fontFamily: 'Geist, Inter, sans-serif' }}>

@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import BeepNav from './components/BeepNav';
 import BeepHero from './components/BeepHero';
@@ -17,7 +19,7 @@ import CustomCursor from './components/CustomCursor';
 
 export default function HomePage() {
   return (
-    <main className="relative min-h-screen bg-white overflow-x-hidden">
+    <main className="relative min-h-screen overflow-x-hidden" style={{ background: '#f0eef8' }}>
       <CustomCursor />
       <BeepNav />
       <BeepHero />
