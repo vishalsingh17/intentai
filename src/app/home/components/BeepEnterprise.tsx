@@ -61,7 +61,7 @@ export default function EnterpriseSection() {
       id="enterprise"
       ref={sectionRef}
       className="relative overflow-hidden py-28 px-6 md:px-12"
-      style={{ background: '#07060f' }}
+      style={{ background: '#201e38' }}
     >
       {/* Orange grid lines */}
       <div
@@ -159,7 +159,7 @@ export default function EnterpriseSection() {
           ))}
         </div>
 
-        {/* Form — clearly visible on dark background */}
+        {/* Form */}
         <div className="max-w-[480px] reveal-from-bottom reveal-delay-4">
           {!submitted ? (
             <form onSubmit={handleSubmit} className="space-y-4">

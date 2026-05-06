@@ -25,29 +25,28 @@ export default function CustomCursor() {
         spotlightRef.current.style.top = `${mouseY}px`;
       }
 
-      // Check if hovering interactive element
       const target = e.target as HTMLElement;
       const isInteractive = target.closest('a, button, [role="button"], input, select, textarea, label');
       if (dotRef.current) {
         if (isInteractive) {
           dotRef.current.style.width = '18px';
           dotRef.current.style.height = '18px';
-          dotRef.current.style.background = 'rgba(95, 64, 222, 0.7)';
+          dotRef.current.style.background = 'rgba(124, 95, 240, 0.7)';
         } else {
           dotRef.current.style.width = '10px';
           dotRef.current.style.height = '10px';
-          dotRef.current.style.background = '#5f40de';
+          dotRef.current.style.background = '#7c5ff0';
         }
       }
       if (ringRef.current) {
         if (isInteractive) {
           ringRef.current.style.width = '48px';
           ringRef.current.style.height = '48px';
-          ringRef.current.style.borderColor = 'rgba(95, 64, 222, 0.7)';
+          ringRef.current.style.borderColor = 'rgba(124, 95, 240, 0.7)';
         } else {
           ringRef.current.style.width = '34px';
           ringRef.current.style.height = '34px';
-          ringRef.current.style.borderColor = 'rgba(95, 64, 222, 0.55)';
+          ringRef.current.style.borderColor = 'rgba(124, 95, 240, 0.55)';
         }
       }
     };

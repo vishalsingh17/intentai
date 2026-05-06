@@ -21,9 +21,10 @@ export default function BeepNav() {
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         scrolled
-          ? 'glass border-b border-[rgba(95,64,222,0.14)] shadow-lg'
+          ? 'border-b border-[rgba(124,95,240,0.18)] shadow-lg'
           : 'bg-transparent border-b border-transparent'
       }`}
+      style={scrolled ? { background: 'rgba(32, 30, 52, 0.94)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' } : {}}
     >
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
         {/* Logo */}
@@ -36,7 +37,7 @@ export default function BeepNav() {
             className="flex-shrink-0 object-contain rounded-lg"
             priority
           />
-          <span className="font-bold text-lg text-[#0a0a0a] tracking-tight" style={{ fontFamily: 'Geist, Inter, sans-serif' }}>
+          <span className="font-bold text-lg text-[#e8e4f8] tracking-tight" style={{ fontFamily: 'Geist, Inter, sans-serif' }}>
             beep
           </span>
         </button>
@@ -52,7 +53,7 @@ export default function BeepNav() {
             <button
               key={item.id}
               onClick={() => scrollTo(item.id)}
-              className="text-[14px] font-medium text-[#3a3a4a] hover:text-[#5f40de] transition-colors duration-200 cursor-none"
+              className="text-[14px] font-medium text-[#c0bcd8] hover:text-[#9b7ff8] transition-colors duration-200 cursor-none"
               suppressHydrationWarning
             >
               {item.label}

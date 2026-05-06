@@ -19,7 +19,7 @@ import CustomCursor from './components/CustomCursor';
 
 export default function HomePage() {
   return (
-    <main className="relative min-h-screen overflow-x-hidden" style={{ background: '#f0eef8' }}>
+    <main className="relative min-h-screen overflow-x-hidden" style={{ background: '#1e1c2e' }}>
       <CustomCursor />
       <BeepNav />
       <BeepHero />

@@ -41,7 +41,7 @@ export default function WhatWeBelieve() {
       text,
       x: (i * 17 + 5) % 90,
       y: (i * 13 + 8) % 85,
-      opacity: 0.04 + (i % 5) * 0.02,
+      opacity: 0.06 + (i % 5) * 0.02,
       duration: 7 + (i % 6) * 2,
       delay: (i % 8) * 1.2,
       size: 14 + (i % 4) * 4,
@@ -52,7 +52,7 @@ export default function WhatWeBelieve() {
     <section
       ref={sectionRef}
       className="relative overflow-hidden py-32 px-6 md:px-12"
-      style={{ background: '#06050e' }}
+      style={{ background: '#16142a' }}
     >
       {/* Floating words background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -79,7 +79,7 @@ export default function WhatWeBelieve() {
       {/* Centered content */}
       <div className="relative z-10 max-w-[900px] mx-auto text-center">
         <div className="mb-6 reveal-from-bottom">
-          <span className="text-[#5f40de] text-[12px] tracking-[0.25em] uppercase font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>
+          <span className="text-[#9b7ff8] text-[12px] tracking-[0.25em] uppercase font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>
             What we believe
           </span>
         </div>
@@ -91,14 +91,14 @@ export default function WhatWeBelieve() {
         </div>
         <div className="mb-8 reveal-from-bottom reveal-delay-1">
           <span
-            className="text-[96px] md:text-[128px] leading-[0.88] text-[#5f40de]"
+            className="text-[96px] md:text-[128px] leading-[0.88] text-[#9b7ff8]"
             style={{ fontFamily: 'Instrument Serif', fontStyle: 'italic' }}
           >
             do more.
           </span>
         </div>
 
-        <p className="text-[18px] text-white/60 mb-10 reveal-from-bottom reveal-delay-2" style={{ fontFamily: 'Geist, sans-serif' }}>
+        <p className="text-[18px] text-white/50 mb-10 reveal-from-bottom reveal-delay-2" style={{ fontFamily: 'Geist, sans-serif' }}>
           We sweat the details, you just command.
         </p>
 
