@@ -27,7 +27,7 @@ export default function BeepNav() {
     >
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
         {/* Logo */}
-        <button onClick={() => scrollTo('hero')} className="flex items-center gap-2.5 cursor-none">
+        <button onClick={() => scrollTo('hero')} className="flex items-center gap-2.5 cursor-none" suppressHydrationWarning>
           <Image
             src="/assets/images/beepAI___LOGO-1778057442337.jpg"
             alt="beep logo"
