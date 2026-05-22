@@ -29,10 +29,21 @@ export default function BeepFooter() {
           <a href="tel:+917048939374" className="hover:text-[#5f40de] transition-colors">+91 7048939374</a>
         </nav>
 
-        {/* Right: copyright */}
-        <span className="text-[12px] text-[#6b6b80] text-center" style={{ fontFamily: 'Geist, sans-serif' }}>
-          © 2026 Beep and Pay Technologies Pvt Ltd.
-        </span>
+        {/* Right: copyright + D&B seal */}
+        <div className="flex flex-col items-center md:items-end gap-3">
+          <span className="text-[12px] text-[#6b6b80] text-center" style={{ fontFamily: 'Geist, sans-serif' }}>
+            © 2026 Beep and Pay Technologies Pvt Ltd.
+          </span>
+          <iframe
+            id="Iframe1"
+            src="https://dunsregistered.dnb.com/SealAuthentication.aspx?Cid=1"
+            width="114px"
+            height="97px"
+            frameBorder={0}
+            scrolling="no"
+            style={{ border: 'none' }}
+          />
+        </div>
       </div>
     </footer>
   );
