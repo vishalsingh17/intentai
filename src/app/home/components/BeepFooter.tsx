@@ -44,8 +44,6 @@ export default function BeepFooter() {
               height="97"
               frameBorder={0}
               scrolling="no"
-              // @ts-ignore
-              allowTransparency="true"
               style={{ border: 'none', display: 'block', width: '114px', height: '97px' }}
             />
           </div>
