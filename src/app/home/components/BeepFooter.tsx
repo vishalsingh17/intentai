@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -34,15 +36,19 @@ export default function BeepFooter() {
           <span className="text-[12px] text-[#6b6b80] text-center" style={{ fontFamily: 'Geist, sans-serif' }}>
             © 2026 Beep and Pay Technologies Pvt Ltd.
           </span>
-          <iframe
-            id="Iframe1"
-            src="https://dunsregistered.dnb.com/SealAuthentication.aspx?Cid=1"
-            width="114px"
-            height="97px"
-            frameBorder={0}
-            scrolling="no"
-            style={{ border: 'none' }}
-          />
+          <div style={{ width: '114px', height: '97px', overflow: 'hidden' }}>
+            <iframe
+              id="Iframe1"
+              src="https://dunsregistered.dnb.com/SealAuthentication.aspx?Cid=1"
+              width="114"
+              height="97"
+              frameBorder={0}
+              scrolling="no"
+              // @ts-ignore
+              allowTransparency="true"
+              style={{ border: 'none', display: 'block', width: '114px', height: '97px' }}
+            />
+          </div>
         </div>
       </div>
     </footer>
