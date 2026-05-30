@@ -36,7 +36,7 @@ export default function BeepNav() {
             className="flex-shrink-0 object-contain rounded-full"
             priority
           />
-          <span className="font-bold text-lg text-[#0a0a0a] tracking-tight" style={{ fontFamily: 'Geist, Inter, sans-serif' }}>
+          <span className="font-bold text-lg text-[#c5d6ea] tracking-tight" style={{ fontFamily: "'Google Sans', Inter, sans-serif" }}>
             beep
           </span>
         </button>
@@ -52,7 +52,7 @@ export default function BeepNav() {
             <button
               key={item.id}
               onClick={() => scrollTo(item.id)}
-              className="text-[14px] font-medium text-[#3a3a4a] hover:text-[#5f40de] transition-colors duration-200 cursor-none"
+              className="text-[14px] font-medium text-[#c5d6ea] hover:text-[#5f40de] transition-colors duration-200 cursor-none"
               suppressHydrationWarning
             >
               {item.label}

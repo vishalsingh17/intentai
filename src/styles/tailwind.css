@@ -2,20 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Google+Sans:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --color-bg: #e8e5f5;
-  --color-bg-alt: #e2dff0;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f8f8ff;
   --color-surface: rgba(95, 64, 222, 0.07);
   --color-surface-hover: rgba(95, 64, 222, 0.12);
   --color-border: rgba(95, 64, 222, 0.16);
   --color-border-strong: rgba(95, 64, 222, 0.3);
   --color-primary: #5f40de;
   --color-primary-light: #7c5ff0;
-  --color-foreground: #0a0a0a;
-  --color-muted: #6b6b80;
-  --color-muted-strong: #3a3a4a;
+  --color-foreground: #c5d6ea;
+  --color-muted: #a0b4cc;
+  --color-muted-strong: #8aa4be;
   --glow-primary: rgba(95, 64, 222, 0.35);
 }
 
@@ -28,9 +28,9 @@ html {
 }
 
 body {
-  background-color: #e8e5f5;
-  color: #0a0a0a;
-  font-family: 'Geist', 'Inter', sans-serif;
+  background-color: #ffffff;
+  color: #c5d6ea;
+  font-family: 'Google Sans', 'Inter', sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -239,9 +239,9 @@ a, button, [role="button"], input, select, textarea, label {
   animation: shimmer 3s linear infinite;
 }
 
-/* ── Glassmorphism — light gray-purple base ── */
+/* ── Glassmorphism — white base ── */
 .glass {
-  background: rgba(225, 222, 242, 0.7);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(95, 64, 222, 0.16);
@@ -249,7 +249,7 @@ a, button, [role="button"], input, select, textarea, label {
 }
 
 .glass-card {
-  background: rgba(235, 232, 250, 0.75);
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(95, 64, 222, 0.14);
@@ -257,7 +257,7 @@ a, button, [role="button"], input, select, textarea, label {
 }
 
 .glass-strong {
-  background: rgba(245, 243, 255, 0.6);
+  background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(32px);
   -webkit-backdrop-filter: blur(32px);
   border: 1px solid rgba(95, 64, 222, 0.2);
@@ -279,7 +279,7 @@ a, button, [role="button"], input, select, textarea, label {
 
 /* ── Section label ── */
 .section-label {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-size: 11px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -298,7 +298,7 @@ a, button, [role="button"], input, select, textarea, label {
   background: #5f40de;
   color: #ffffff;
   border-radius: 9999px;
-  font-family: 'Geist', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-weight: 600;
   transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   box-shadow: 0 4px 20px rgba(95, 64, 222, 0.4);

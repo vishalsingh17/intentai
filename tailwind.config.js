@@ -7,9 +7,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Bebas Neue', 'sans-serif'],
-        serif: ['Instrument Serif', 'Georgia', 'serif'],
-        sans: ['Geist', 'Inter', 'sans-serif'],
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        serif: ['Playfair Display', 'Georgia', 'serif'],
+        sans: ['Google Sans', 'Inter', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
