@@ -1,15 +1,6 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import Image from 'next/image';
-
-const TIMELINE = [
-  { date: 'Jan 2026', event: 'The question' },
-  { date: 'Feb 2026', event: 'First execution' },
-  { date: 'May 2026', event: 'Public launch' },
-  { date: 'Q3 2026', event: 'Enterprise rollout' },
-  { date: 'Q4 2026', event: 'Agentic payment infra built to license globally' },
-];
 
 export default function FoundingStory() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -26,67 +17,50 @@ export default function FoundingStory() {
   }, []);
 
   return (
-    <section id="our-story" ref={sectionRef} className="py-24 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #ebe8f5 0%, #e8e4f5 100%)' }}>
-      {/* Background glow */}
-      <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-20 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.3) 0%, transparent 70%)' }} />
+    <section id="our-story" ref={sectionRef} className="py-24 px-6 md:px-12 relative overflow-hidden" style={{ background: '#f4f7fb' }}>
+      {/* Accent top border */}
+      <div className="absolute top-0 left-0 right-0 h-1" style={{ background: 'linear-gradient(90deg, transparent, #c5d6ea, transparent)' }} />
 
-      <div className="max-w-[1280px] mx-auto grid md:grid-cols-2 gap-16 items-start relative z-10">
-        {/* Left */}
-        <div>
-          <div className="font-display text-[160px] md:text-[200px] leading-none text-[#5f40de] opacity-10 select-none mb-0 -mt-8">
-            2026
-          </div>
-          <div className="-mt-16 relative z-10">
-            <h2 className="font-display text-[56px] md:text-[64px] text-[#0a0a0a] tracking-wide mb-6 reveal-from-bottom">
-              Why we built this.
-            </h2>
-            <div className="space-y-4 mb-10 reveal-from-bottom reveal-delay-1">
-              <p className="text-[16px] text-[#3a3a4a] leading-relaxed" style={{ fontFamily: 'Geist, sans-serif' }}>
-                We started with a simple question: what if commerce worked the way you think?
-              </p>
-              <p className="text-[16px] text-[#3a3a4a] leading-relaxed" style={{ fontFamily: 'Geist, sans-serif' }}>
-                You do not think <strong>&ldquo;let me open four apps&rdquo;</strong>, filter by airline, compare prices, enter card details, and wonder if I got a good deal. You think <strong>&ldquo;I need a flight to Mumbai tomorrow&rdquo;</strong>. That thought should be enough. So we built the layer that makes it enough.
-              </p>
-              <p className="text-[16px] text-[#3a3a4a] leading-relaxed" style={{ fontFamily: 'Geist, sans-serif' }}>
-                Beep is the agentic execution layer that sits between human intent and commercial transaction. Not a chatbot. Not a search wrapper. An agent that acts.
-              </p>
-            </div>
-
-            {/* Timeline */}
-            <div className="space-y-4 reveal-from-bottom reveal-delay-2">
-              {TIMELINE?.map((item, i) => (
-                <div key={i} className="flex items-start gap-4">
-                  <div className="flex flex-col items-center">
-                    <div className="w-2 h-2 rounded-full bg-[#5f40de] mt-1.5 flex-shrink-0" />
-                    {i < TIMELINE?.length - 1 && <div className="w-px h-8 bg-[rgba(95,64,222,0.2)] mt-1" />}
-                  </div>
-                  <div>
-                    <span className="text-[12px] font-semibold text-[#5f40de] block" style={{ fontFamily: 'Geist, sans-serif' }}>{item?.date}</span>
-                    <span className="text-[14px] text-[#3a3a4a]" style={{ fontFamily: 'Geist, sans-serif' }}>{item?.event}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+      <div className="max-w-[900px] mx-auto relative z-10">
+        {/* Section label */}
+        <div className="mb-6 reveal-from-bottom">
+          <span className="section-label">Our story</span>
         </div>
 
-        {/* Right — team photo uncropped */}
-        <div className="reveal-from-bottom reveal-delay-1">
-          <div className="glass-card rounded-2xl overflow-hidden p-3" style={{ background: 'rgba(255,255,255,0.35)', backdropFilter: 'blur(20px)', border: '1px solid rgba(95,64,222,0.15)' }}>
-            <div className="rounded-xl overflow-hidden w-full" style={{ background: '#f5f3ff' }}>
-              <Image
-                src="/assets/images/WhatsApp_Image_2026-05-06_at_1.25.57_AM-1778062387332.jpeg"
-                alt="Three founders working at a desk with laptop, papers and a Coke can in a warm startup environment"
-                width={800}
-                height={600}
-                className="w-full h-auto object-contain"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            </div>
-          </div>
-          <p className="text-[13px] text-[#6b6b80] text-center italic mt-4" style={{ fontFamily: 'Instrument Serif' }}>
-            Just three people trying to make the crazy idea work.
+        {/* Headline */}
+        <h2
+          className="text-[56px] md:text-[72px] leading-[0.92] mb-10 reveal-from-bottom"
+          style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', color: '#1c3561', fontWeight: 600 }}
+        >
+          Why we built this.
+        </h2>
+
+        {/* Story paragraphs — no photo, no timeline */}
+        <div className="space-y-6 reveal-from-bottom reveal-delay-1">
+          <p className="text-[17px] leading-relaxed" style={{ fontFamily: "'Google Sans', sans-serif", color: '#4a5f80' }}>
+            We started with a simple question: what if commerce worked the way you think?
           </p>
+          <p className="text-[17px] leading-relaxed" style={{ fontFamily: "'Google Sans', sans-serif", color: '#4a5f80' }}>
+            You do not think <strong style={{ color: '#1c3561' }}>&ldquo;let me open four apps&rdquo;</strong>, filter by airline, compare prices, enter card details, and wonder if I got a good deal. You think <strong style={{ color: '#1c3561' }}>&ldquo;I need a flight to Mumbai tomorrow&rdquo;</strong>. That thought should be enough. So we built the layer that makes it enough.
+          </p>
+          <p className="text-[17px] leading-relaxed" style={{ fontFamily: "'Google Sans', sans-serif", color: '#4a5f80' }}>
+            BeepAi is the agentic execution layer that sits between human intent and commercial transaction. Not a chatbot. Not a search wrapper. An agent that acts.
+          </p>
+          <p className="text-[17px] leading-relaxed" style={{ fontFamily: "'Google Sans', sans-serif", color: '#4a5f80' }}>
+            We built Beep because we kept watching great products lose customers at the last step. The checkout. It was not a product problem. It was not a pricing problem. It was a friction problem — and nobody was solving it intelligently for the Indian market. We are a small team obsessed with one thing: making the moment of payment feel effortless. Not just fast. Effortless. Because when a customer does not have to think, they do not leave.
+          </p>
+        </div>
+
+        {/* Decorative quote */}
+        <div className="mt-12 reveal-from-bottom reveal-delay-2">
+          <div className="rounded-2xl p-8 border-l-4" style={{ background: '#ffffff', borderLeftColor: '#1c3561' }}>
+            <p
+              className="text-[20px] leading-relaxed"
+              style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', color: '#1c3561' }}
+            >
+              &ldquo;A small team obsessed with one thing: making the moment of payment feel effortless.&rdquo;
+            </p>
+          </div>
         </div>
       </div>
     </section>

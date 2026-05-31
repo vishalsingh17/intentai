@@ -5,13 +5,13 @@ import React, { useEffect, useRef } from 'react';
 const STEPS = [
   {
     num: '01',
-    title: 'Tell beep',
+    title: 'Tell BeepAi',
     desc: 'Say or type what you need in any language. One sentence is enough.',
     chips: ['Any language on earth', 'Voice or text', 'One sentence'],
   },
   {
     num: '02',
-    title: 'Beep finds',
+    title: 'BeepAi finds',
     desc: 'Our agent searches live inventory across providers and ranks the best options.',
     chips: ['Live inventory', 'Smart ranking', 'Multi-provider'],
   },
@@ -41,29 +41,45 @@ export default function BeepHowItWorks() {
   }, []);
 
   return (
-    <section id="how-it-works" ref={sectionRef} className="py-24 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #f0eef8 0%, #ebe8f5 100%)' }}>
-      {/* Floating orbs */}
-      <div className="absolute top-10 right-10 w-72 h-72 rounded-full opacity-15 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.3) 0%, transparent 70%)', '--dur': '10s', '--delay': '0s' } as React.CSSProperties} />
-
+    <section id="how-it-works" ref={sectionRef} className="py-24 px-6 md:px-12 relative overflow-hidden" style={{ background: '#f4f7fb' }}>
       <div className="max-w-[1280px] mx-auto relative z-10">
         <div className="mb-3 reveal-from-bottom">
           <span className="section-label">How it works</span>
         </div>
-        <h2 className="font-display text-[56px] md:text-[72px] text-[#0a0a0a] tracking-wide mb-14 reveal-from-bottom">
+        <h2
+          className="text-[48px] md:text-[64px] mb-14 reveal-from-bottom"
+          style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', color: '#1c3561', fontWeight: 600 }}
+        >
           Three steps. That is it.
         </h2>
         <div className="grid md:grid-cols-3 gap-8">
           {STEPS?.map((step, i) => (
-            <div key={i} className={`glass-card rounded-2xl p-8 border border-[rgba(95,64,222,0.12)] hover:border-[rgba(95,64,222,0.28)] hover:shadow-xl transition-all duration-400 card-reveal stagger-${i + 1}`}>
-              <div className="font-display text-[64px] text-[#5f40de] leading-none mb-4 opacity-30">{step?.num}</div>
-              <h3 className="font-display text-[36px] text-[#0a0a0a] tracking-wide mb-3">{step?.title}</h3>
-              <p className="text-[15px] text-[#6b6b80] leading-relaxed mb-5" style={{ fontFamily: 'Geist, sans-serif' }}>{step?.desc}</p>
+            <div
+              key={i}
+              className={`rounded-2xl p-8 border hover:shadow-md transition-all duration-300 card-reveal stagger-${i + 1}`}
+              style={{ background: '#ffffff', borderColor: 'rgba(28,53,97,0.1)' }}
+            >
+              <div
+                className="text-[64px] leading-none mb-4 opacity-20"
+                style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', color: '#1c3561', fontWeight: 700 }}
+              >
+                {step?.num}
+              </div>
+              <h3
+                className="text-[28px] mb-3"
+                style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', color: '#1c3561', fontWeight: 600 }}
+              >
+                {step?.title}
+              </h3>
+              <p className="text-[15px] leading-relaxed mb-5" style={{ fontFamily: "'Google Sans', sans-serif", color: '#6b7fa0' }}>
+                {step?.desc}
+              </p>
               <div className="flex flex-wrap gap-2">
                 {step?.chips?.map((chip, j) => (
                   <span
                     key={j}
-                    className="text-[12px] px-3 py-1.5 rounded-full border border-[rgba(95,64,222,0.2)] text-[#5f40de] bg-[rgba(95,64,222,0.06)]"
-                    style={{ fontFamily: 'Geist, sans-serif' }}
+                    className="text-[12px] px-3 py-1.5 rounded-full border"
+                    style={{ fontFamily: "'Google Sans', sans-serif", color: '#1c3561', borderColor: 'rgba(28,53,97,0.2)', background: 'rgba(28,53,97,0.04)' }}
                   >
                     {chip}
                   </span>

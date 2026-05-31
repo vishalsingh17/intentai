@@ -52,20 +52,21 @@ export default function WhatWeBelieve() {
     <section
       ref={sectionRef}
       className="relative overflow-hidden py-32 px-6 md:px-12"
-      style={{ background: '#06050e' }}
+      style={{ background: '#1c3561' }}
     >
       {/* Floating words background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {floatingWords.map((word, i) => (
           <span
             key={i}
-            className="absolute float-word text-white font-medium select-none"
+            className="absolute float-word font-medium select-none"
             style={{
               left: `${word.x}%`,
               top: `${word.y}%`,
               opacity: word.opacity,
               fontSize: `${word.size}px`,
-              fontFamily: 'Geist, sans-serif',
+              fontFamily: "'Google Sans', sans-serif",
+              color: '#c5d6ea',
               '--base-opacity': word.opacity,
               '--duration': `${word.duration}s`,
               '--delay': `${word.delay}s`,
@@ -79,26 +80,35 @@ export default function WhatWeBelieve() {
       {/* Centered content */}
       <div className="relative z-10 max-w-[900px] mx-auto text-center">
         <div className="mb-6 reveal-from-bottom">
-          <span className="text-[#5f40de] text-[12px] tracking-[0.25em] uppercase font-medium" style={{ fontFamily: 'Geist, sans-serif' }}>
+          <span
+            className="text-[12px] tracking-[0.25em] uppercase font-medium"
+            style={{ fontFamily: "'Google Sans', sans-serif", color: 'rgba(197,214,234,0.7)' }}
+          >
             What we believe
           </span>
         </div>
 
         <div className="mb-4 reveal-from-bottom">
-          <h2 className="font-display text-[96px] md:text-[128px] leading-[0.88] tracking-wide text-white">
+          <h2
+            className="text-[88px] md:text-[120px] leading-[0.88]"
+            style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', color: '#ffffff', fontWeight: 600 }}
+          >
             Think less
           </h2>
         </div>
         <div className="mb-8 reveal-from-bottom reveal-delay-1">
           <span
-            className="text-[96px] md:text-[128px] leading-[0.88] text-[#5f40de]"
-            style={{ fontFamily: 'Instrument Serif', fontStyle: 'italic' }}
+            className="text-[88px] md:text-[120px] leading-[0.88]"
+            style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', color: '#c5d6ea', fontWeight: 600 }}
           >
             do more.
           </span>
         </div>
 
-        <p className="text-[18px] text-white/60 mb-10 reveal-from-bottom reveal-delay-2" style={{ fontFamily: 'Geist, sans-serif' }}>
+        <p
+          className="text-[18px] mb-10 reveal-from-bottom reveal-delay-2"
+          style={{ fontFamily: "'Google Sans', sans-serif", color: 'rgba(197,214,234,0.7)' }}
+        >
           We sweat the details, you just command.
         </p>
 
@@ -108,10 +118,13 @@ export default function WhatWeBelieve() {
               const el = document.getElementById('waitlist');
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="btn-violet px-8 py-4 text-[15px] cursor-none"
+            className="px-8 py-4 text-[15px] font-semibold rounded-lg cursor-none transition-all duration-200"
+            style={{ background: '#ffffff', color: '#1c3561', fontFamily: "'Google Sans', sans-serif" }}
             suppressHydrationWarning
+            onMouseEnter={e => { (e.target as HTMLButtonElement).style.background = '#c5d6ea'; }}
+            onMouseLeave={e => { (e.target as HTMLButtonElement).style.background = '#ffffff'; }}
           >
-            Start with beep →
+            Start with BeepAi →
           </button>
         </div>
       </div>
