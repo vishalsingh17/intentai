@@ -30,7 +30,7 @@ export default function BeepNav() {
         {/* Logo */}
         <button onClick={() => scrollTo('hero')} className="flex items-center gap-3 cursor-none" suppressHydrationWarning>
           <Image
-            src="/assets/images/beepAI___LOGO-1778057442337.jpg"
+            src="/assets/images/beepAI___LOGO-1778062410708.jpg"
             alt="BeepAi logo"
             width={36}
             height={36}
