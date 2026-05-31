@@ -26,23 +26,39 @@ export default function BenefitsSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="pt-8 pb-24 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #e2dff0 0%, #ddd9ee 100%)' }}>
-      {/* Floating orb */}
-      <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full opacity-15 pointer-events-none float-element" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.3) 0%, transparent 70%)', '--dur': '8s', '--delay': '1s' } as React.CSSProperties} />
-
+    <section ref={sectionRef} className="pt-8 pb-24 px-6 md:px-12 relative overflow-hidden" style={{ background: '#ffffff' }}>
       <div className="max-w-[1280px] mx-auto relative z-10">
-        <h2 className="font-display text-[56px] md:text-[72px] text-[#0a0a0a] tracking-wide mb-12 reveal-from-bottom">
+        <h2
+          className="text-[48px] md:text-[64px] mb-12 reveal-from-bottom"
+          style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', color: '#1c3561', fontWeight: 600 }}
+        >
           What you actually get.
         </h2>
         <div className="grid md:grid-cols-3 gap-6">
           {BENEFITS?.map((b, i) => (
             <div
               key={i}
-              className={`glass-card rounded-2xl p-8 border border-[rgba(95,64,222,0.12)] hover:border-[rgba(95,64,222,0.3)] hover:shadow-xl transition-all duration-400 card-reveal stagger-${i + 1} border-glow`}
+              className={`rounded-2xl p-8 border hover:shadow-lg transition-all duration-300 card-reveal stagger-${i + 1}`}
+              style={{ background: i === 0 ? '#1c3561' : '#f4f7fb', borderColor: i === 0 ? 'transparent' : 'rgba(28,53,97,0.08)' }}
             >
-              <div className="font-display text-[80px] leading-none text-[#5f40de] mb-4">{b?.stat}</div>
-              <h3 className="text-[18px] font-semibold text-[#0a0a0a] mb-2" style={{ fontFamily: 'Geist, sans-serif' }}>{b?.label}</h3>
-              <p className="text-[14px] text-[#6b6b80]" style={{ fontFamily: 'Geist, sans-serif' }}>{b?.sub}</p>
+              <div
+                className="text-[80px] leading-none mb-4"
+                style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', color: i === 0 ? '#c5d6ea' : '#1c3561', fontWeight: 600 }}
+              >
+                {b?.stat}
+              </div>
+              <h3
+                className="text-[18px] font-semibold mb-2"
+                style={{ fontFamily: "'Google Sans', sans-serif", color: i === 0 ? '#ffffff' : '#1c3561' }}
+              >
+                {b?.label}
+              </h3>
+              <p
+                className="text-[14px]"
+                style={{ fontFamily: "'Google Sans', sans-serif", color: i === 0 ? 'rgba(197,214,234,0.8)' : '#6b7fa0' }}
+              >
+                {b?.sub}
+              </p>
             </div>
           ))}
         </div>

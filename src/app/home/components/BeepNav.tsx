@@ -21,23 +21,27 @@ export default function BeepNav() {
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         scrolled
-          ? 'glass border-b border-[rgba(95,64,222,0.14)] shadow-lg'
+          ? 'bg-white/95 border-b border-[rgba(28,53,97,0.1)] shadow-sm'
           : 'bg-transparent border-b border-transparent'
       }`}
+      style={{ backdropFilter: scrolled ? 'blur(20px)' : 'none' }}
     >
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
         {/* Logo */}
-        <button onClick={() => scrollTo('hero')} className="flex items-center gap-2.5 cursor-none">
+        <button onClick={() => scrollTo('hero')} className="flex items-center gap-3 cursor-none" suppressHydrationWarning>
           <Image
             src="/assets/images/beepAI___LOGO-1778057442337.jpg"
-            alt="beep logo"
+            alt="BeepAi logo"
             width={36}
             height={36}
             className="flex-shrink-0 object-contain rounded-full"
             priority
           />
-          <span className="font-bold text-lg text-[#0a0a0a] tracking-tight" style={{ fontFamily: 'Geist, Inter, sans-serif' }}>
-            beep
+          <span
+            className="font-bold text-[18px] tracking-tight"
+            style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', color: '#1c3561' }}
+          >
+            BeepAi
           </span>
         </button>
 
@@ -52,7 +56,8 @@ export default function BeepNav() {
             <button
               key={item.id}
               onClick={() => scrollTo(item.id)}
-              className="text-[14px] font-medium text-[#3a3a4a] hover:text-[#5f40de] transition-colors duration-200 cursor-none"
+              className="text-[14px] font-medium transition-colors duration-200 cursor-none"
+              style={{ fontFamily: "'Google Sans', sans-serif", color: '#1c3561' }}
               suppressHydrationWarning
             >
               {item.label}
@@ -63,10 +68,10 @@ export default function BeepNav() {
         {/* CTA */}
         <button
           onClick={() => scrollTo('waitlist')}
-          className="btn-violet px-5 py-2.5 text-[13px] cursor-none"
+          className="btn-primary px-5 py-2.5 text-[13px] cursor-none"
           suppressHydrationWarning
         >
-          Join waitlist
+          Join the waitlist
         </button>
       </div>
     </header>

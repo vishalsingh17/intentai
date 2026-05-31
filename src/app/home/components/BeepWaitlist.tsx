@@ -36,69 +36,98 @@ export default function BeepWaitlist() {
   };
 
   return (
-    <section id="waitlist" ref={sectionRef} className="py-28 px-6 md:px-12 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #e8e5f5 0%, #e2dff0 50%, #ddd9ee 100%)' }}>
-      {/* Background orbs */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-15 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(95,64,222,0.4) 0%, transparent 70%)' }} />
+    <section id="waitlist" ref={sectionRef} className="py-28 px-6 md:px-12 relative overflow-hidden" style={{ background: '#1c3561' }}>
+      {/* Subtle background texture */}
+      <div className="absolute inset-0 pointer-events-none opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(197,214,234,0.8) 1px, transparent 0)', backgroundSize: '32px 32px' }} />
 
-      <div className="max-w-[900px] mx-auto text-center relative z-10">
-        <div className="mb-4 reveal-from-bottom">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-[rgba(95,64,222,0.2)] text-[#5f40de] text-[12px] font-semibold tracking-[0.15em]" style={{ fontFamily: 'Geist, sans-serif' }}>
+      <div className="max-w-[800px] mx-auto text-center relative z-10">
+        {/* Badge */}
+        <div className="mb-6 reveal-from-bottom">
+          <span
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-[12px] font-semibold tracking-[0.15em]"
+            style={{ fontFamily: "'Google Sans', sans-serif", color: '#c5d6ea', borderColor: 'rgba(197,214,234,0.25)', background: 'rgba(197,214,234,0.08)' }}
+          >
             FULL COMMERCE OS · ON ROADMAP
           </span>
         </div>
 
-        <div className="reveal-from-bottom reveal-delay-1">
-          <h2 className="font-display text-[80px] md:text-[112px] leading-[0.88] tracking-wide text-[#0a0a0a]">
-            Let beep
+        {/* Headline */}
+        <div className="reveal-from-bottom reveal-delay-1 mb-4">
+          <h2
+            className="text-[64px] md:text-[88px] leading-[0.92]"
+            style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', color: '#ffffff', fontWeight: 600 }}
+          >
+            Be First.
           </h2>
-          <div>
-            <span
-              className="text-[80px] md:text-[112px] leading-[0.88] text-[#5f40de]"
-              style={{ fontFamily: 'Instrument Serif', fontStyle: 'italic' }}
-            >
-              handle it.
-            </span>
-          </div>
+        </div>
+        <div className="reveal-from-bottom reveal-delay-1 mb-6">
+          <span
+            className="text-[64px] md:text-[88px] leading-[0.92]"
+            style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', color: '#c5d6ea', fontWeight: 600 }}
+          >
+            Shape What&apos;s Next.
+          </span>
         </div>
 
-        <p className="text-[17px] text-[#6b6b80] mt-6 mb-10 reveal-from-bottom reveal-delay-2" style={{ fontFamily: 'Geist, sans-serif' }}>
-          One sentence. That is all it takes.
+        <p
+          className="text-[17px] mt-6 mb-10 reveal-from-bottom reveal-delay-2"
+          style={{ fontFamily: "'Google Sans', sans-serif", color: 'rgba(197,214,234,0.75)' }}
+        >
+          We&apos;re building BeepAi in the open. Join the waitlist and get early access, product updates, and a direct line to the team.
         </p>
 
         {!submitted ? (
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-[440px] mx-auto reveal-from-bottom reveal-delay-3">
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-[480px] mx-auto reveal-from-bottom reveal-delay-3">
             <input
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              placeholder="your@email.com"
+              placeholder="Enter your email address"
               required
               suppressHydrationWarning
-              className="flex-1 px-4 py-3 rounded-full border border-[rgba(95,64,222,0.2)] text-[#0a0a0a] placeholder-[#9999aa] text-[14px] focus:outline-none focus:border-[#5f40de] focus:ring-2 focus:ring-[rgba(95,64,222,0.15)] transition-all glass-card"
-              style={{ fontFamily: 'Geist, sans-serif' }}
+              className="flex-1 px-5 py-3.5 rounded-lg text-[14px] focus:outline-none transition-all"
+              style={{
+                fontFamily: "'Google Sans', sans-serif",
+                background: 'rgba(255,255,255,0.1)',
+                border: '1.5px solid rgba(197,214,234,0.3)',
+                color: '#ffffff',
+              }}
+              onFocus={e => { e.target.style.borderColor = '#c5d6ea'; e.target.style.boxShadow = '0 0 0 3px rgba(197,214,234,0.15)'; }}
+              onBlur={e => { e.target.style.borderColor = 'rgba(197,214,234,0.3)'; e.target.style.boxShadow = 'none'; }}
             />
             <button
               type="submit"
               disabled={loading}
               suppressHydrationWarning
-              className="btn-violet px-6 py-3 text-[14px] whitespace-nowrap cursor-none"
+              className="px-6 py-3.5 text-[14px] font-semibold whitespace-nowrap rounded-lg cursor-none transition-all duration-200"
+              style={{ background: '#ffffff', color: '#1c3561', fontFamily: "'Google Sans', sans-serif" }}
+              onMouseEnter={e => { (e.target as HTMLButtonElement).style.background = '#c5d6ea'; }}
+              onMouseLeave={e => { (e.target as HTMLButtonElement).style.background = '#ffffff'; }}
             >
-              {loading ? 'Joining...' : 'Join now'}
+              {loading ? 'Joining...' : 'Join the Waitlist'}
             </button>
           </form>
         ) : (
-          <div className="flex items-center justify-center gap-2 text-green-600 font-medium text-[16px] reveal-from-bottom">
-            <span className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-xs">✓</span>
+          <div className="flex items-center justify-center gap-2 font-medium text-[16px] reveal-from-bottom" style={{ color: '#c5d6ea' }}>
+            <span className="w-6 h-6 rounded-full flex items-center justify-center text-[#1c3561] text-xs" style={{ background: '#c5d6ea' }}>✓</span>
             You are on the list. We will be in touch.
           </div>
         )}
 
-        <p className="text-[12px] text-[#9999aa] mt-3 reveal-from-bottom reveal-delay-4" style={{ fontFamily: 'Geist, sans-serif' }}>No spam, ever.</p>
+        <p
+          className="text-[12px] mt-3 reveal-from-bottom reveal-delay-4"
+          style={{ fontFamily: "'Google Sans', sans-serif", color: 'rgba(197,214,234,0.5)' }}
+        >
+          No spam. Just signal. Unsubscribe anytime.
+        </p>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-4 text-[13px] text-[#6b6b80] reveal-from-bottom reveal-delay-4" style={{ fontFamily: 'Geist, sans-serif' }}>
+        <div
+          className="mt-10 flex flex-wrap items-center justify-center gap-4 text-[13px] reveal-from-bottom reveal-delay-4"
+          style={{ fontFamily: "'Google Sans', sans-serif", color: 'rgba(197,214,234,0.5)' }}
+        >
           <span>Built in India</span>
-          <span className="w-1 h-1 rounded-full bg-[#cccccc]" />
-          <a href="https://beepnpay.com" className="text-[#5f40de] hover:underline">beepnpay.com</a>
+          <span className="w-1 h-1 rounded-full" style={{ background: 'rgba(197,214,234,0.3)' }} />
+          <a href="https://beepnpay.com" style={{ color: '#c5d6ea' }} className="hover:opacity-80 transition-opacity">beepnpay.com</a>
         </div>
       </div>
     </section>

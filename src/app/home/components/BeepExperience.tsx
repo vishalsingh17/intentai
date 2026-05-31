@@ -349,13 +349,16 @@ export default function ExperienceSection() {
   const { Demo } = tab;
 
   return (
-    <section id="experience" ref={sectionRef} className="py-24 px-6 md:px-12" style={{ background: 'linear-gradient(135deg, #ddd9ee 0%, #d8d4eb 100%)' }}>
+    <section id="experience" ref={sectionRef} className="py-24 px-6 md:px-12" style={{ background: '#f4f7fb' }}>
       <div className="max-w-[1280px] mx-auto">
         <div className="mb-3 reveal-from-bottom">
           <span className="section-label">Experience</span>
         </div>
-        <h2 className="font-display text-[56px] md:text-[72px] text-[#0a0a0a] tracking-wide mb-10 reveal-from-bottom">
-          Beep in action.
+        <h2
+          className="text-[48px] md:text-[64px] mb-10 reveal-from-bottom"
+          style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', color: '#1c3561', fontWeight: 600 }}
+        >
+          BeepAi in action.
         </h2>
 
         {/* Tabs */}
@@ -365,15 +368,23 @@ export default function ExperienceSection() {
               key={t.id}
               onClick={() => setActiveTab(i)}
               suppressHydrationWarning
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-[13px] font-medium transition-all duration-200 ${
-                activeTab === i
-                  ? 'bg-[#5f40de] text-white shadow-md'
-                  : 'glass-card text-[#3a3a4a] border border-[rgba(95,64,222,0.15)] hover:border-[rgba(95,64,222,0.3)]'
-              }`}
-              style={{ fontFamily: 'Geist, sans-serif' }}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-[13px] font-medium transition-all duration-200`}
+              style={{
+                fontFamily: "'Google Sans', sans-serif",
+                background: activeTab === i ? '#1c3561' : '#ffffff',
+                color: activeTab === i ? '#ffffff' : '#4a5f80',
+                border: activeTab === i ? '1.5px solid #1c3561' : '1.5px solid rgba(28,53,97,0.15)',
+                boxShadow: activeTab === i ? '0 2px 12px rgba(28,53,97,0.2)' : 'none',
+              }}
             >
               {t.label}
-              <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${activeTab === i ? 'bg-white/20 text-white' : t.badgeColor}`}>
+              <span
+                className="text-[10px] px-2 py-0.5 rounded-full font-semibold"
+                style={{
+                  background: activeTab === i ? 'rgba(197,214,234,0.2)' : (t.badge === 'Live' ? 'rgba(34,197,94,0.1)' : 'rgba(251,191,36,0.1)'),
+                  color: activeTab === i ? '#c5d6ea' : (t.badge === 'Live' ? '#16a34a' : '#b45309'),
+                }}
+              >
                 {t.badge}
               </span>
             </button>
@@ -384,16 +395,19 @@ export default function ExperienceSection() {
         <div className="grid md:grid-cols-2 gap-10 items-start">
           {/* Left */}
           <div>
-            <h3 className="font-display text-[40px] md:text-[48px] text-[#0a0a0a] tracking-wide leading-tight mb-4">
+            <h3
+              className="text-[36px] md:text-[44px] leading-tight mb-4"
+              style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', color: '#1c3561', fontWeight: 600 }}
+            >
               {tab.moat}
             </h3>
-            <p className="text-[16px] text-[#3a3a4a] leading-relaxed mb-6" style={{ fontFamily: 'Geist, sans-serif' }}>
+            <p className="text-[16px] leading-relaxed mb-6" style={{ fontFamily: "'Google Sans', sans-serif", color: '#4a5f80' }}>
               {tab.body}
             </p>
             <ul className="space-y-2">
               {tab.checklist.map((item, i) => (
-                <li key={i} className="flex items-center gap-3 text-[14px] text-[#3a3a4a]" style={{ fontFamily: 'Geist, sans-serif' }}>
-                  <span className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-[11px] flex-shrink-0">✓</span>
+                <li key={i} className="flex items-center gap-3 text-[14px]" style={{ fontFamily: "'Google Sans', sans-serif", color: '#4a5f80' }}>
+                  <span className="w-5 h-5 rounded-full flex items-center justify-center text-[11px] flex-shrink-0" style={{ background: 'rgba(28,53,97,0.1)', color: '#1c3561' }}>✓</span>
                   {item}
                 </li>
               ))}
