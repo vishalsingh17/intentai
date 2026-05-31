@@ -11,7 +11,7 @@ export default function BeepFooter() {
         {/* Left: Logo + wordmark */}
         <div className="flex items-center gap-2.5">
           <Image
-            src="/assets/images/beepAI___LOGO-1778062410708.jpg"
+            src="/assets/images/beepAI___LOGO-1778057442337.jpg"
             alt="BeepAi logo"
             width={36}
             height={36}
